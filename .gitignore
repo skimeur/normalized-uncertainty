@@ -1,0 +1,38 @@
+# ---------------------------------------------------------------------------
+# No data is distributed with this repository (see data/README.md): every raw
+# source is downloaded from its official home and every derived file is built
+# locally by the code here.
+# ---------------------------------------------------------------------------
+data/raw/
+data/derived/
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.dta
+*.pkl
+*.feather
+!papers/*/results/*.csv
+
+# Generated exhibits are committed only when a release is tagged.
+papers/*/figures/*.pdf
+papers/*/figures/*.png
+papers/*/tables/*.tex
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Editors and systems
+.DS_Store
+.vscode/
+.idea/

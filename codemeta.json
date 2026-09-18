@@ -1,0 +1,48 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Normalized Uncertainty",
+  "description": "Implementation of Normalized Uncertainty (NU), Normalized Growth Uncertainty (NGU) and Asymmetry Coherence (AC) from survey density forecasts, with the scripts reproducing the public-data exhibits of 'Uncertain and Asymmetric Forecasts' and 'Tolerable Inflation, Intolerable Uncertainty'.",
+  "codeRepository": "https://github.com/skimeur/normalized-uncertainty",
+  "programmingLanguage": "Python",
+  "runtimePlatform": "Python 3.10+",
+  "license": "https://spdx.org/licenses/MIT",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Eric",
+      "familyName": "Vansteenberghe",
+      "email": "eric.vansteenberghe@banque-france.fr",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Banque de France; Université Paris 1 Panthéon-Sorbonne"
+      }
+    }
+  ],
+  "keywords": [
+    "inflation uncertainty",
+    "density forecasts",
+    "Survey of Professional Forecasters",
+    "ECB SPF",
+    "inflation expectations",
+    "monetary policy",
+    "normalized uncertainty",
+    "asymmetry coherence"
+  ],
+  "referencePublication": [
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Uncertain and Asymmetric Forecasts",
+      "author": [{ "@type": "Person", "givenName": "Eric", "familyName": "Vansteenberghe" }],
+      "datePublished": "2026",
+      "url": "https://arxiv.org/abs/2411.05938",
+      "identifier": "arXiv:2411.05938"
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Tolerable Inflation, Intolerable Uncertainty: The Unidentifiable Optimum of Monetary Policy",
+      "author": [{ "@type": "Person", "givenName": "Eric", "familyName": "Vansteenberghe" }],
+      "datePublished": "2026"
+    }
+  ]
+}

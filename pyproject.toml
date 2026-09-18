@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nu-measures"
+version = "0.1.0.dev0"
+description = "Normalized Uncertainty (NU), Normalized Growth Uncertainty (NGU) and Asymmetry Coherence (AC) from survey density forecasts"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Eric Vansteenberghe", email = "eric.vansteenberghe@banque-france.fr" }]
+keywords = [
+    "inflation uncertainty",
+    "density forecasts",
+    "survey of professional forecasters",
+    "ECB SPF",
+    "monetary policy",
+    "inflation expectations",
+    "normalized uncertainty",
+    "asymmetry",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+dependencies = [
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "scipy>=1.11",
+    "statsmodels>=0.14",
+    "matplotlib>=3.8",
+    "openpyxl>=3.1",
+    "requests>=2.31",
+    "pyarrow>=15.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[project.urls]
+Repository = "https://github.com/skimeur/normalized-uncertainty"
+"Paper: Uncertain and Asymmetric Forecasts" = "https://arxiv.org/abs/2411.05938"
+"Author profile" = "https://scholar.google.com/citations?user=KInXUlUAAAAJ"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["needs_data: requires the third-party sources listed in data/README.md"]

@@ -1,0 +1,18 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2026 Eric Vansteenberghe
+
+The figures, tables and results files produced by the code in this repository
+-- everything under papers/*/figures/, papers/*/tables/ and papers/*/results/
+-- are licensed under the Creative Commons Attribution 4.0 International
+License. You are free to share and adapt them for any purpose, provided you
+give appropriate credit to the author and to the paper the exhibit belongs to
+(see the citation blocks in README.md), indicate whether changes were made, and
+link to the license.
+
+Full licence text: https://creativecommons.org/licenses/by/4.0/legalcode
+Summary:          https://creativecommons.org/licenses/by/4.0/
+
+This licence covers only material produced by this repository. It does not
+cover the third-party data the code reads, which stays with its own provider
+under that provider's terms (see data/README.md).

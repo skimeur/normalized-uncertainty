@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper whose result you use, and — if you use the code itself — this repository."
+title: "Normalized Uncertainty: measures of uncertainty and directional risk from survey density forecasts"
+abstract: "Implementation of Normalized Uncertainty (NU), Normalized Growth Uncertainty (NGU) and Asymmetry Coherence (AC), measures that remove from survey forecast dispersion the part explained by the distance of expected inflation from the announced target, together with the scripts reproducing the public-data exhibits of the papers 'Uncertain and Asymmetric Forecasts' and 'Tolerable Inflation, Intolerable Uncertainty'."
+type: software
+authors:
+  - family-names: Vansteenberghe
+    given-names: Eric
+    affiliation: "Banque de France; Université Paris 1 Panthéon-Sorbonne"
+    email: eric.vansteenberghe@banque-france.fr
+repository-code: "https://github.com/skimeur/normalized-uncertainty"
+license: MIT
+keywords:
+  - inflation uncertainty
+  - density forecasts
+  - Survey of Professional Forecasters
+  - inflation expectations
+  - monetary policy
+  - normalized uncertainty
+  - asymmetry
+preferred-citation:
+  type: article
+  title: "Uncertain and Asymmetric Forecasts"
+  authors:
+    - family-names: Vansteenberghe
+      given-names: Eric
+      affiliation: "Banque de France; Université Paris 1 Panthéon-Sorbonne"
+  year: 2026
+  notes: "arXiv:2411.05938"
+  url: "https://arxiv.org/abs/2411.05938"
+references:
+  - type: article
+    title: "Uncertain and Asymmetric Forecasts"
+    authors:
+      - family-names: Vansteenberghe
+        given-names: Eric
+    year: 2026
+    notes: "arXiv:2411.05938; SSRN 4995675"
+    url: "https://arxiv.org/abs/2411.05938"
+  - type: unpublished
+    title: "Tolerable Inflation, Intolerable Uncertainty: The Unidentifiable Optimum of Monetary Policy"
+    authors:
+      - family-names: Vansteenberghe
+        given-names: Eric
+    year: 2026
+    notes: "Working paper"
