@@ -8,6 +8,7 @@ authors:
     given-names: Eric
     affiliation: "Banque de France; Université Paris 1 Panthéon-Sorbonne"
     email: eric.vansteenberghe@banque-france.fr
+    orcid: "https://orcid.org/0009-0004-4566-4043"
 repository-code: "https://github.com/skimeur/normalized-uncertainty"
 license: MIT
 keywords:
@@ -25,6 +26,7 @@ preferred-citation:
     - family-names: Vansteenberghe
       given-names: Eric
       affiliation: "Banque de France; Université Paris 1 Panthéon-Sorbonne"
+      orcid: "https://orcid.org/0009-0004-4566-4043"
   year: 2026
   notes: "arXiv:2411.05938"
   url: "https://arxiv.org/abs/2411.05938"
@@ -34,6 +36,7 @@ references:
     authors:
       - family-names: Vansteenberghe
         given-names: Eric
+        orcid: "https://orcid.org/0009-0004-4566-4043"
     year: 2026
     notes: "arXiv:2411.05938; SSRN 4995675"
     url: "https://arxiv.org/abs/2411.05938"
@@ -42,5 +45,6 @@ references:
     authors:
       - family-names: Vansteenberghe
         given-names: Eric
+        orcid: "https://orcid.org/0009-0004-4566-4043"
     year: 2026
     notes: "Working paper"

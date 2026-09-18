@@ -9,6 +9,7 @@
   "license": "https://spdx.org/licenses/MIT",
   "author": [
     {
+      "@id": "https://orcid.org/0009-0004-4566-4043",
       "@type": "Person",
       "givenName": "Eric",
       "familyName": "Vansteenberghe",
@@ -33,7 +34,14 @@
     {
       "@type": "ScholarlyArticle",
       "name": "Uncertain and Asymmetric Forecasts",
-      "author": [{ "@type": "Person", "givenName": "Eric", "familyName": "Vansteenberghe" }],
+      "author": [
+        {
+          "@id": "https://orcid.org/0009-0004-4566-4043",
+          "@type": "Person",
+          "givenName": "Eric",
+          "familyName": "Vansteenberghe"
+        }
+      ],
       "datePublished": "2026",
       "url": "https://arxiv.org/abs/2411.05938",
       "identifier": "arXiv:2411.05938"
@@ -41,7 +49,14 @@
     {
       "@type": "ScholarlyArticle",
       "name": "Tolerable Inflation, Intolerable Uncertainty: The Unidentifiable Optimum of Monetary Policy",
-      "author": [{ "@type": "Person", "givenName": "Eric", "familyName": "Vansteenberghe" }],
+      "author": [
+        {
+          "@id": "https://orcid.org/0009-0004-4566-4043",
+          "@type": "Person",
+          "givenName": "Eric",
+          "familyName": "Vansteenberghe"
+        }
+      ],
       "datePublished": "2026"
     }
   ]

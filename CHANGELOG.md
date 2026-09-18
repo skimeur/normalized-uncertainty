@@ -22,4 +22,4 @@ Skeleton and shared library started.
 - **G4** — the public-data exhibits of *Tolerable Inflation, Intolerable Uncertainty*, once the manuscript's numbers are frozen.
 - **G5–G6** — pre-publication audit, first public release, Zenodo DOI, and the repository URL added to both papers.
 
-Pending from the author: ORCID iD for `CITATION.cff` and `codemeta.json`; the exact dependency lock, frozen when the reproduction gates first run end to end; the preferred citation switches to *Tolerable Inflation, Intolerable Uncertainty* when that paper is posted.
+Pending from the author: the exact dependency lock, frozen when the reproduction gates first run end to end; the preferred citation switches to *Tolerable Inflation, Intolerable Uncertainty* when that paper is posted.

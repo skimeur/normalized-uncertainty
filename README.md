@@ -104,7 +104,7 @@ Cite the paper whose result you are using — *Uncertain and Asymmetric Forecast
 - **Inflation and growth: professional forecasters continue to express high levels of uncertainty**, [Banque de France Eco Notepad No. 436](https://www.banque-france.fr/en/publications-and-statistics/publications/inflation-and-growth-professional-forecasters-continue-express-high-levels-uncertainty), 27 February 2026.
 - **Seventy Years of Claimed Identification: The Phillips Curve and the Policy Rule**, working paper.
 
-Full list: [Google Scholar](https://scholar.google.com/citations?user=KInXUlUAAAAJ) · [Banque de France](https://www.banque-france.fr/en/eric-vansteenberghe).
+Full list: [Google Scholar](https://scholar.google.com/citations?user=KInXUlUAAAAJ) · [ORCID 0009-0004-4566-4043](https://orcid.org/0009-0004-4566-4043) · [Banque de France](https://www.banque-france.fr/en/eric-vansteenberghe).
 
 ## Licence and disclaimer
 
