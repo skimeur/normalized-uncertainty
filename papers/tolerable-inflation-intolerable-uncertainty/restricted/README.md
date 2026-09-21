@@ -14,7 +14,7 @@ Nothing on this page is needed to reproduce any other exhibit. The measures them
 
 **The specification.** Loan rates on new overdraft business are regressed on the uncertainty measure — raw dispersion in one column, NU in another — with the controls, fixed effects and clusterings reported in the table's own notes in the paper. Standard errors are reported under two clusterings because the regressor is a constructed, time-varying series common to all borrowers in a quarter, and inference has to be matched to that.
 
-**The result, in one line.** One standard deviation of the purged measure is associated with corporate loan rates about 75 basis points higher; the raw measure is unrelated to them. The paper states this as an association, not as a causal estimate.
+**The result, in one line.** One standard deviation of the purged measure is associated with corporate loan rates about 89 basis points higher; the raw measure is unrelated to them. The paper states this as an association, not as a causal estimate.
 
 **To rebuild it.** With register access: build the quarterly NU series from the public code in this repository, merge it on the survey quarter (see `docs/METHODS.md` §3 — the date rule is where this goes wrong silently), and estimate the specification in the paper's table notes. Everything upstream of the merge is public.
 

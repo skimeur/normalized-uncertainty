@@ -55,8 +55,9 @@ Each script writes its exhibit to `figures/` or `tables/` **and** a results file
 | share of the variation the distance explains | 71% | same |
 | estimated kink, and its set | 1.90, [1.76, 2.00] | same |
 | law on the round-mean total variance | 0.4204, 0.1173, 1.8825 ($R^2$ 0.789) | same |
-| ratio $b_+/a$ — the NU calibration | 4.48 | same |
-| agreement with the independent proxy, raw against purged | 0.75 → 0.85 | 1999Q1–2026Q3 |
+| ratio $b_+/a$ on the average individual variance — the NU calibration | 2.23 | same |
+| ratio $b_+/a$ on the round-mean total variance (not the calibration) | 4.48 | same |
+| agreement with the independent proxy, raw against purged (unit calibration, Figure 5) | 0.75 → 0.85 | 1999Q1–2026Q3 |
 
 The level of the upper arm inherits the closure of the open top bin and is reported as a bracket (roughly 0.28 to 1.02 around 0.855); the shape — flat below, rising above, kink at the announced number — does not. See [`../../docs/METHODS.md`](../../docs/METHODS.md) §2.
 
@@ -70,4 +71,4 @@ python3 run.py --only fig05_nu_purge      # one exhibit
 
 ## Sample calendar
 
-Rounds fielded through **2026Q2** enter every estimate: 109 after the individual-mean trim of $[-1, 5]$. The **2026Q3** round was published on 24 July 2026, after the 30 June 2026 cutoff stamped in the paper, and is held out — it enters the published series and no estimate. Market and credit samples are stated in the restricted route.
+Rounds fielded through **2026Q2** enter every estimate: 109 after the $[-1, 5]$ round rule (2022Q4 is the round it removes). The **2026Q3** round was published on 24 July 2026, after the 30 June 2026 cutoff stamped in the paper, and is held out — it enters the published series and no estimate. Market and credit samples are stated in the restricted route.

@@ -78,7 +78,7 @@ The cross-country growth regressions of the second paper. The Barro–Lee panel 
 
 Three properties of this data are not bugs and must be stated wherever a number is:
 
-1. **The estimation sample is frozen.** Rounds fielded through 2026Q2 enter the fit (109 rounds after the individual-mean trim); the 2026Q3 round, published after the cutoff, is held out. A refresh must not pull it in quietly.
+1. **The estimation sample is frozen.** Rounds fielded through 2026Q2 enter the fit (109 rounds after the $[-1, 5]$ round rule); the 2026Q3 round, published after the cutoff, is held out. A refresh must not pull it in quietly.
 2. **The asymmetry index normalises by a full-sample interquartile range**, so adding a round rescales the whole history. Two extra rounds moved the scale by 8.3%. Any statement about a historical level of that index is conditional on the sample it was computed in.
 3. **A grid change is a measurement change.** Where a questionnaire changes width, measured variance moves for reasons that have nothing to do with beliefs; Sheppard's correction removes part of it, never all.
 

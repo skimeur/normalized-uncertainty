@@ -64,7 +64,9 @@ class ArmsFit:
 
     @property
     def r_plus(self) -> float:
-        """Ratio of the upper arm to the intercept -- the NU calibration.
+        """Ratio of the upper arm to the intercept -- the NU calibration when
+        the fit is on the average individual variance; a fit on the round-mean
+        total variance gives that object's ratio instead.
 
         It is the one quantity of the fit that is comparable across sources:
         the level of a variance depends on the units and the closure of each

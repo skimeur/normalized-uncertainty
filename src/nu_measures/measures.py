@@ -13,9 +13,11 @@ distance from target does not explain::
 
     NU_i = sigma_i / sqrt(1 + r * (mu_i - target)_+)
 
-with ``r = b_plus / a`` from the two-arm law of :mod:`nu_measures.law`. Two
-readings are published on equal footing: the fitted ``r`` estimated on the
-sample, and the unit calibration ``r = 1``, which needs no estimate. The
+with ``r = b_plus / a`` from the two-arm law of :mod:`nu_measures.law`, fitted
+on the average individual predictive variance: what the denominator divides is
+one forecaster's density. Two readings are published on equal footing: the
+fitted ``r`` estimated on the sample, and the unit calibration ``r = 1``, which
+needs no estimate. The
 denominator is one-sided because the target is announced: below the number
 there is nothing to explain away.
 
@@ -48,8 +50,8 @@ def normalizer(gap, r: float = NU_R_FITTED, one_sided: bool = True):
         potential growth), in percentage points.
     r:
         Slope of the envelope relative to its intercept. :data:`NU_R_FITTED`
-        estimates it from the two-arm law; :data:`NU_R_UNIT` is the
-        calibration-free reading.
+        estimates it from the two-arm law on the average individual variance
+        (2.23); :data:`NU_R_UNIT` is the calibration-free reading.
     one_sided:
         ``True`` uses the positive part of ``gap`` (inflation, where the target
         is announced); ``False`` uses its absolute value (growth).

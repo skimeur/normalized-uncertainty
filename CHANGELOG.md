@@ -4,6 +4,12 @@ This repository is built in phases; each release records the state of the two pa
 
 ## Unreleased
 
+### 2026-09-21 — the fitted calibration aligned with the papers
+
+- `NU_R_FITTED` is now 2.23, the ratio of the law on the average individual predictive variance (0.855/0.383): what the denominator divides is one forecaster's density. The round-mean total variance keeps its own ratio, 4.48, in `CERTIFIED` as `total_r_plus`; it is not the calibration. Both papers made the same change on 2026-09-21.
+- `CERTIFIED` gains `W_r_plus` and `epu_corr_nu_fitted` (0.785). `corr_nu_ngu` is now the full-sample correlation, 0.66, with the credit-sample quarters' −0.06 beside it.
+- The $[-1, 5]$ rule is described as coded: a round rule for the round-level law, which removes 2022Q4 through 2026Q2, and a per-density rule in the pooled individual fits.
+
 ### 2026-09-18 — repository opened (phase G1)
 
 Skeleton and shared library started.

@@ -37,10 +37,18 @@ def test_the_questionnaire_change_precedes_the_estimation_cutoff():
     assert cal.QUESTIONNAIRE_CHANGE_PANEL_DATE < cal.FIT_MAX_PANEL_DATE
 
 
-def test_the_fitted_calibration_is_the_ratio_of_the_certified_law():
+def test_the_fitted_calibration_is_the_ratio_of_the_individual_law():
+    # The denominator divides one forecaster's density, so its envelope is the
+    # average individual variance's, not the round-mean total's.
+    ratio = cal.CERTIFIED["W_b_plus"] / cal.CERTIFIED["W_a"]
+    assert math.isclose(ratio, cal.CERTIFIED["W_r_plus"], abs_tol=0.01)
+    assert math.isclose(cal.NU_R_FITTED, cal.CERTIFIED["W_r_plus"])
+
+
+def test_the_total_law_keeps_its_own_ratio():
     ratio = cal.CERTIFIED["total_b_plus"] / cal.CERTIFIED["total_a"]
     assert math.isclose(ratio, cal.CERTIFIED["total_r_plus"], abs_tol=0.01)
-    assert math.isclose(cal.NU_R_FITTED, cal.CERTIFIED["total_r_plus"])
+    assert cal.NU_R_FITTED < cal.CERTIFIED["total_r_plus"]
 
 
 def test_both_objects_are_flat_below_and_steep_above():

@@ -30,14 +30,18 @@ TARGET: float = 2.0
 # Estimation sample
 # --------------------------------------------------------------------------
 
-#: Individual density means outside this interval are dropped (per cent).
+#: The [-1, 5] rule (per cent). For the round-level law it is a ROUND rule: a
+#: round whose consensus (the mean of its individual density means) lies outside
+#: the interval is excluded -- through 2026Q2 that removes exactly one round,
+#: 2022Q4 (consensus 5.01). The pooled individual-level fits apply it to each
+#: density instead. The name is kept from the first commit.
 INDIVIDUAL_MEAN_TRIM: tuple[float, float] = (-1.0, 5.0)
 
 #: Rounds with panel ``Date`` strictly before this enter the estimation of the
 #: variance law: the last round in the fit is the one fielded in 2026Q2.
 FIT_MAX_PANEL_DATE: date = date(2026, 4, 1)
 
-#: Number of rounds in the estimation sample after the trim above.
+#: Number of rounds in the estimation sample after the round rule above.
 N_FIT_ROUNDS: int = 109
 
 #: The data cutoff stamped in the papers.
@@ -81,9 +85,12 @@ TOP_BIN_CLOSURES: dict[str, float | None] = {
 # Calibrations
 # --------------------------------------------------------------------------
 
-#: Ratio b+/a of the round-mean variance law on the certified sample: the
-#: fitted NU denominator.
-NU_R_FITTED: float = 4.48
+#: Ratio b+/a of the law on the average individual predictive variance W on the
+#: certified sample (0.855 / 0.383): the fitted NU denominator. What the
+#: denominator divides is one forecaster's density, so its envelope is W's; the
+#: round-mean total variance obeys the law with another ratio (``total_r_plus``,
+#: 4.48), which is not the calibration.
+NU_R_FITTED: float = 2.23
 
 #: The calibration-free denominator. Both readings are published on equal
 #: footing; neither is presented as the correct one.
@@ -134,10 +141,11 @@ US_CORE_FIRST_ROUND: str = "2007Q1"
 #: **Two objects, two laws.** The dispersion of the profession as a whole and
 #: the dispersion each forecaster reports are different quantities and obey the
 #: law with different coefficients. ``total_*`` is the round-mean total
-#: variance against the consensus gap -- it is what the NU denominator is
-#: calibrated on. ``W_*`` is the average individual predictive variance, the
-#: object the second paper measures, where the intercept is lower and the arm
-#: flatter because disagreement between forecasters has been taken out.
+#: variance against the consensus gap. ``W_*`` is the average individual
+#: predictive variance, the object the second paper measures, where the
+#: intercept is lower and the arm flatter because disagreement between
+#: forecasters has been taken out. It is the envelope of the object each density
+#: belongs to, and so the one the NU denominator is calibrated on (``W_r_plus``).
 CERTIFIED: dict[str, float] = {
     # Round-mean total variance on the consensus gap, HAC(4), n = 109.
     "total_a": 0.4204,
@@ -150,6 +158,7 @@ CERTIFIED: dict[str, float] = {
     "W_b_minus": 0.004,
     "W_b_plus": 0.855,
     "W_r2": 0.71,
+    "W_r_plus": 2.23,
     "W_kink": 1.90,
     "W_kink_set_low": 1.76,
     "W_kink_set_high": 2.00,
@@ -162,11 +171,14 @@ CERTIFIED: dict[str, float] = {
     "pooled_individual_b_plus": 0.864,
     # Agreement with an independent proxy (Economic Policy Uncertainty).
     "epu_corr_nu_unit": 0.848,
+    "epu_corr_nu_fitted": 0.785,
     "epu_corr_raw": 0.746,
     "epu_corr_ngu_raw": 0.561,
     "epu_corr_ngu_purged": 0.716,
-    # The two measures, on the credit sample's quarters.
-    "corr_nu_ngu": 0.49,
+    # The two measures: full sample (1999Q1-2026Q3), and the credit sample's
+    # quarters (2018Q3-2026Q1).
+    "corr_nu_ngu": 0.66,
+    "corr_nu_ngu_credit_quarters": -0.06,
     # Orthogonalisation of NGU on NU, forecaster by forecaster.
     "matched_forecaster_rounds": 4339,
     "own_slope_forecasters": 86,

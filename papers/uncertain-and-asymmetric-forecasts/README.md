@@ -63,4 +63,4 @@ make uaf                                  # or: python3 run.py
 
 ## Sample
 
-One vintage for the whole paper: the latest complete survey round at the time of the rebuild, stated once in the text and in every table note. The individual-mean trim is $[-1, 5]$ per cent; the date convention is in [`../../docs/METHODS.md`](../../docs/METHODS.md) §3. Before the sample is extended to a newer round, the numbers of the frozen sample are reproduced exactly — a change in magnitude is carried and reported, a change in sign or in significance class stops the rebuild.
+One vintage for the whole paper: the latest complete survey round at the time of the rebuild, stated once in the text and in every table note. The $[-1, 5]$ per cent rule applies to the round consensus in round-level estimates (it removes 2022Q4) and to each density in pooled fits; the date convention is in [`../../docs/METHODS.md`](../../docs/METHODS.md) §3. Before the sample is extended to a newer round, the numbers of the frozen sample are reproduced exactly — a change in magnitude is carried and reported, a change in sign or in significance class stops the rebuild.

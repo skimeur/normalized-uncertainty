@@ -83,7 +83,7 @@ For a forecaster *i* reporting a density with standard deviation $\sigma_i$ and 
 
 | | definition | why |
 |---|---|---|
-| **NU** (fitted) | $\mathrm{NU}_i = \sigma_i / \sqrt{1 + r\,(d_i)_+}$ | dispersion rises with the *overshoot* only; $r = b_+/a$ is estimated from the two-arm law |
+| **NU** (fitted) | $\mathrm{NU}_i = \sigma_i / \sqrt{1 + r\,(d_i)_+}$ | dispersion rises with the *overshoot* only; $r = b_+/a$ is estimated from the two-arm law on the average individual variance (2.23) |
 | **NU** (unit) | $\mathrm{NU}_i = \sigma_i / \sqrt{1 + (d_i)_+}$ | the calibration-free reading; both are published on equal footing |
 | **NGU** | $\mathrm{NGU}_i = \sigma_i^g / \sqrt{1 + \lvert \mu_i^g - g^{\mathrm{pot}}_t\rvert}$ | growth has a benchmark but no announced number, so the denominator is symmetric |
 | **AC** | directional risk retained where asymmetry is coherent with the central forecast | raw asymmetry alone is too noisy to signal the balance of risks |

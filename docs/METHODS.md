@@ -50,10 +50,10 @@ The denominator is the square root of the fitted envelope, so what remains is th
 
 Two calibrations are published on equal footing, and neither is presented as the correct one:
 
-- the **fitted** reading, $r = b_+/a = 4.48$ on the estimation sample;
+- the **fitted** reading, $r = b_+/a = 0.855/0.383 = 2.23$, from the law on the average individual variance through 2026Q2 — the envelope of the object each density is (the round-mean total variance has its own ratio, 4.48, which is not the calibration);
 - the **unit** reading, $r = 1$, which needs no estimate at all.
 
-They are highly correlated, and the choice does not drive any result in either paper.
+They correlate at 0.95. The one result whose sign depends on the choice — the association of AC with NU in *Uncertain and Asymmetric Forecasts* (§4.3) — is reported under each.
 
 ### Normalized Growth Uncertainty (NGU)
 
@@ -71,8 +71,8 @@ Inflation uncertainty and growth uncertainty move together: whoever is unsure ab
 
 ## 6. The sample
 
-- Individual density means outside $[-1, 5]$ per cent are dropped.
-- Rounds fielded through **2026Q2** enter the estimation of the law: **109 rounds** after the trim.
+- The $[-1, 5]$ per cent rule is a **round** rule for the round-level law: a round whose consensus lies outside it is excluded, which through 2026Q2 removes exactly one round, 2022Q4 (consensus 5.01). The 17 individual densities above 5 in other rounds stay in their rounds' averages; the fits that pool forecaster-rounds apply the rule to each density instead. Applied to densities rather than rounds, it leaves the headline where it is (70.6% of the variation explained, against 70.5%).
+- Rounds fielded through **2026Q2** enter the estimation of the law: **109 rounds** after the round rule.
 - The **2026Q3** round was published on 24 July 2026, after the 30 June 2026 data cutoff stamped in the papers. It enters the published series and is held out of every estimate — it is a genuine out-of-sample observation, not a pseudo one.
 - The questionnaire changed with the 2024Q4 round; before it, a fixed half-point grid.
 
