@@ -1,0 +1,57 @@
+\begin{table}[tp]
+\centering
+\caption{Cross-country growth regressions, raw and purged inflation volatility}
+\label{tab:crosscountry}
+\begin{tabular}{lccccc}
+\toprule
+ & (1) & (2) & (3) & (4) & (5) \\
+\midrule
+Mean inflation $\bar\pi$ & $-0.0170^{***}$ &  &  & $-0.0114$ & $-0.0099^{*}$ \\
+ & $(-3.52)$ &  &  & $(-1.28)$ & $(-1.65)$ \\
+Raw $\sigma_\pi$ &  & $-0.0194^{***}$ &  & $-0.0082$ &  \\
+ &  & $(-2.60)$ &  & $(-0.83)$ &  \\
+Purged $\sigma_\pi/\sqrt{1+|\bar\pi|}$ &  &  & $-0.2032^{***}$ &  & $-0.1425^{**}$ \\
+ &  &  & $(-3.28)$ &  & $(-2.18)$ \\
+\midrule
+Observations & 241 & 241 & 241 & 241 & 241 \\
+Countries & 94 & 94 & 94 & 94 & 94 \\
+$R^2$ & 0.602 & 0.600 & 0.604 & 0.603 & 0.608 \\
+Period fixed effects & Yes & Yes & Yes & Yes & Yes \\
+Country-clustered SE & Yes & Yes & Yes & Yes & Yes \\
+Wild-cluster bootstrap $p$ &  &  &  & $0.43$ & $0.032$ \\
+\bottomrule
+\end{tabular}
+\vspace{0.2em}
+\begin{minipage}{0.90\linewidth}\footnotesize
+\textit{Notes:} Each column is one growth regression on \citeauthor{barro1995inflation}'s panel
+over his own periods---1965--75, 1975--85 and 1985--90; the dependent variable is the country's
+average annual growth of real GDP per capita over the period, in 1985 international prices. Every
+column includes his full control set, period fixed effects, and standard errors clustered by
+country; $t$-statistics are in parentheses. The columns differ only in which summary of the
+inflation experience enters: \textbf{(1)} mean inflation $\bar\pi$ alone; \textbf{(2)} the raw
+within-period standard deviation $\sigma_\pi$ alone; \textbf{(3)} the purged measure alone;
+\textbf{(4)} mean inflation together with the raw standard deviation; \textbf{(5)} mean inflation
+together with the purged measure. Comparing~(4) with~(5) is the point of the exercise: the raw
+standard deviation is virtually zero conditional on the level, as \citeauthor{barro1995inflation}
+reports, and masks it; the purged measure is significant at five percent and the level's own
+coefficient sharpens beside it.
+\emph{Raw} is $\sigma_\pi$; \emph{purged} divides it by $\sqrt{1+|\bar\pi|}$. That deflator uses no
+inflation target---no country in these periods had announced one---and contains nothing estimated:
+it is $\sqrt{1+|\bar\pi|}$ exactly, with $\bar\pi$ in percentage points, the units in which
+the envelope of \eqref{eq:var_decomp} is fitted. The dependent variable is a fraction: in column~(5) a
+one-standard-deviation rise in the purged measure is worth $0.28$ percentage points of
+annual growth, against $0.15$ for the raw measure in column~(4). The wild-cluster row
+reports restricted Rademacher bootstrap $p$-values ($999$ draws, clustered by country)
+for the volatility term of columns~(4) and~(5).
+The controls are \citeauthor{barro1995inflation}'s own: initial income, male and female school
+attainment at the secondary and higher levels, the interaction of initial income with human
+capital as he defines it, life expectancy, fertility, government consumption net of education and
+defence, public education spending, the black-market premium, the terms-of-trade change, the
+investment ratio, and the political-rights index with its square. The one control of his we cannot
+match is the rule-of-law index, which is not in the \citeauthor{barro1995inflation}--Lee
+distribution and which he himself uses among his instruments. Inflation moments are period means
+and standard deviations of the annual log change in the consumer price index
+\citep{muller2025global}, untrimmed, as in his own exercise. Script: \texttt{tab03\_cross\_country.py}.
+$^{***}p<0.01$, $^{**}p<0.05$, $^{*}p<0.1$.
+\end{minipage}
+\end{table}

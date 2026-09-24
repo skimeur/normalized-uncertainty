@@ -9,7 +9,7 @@ import pandas as pd
 import pytest
 
 from nu_measures import measures
-from nu_measures.calendar import NU_R_FITTED, NU_R_UNIT, TARGET
+from nu_measures.conventions import NU_R_FITTED, NU_R_UNIT, TARGET
 
 
 def test_below_target_the_correction_does_nothing():

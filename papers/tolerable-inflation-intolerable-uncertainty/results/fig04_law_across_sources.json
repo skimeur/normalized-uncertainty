@@ -1,0 +1,60 @@
+{
+ "ecb_fit": {
+  "a": 0.382849898535157,
+  "b_minus": 0.00439977448687815,
+  "b_plus": 0.8545993986855126,
+  "n": 109,
+  "r2": 0.7045012077956654,
+  "r_plus": 2.2322048456989076,
+  "r_plus_se": 0.48679044007398625,
+  "se_a": 0.0630469340919425,
+  "se_b_minus": 0.09674254166904935,
+  "se_b_plus": 0.0699134658451679,
+  "t_b_minus": 0.0454792112236365,
+  "t_b_plus": 12.223673770917461
+ },
+ "lines": {
+  "ECB SPF, average individual variance": {
+   "a": 0.382849898535157,
+   "b_minus": 0.00439977448687815,
+   "b_plus": 0.8545993986855126,
+   "computed": true,
+   "n": 109
+  },
+  "Inflation swaps": {
+   "a": 0.451,
+   "b_minus": -0.078,
+   "b_plus": 1.606,
+   "computed": false,
+   "source": "inflation-linked swaps, 2y, 63-day realized variance; Table 1 as printed"
+  },
+  "Options, adjusted": {
+   "a": 0.38,
+   "b_minus": -0.089,
+   "b_plus": 0.68,
+   "computed": false,
+   "source": "inflation options, premium-adjusted; Table 1 as printed"
+  },
+  "US SPF, individual": {
+   "a": 0.31389925476175834,
+   "b_minus": 0.04579364401939087,
+   "b_plus": 0.06292774513558012,
+   "computed": true,
+   "n": 1783
+  }
+ },
+ "us_fit": {
+  "a": 0.31389925476175834,
+  "b_minus": 0.04579364401939087,
+  "b_plus": 0.06292774513558012,
+  "n": 1783,
+  "r2": 0.004833068900178539,
+  "r_plus": 0.20047115175007568,
+  "r_plus_se": 0.07715704670401256,
+  "se_a": 0.012720173306008213,
+  "se_b_minus": 0.0792445283775791,
+  "se_b_plus": 0.022526839937812106,
+  "t_b_minus": 0.5778776775753695,
+  "t_b_plus": 2.793456397315349
+ }
+}

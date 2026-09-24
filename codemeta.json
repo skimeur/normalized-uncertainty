@@ -2,7 +2,7 @@
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
   "name": "Normalized Uncertainty",
-  "description": "Implementation of Normalized Uncertainty (NU), Normalized Growth Uncertainty (NGU) and Asymmetry Coherence (AC) from survey density forecasts, with the scripts reproducing the public-data exhibits of 'Uncertain and Asymmetric Forecasts' and 'Tolerable Inflation, Intolerable Uncertainty'.",
+  "description": "Implementation of Normalized Uncertainty (NU, at the calibration a = b = 1 that needs no estimate), Normalized Growth Uncertainty (NGU) and Asymmetry Coherence (AC) from survey density forecasts, with the scripts reproducing the public-data exhibits of the working papers 'Uncertain and Asymmetric Forecasts' and 'Tolerable Inflation, Intolerable Uncertainty' (Eric Vansteenberghe, Banque de France).",
   "codeRepository": "https://github.com/skimeur/normalized-uncertainty",
   "programmingLanguage": "Python",
   "runtimePlatform": "Python 3.10+",
@@ -28,9 +28,25 @@
     "inflation expectations",
     "monetary policy",
     "normalized uncertainty",
-    "asymmetry coherence"
+    "asymmetry coherence",
+    "balance of risks",
+    "inflation target"
   ],
   "referencePublication": [
+    {
+      "@type": "ScholarlyArticle",
+      "name": "Tolerable Inflation, Intolerable Uncertainty",
+      "author": [
+        {
+          "@id": "https://orcid.org/0009-0004-4566-4043",
+          "@type": "Person",
+          "givenName": "Eric",
+          "familyName": "Vansteenberghe"
+        }
+      ],
+      "datePublished": "2026",
+      "description": "Working paper, Banque de France (BibTeX key vansteenberghe2026tolerable)"
+    },
     {
       "@type": "ScholarlyArticle",
       "name": "Uncertain and Asymmetric Forecasts",
@@ -42,22 +58,9 @@
           "familyName": "Vansteenberghe"
         }
       ],
-      "datePublished": "2026",
       "url": "https://arxiv.org/abs/2411.05938",
-      "identifier": "arXiv:2411.05938"
-    },
-    {
-      "@type": "ScholarlyArticle",
-      "name": "Tolerable Inflation, Intolerable Uncertainty: The Unidentifiable Optimum of Monetary Policy",
-      "author": [
-        {
-          "@id": "https://orcid.org/0009-0004-4566-4043",
-          "@type": "Person",
-          "givenName": "Eric",
-          "familyName": "Vansteenberghe"
-        }
-      ],
-      "datePublished": "2026"
+      "identifier": "arXiv:2411.05938",
+      "description": "Working paper, forthcoming (BibTeX key vansteenberghe2026uncertain)"
     }
   ]
 }

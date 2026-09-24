@@ -1,0 +1,26 @@
+\begin{table}[tbp]\centering
+\caption{Moments of the reported densities: correlations}\label{tab:momentscorr}
+\begin{tabular}{lccc}
+\toprule
+\multicolumn{4}{l}{\emph{across survey rounds} ($n=111$)}\\
+ & Mean & CV & Bowley \\
+\midrule
+Mean & $1.00$ & $-0.49$ & $0.36$ \\
+CV & $-0.49$ & $1.00$ & $-0.37$ \\
+Skew & $0.36$ & $-0.37$ & $1.00$ \\
+\addlinespace
+\multicolumn{4}{l}{\emph{across individual forecaster-rounds} ($n=4624$)}\\
+ & Mean & CV & Bowley \\
+\midrule
+Mean & $1.00$ & $-0.23$ & $0.11$ \\
+CV & $-0.23$ & $1.00$ & $-0.03$ \\
+Skew & $0.11$ & $-0.03$ & $1.00$ \\
+\bottomrule
+\end{tabular}
+\vspace{0.3em}
+\parbox{0.95\linewidth}{\footnotesize \textit{Notes:} Bowley's skewness as defined in
+Section~\ref{sec:moments}; CV is a density's standard deviation over its mean. The upper panel
+averages each moment within a survey round before correlating; the lower panel correlates the
+forecaster-round observations themselves. The mean--asymmetry relation is positive at both
+levels and an order of magnitude weaker at the level where the third moment is measured. Script: \texttt{tab02\_moments\_correlations.py}.}
+\end{table}

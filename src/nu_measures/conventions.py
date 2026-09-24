@@ -62,13 +62,23 @@ QUESTIONNAIRE_CHANGE_PANEL_DATE: date = date(2024, 9, 1)
 #: The open left tail is closed at this point (per cent).
 LEFT_TAIL_POINT: float = -1.0
 
+#: Realized euro-area HICP inflation, year on year, computed from the ECB's
+#: index (``ICP.M.U2.Y.000000.3.INX``, vintage of 30 December 2025) exactly as
+#: the authoritative panel builder computes it: the lowest value (July 2009)
+#: and the highest (October 2022). They close the open tails, so they are kept
+#: at full precision -- rounding them moves the fourth decimal of every
+#: variance. :func:`nu_measures.io_ecb_spf.hicp_extremes` recomputes them from
+#: a downloaded index.
+HICP_MIN: float = -0.61828831760493896
+HICP_MAX: float = 10.617848970251712
+
 #: The open top bin is closed on this interval. Its upper end is the highest
 #: euro-area HICP inflation rate observed in the sample (October 2022).
-TOP_BIN_INTERVAL: tuple[float, float] = (5.0, 10.618)
+TOP_BIN_INTERVAL: tuple[float, float] = (5.0, HICP_MAX)
 
 #: The point mass used for the open top bin in the authoritative panel: the
-#: midpoint of :data:`TOP_BIN_INTERVAL`.
-TOP_BIN_POINT: float = 7.809
+#: midpoint of :data:`TOP_BIN_INTERVAL` (7.809 to three decimals).
+TOP_BIN_POINT: float = (TOP_BIN_INTERVAL[0] + TOP_BIN_INTERVAL[1]) / 2.0
 
 #: Closures of the open top bin over which the level of the upper arm is
 #: reported as a bracket in the papers. Only the closures implemented as point
@@ -82,19 +92,149 @@ TOP_BIN_CLOSURES: dict[str, float | None] = {
 }
 
 # --------------------------------------------------------------------------
+# The two histogram grids of the ECB survey
+# --------------------------------------------------------------------------
+
+#: Column codes of the round files, as the ECB names them, mapped to the
+#: interval labels the panels carry. ``TN1_0`` is the open bottom bin,
+#: ``F5_0`` the open top bin; codes ending in ``_0`` alone are historic open
+#: tails that later rounds no longer use.
+ECB_BIN_LABELS: dict[str, str] = {
+    "TN4_0": "]-inf, - 4]",
+    "TN2_0": "]-inf, - 2]",
+    "TN1_0": "]-inf, - 1]",
+    "T0_0": "]-inf, -0]",
+    "FN4_0TN3_6": "[-4,-3.6]",
+    "FN3_5TN3_1": "[-3.5,-3.1]",
+    "FN3_0TN2_6": "[-3,-2.6]",
+    "FN2_5TN2_1": "[-2.5,-2.1]",
+    "FN2_0TN1_6": "[-2,-1.6]",
+    "FN1_5TN1_1": "[-1.5,-1.1]",
+    "FN1_0TN0_6": "[-1,-0.6]",
+    "FN0_5TN0_1": "[-0.5,-0.1]",
+    "F0_0T0_4": "[0,0.4]",
+    "F0_5T0_9": "[0.5,0.9]",
+    "F1_0T1_4": "[1,1.4]",
+    "F1_5T1_9": "[1.5,1.9]",
+    "F2_0T2_4": "[2,2.4]",
+    "F2_5T2_9": "[2.5,2.9]",
+    "F3_0T3_4": "[3,3.4]",
+    "F3_5T3_9": "[3.5,3.9]",
+    "F4_0T4_4": "[4.0,4.4]",
+    "F4_5T4_9": "[4.5,4.9]",
+    "F3_5": "[3.5,+inf[",
+    "F4_0": "[4,+inf[",
+    "F5_0": "[5,+inf[",
+    "TN0_8": "]-inf, - 0.8]",
+    "FN0_7TN0_3": "[-0.7,-0.3]",
+    "FN0_2T0_2": "[-0.2,0.2]",
+    "F0_3T0_7": "[0.3,0.7]",
+    "F0_8T1_2": "[0.8,1.2]",
+    "F1_3T1_7": "[1.3,1.7]",
+    "F1_8T2_2": "[1.8,2.2]",
+    "F2_3T2_7": "[2.3,2.7]",
+    "F2_8T3_2": "[2.8,3.2]",
+    "F3_3T3_7": "[3.3,3.7]",
+    "F3_8T4_2": "[3.8,4.2]",
+    "F4_3T4_7": "[4.3,4.7]",
+    "F4_8": "[4.8,+inf[",
+}
+
+#: Column order of the flat panel (one row per forecaster and round, the
+#: probabilities in per cent), as the authoritative file lays it out.
+FLAT_PANEL_COLUMNS: tuple[str, ...] = (
+    "Date", "FCT_SOURCE", "POINT",
+    "]-inf, - 4]", "[-4,-3.6]", "[-3.5,-3.1]", "[-3,-2.6]", "[-2.5,-2.1]", "[-2,-1.6]",
+    "[-1.5,-1.1]", "[-1,-0.6]", "[-0.5,-0.1]", "[0,0.4]", "[0.5,0.9]", "[1,1.4]", "[1.5,1.9]",
+    "[2,2.4]", "[2.5,2.9]", "[3,3.4]", "[3.5,3.9]", "[4.0,4.4]", "[4.5,4.9]", "[5,+inf[",
+    "]-inf, - 2]", "]-inf, - 1]", "]-inf, -0]", "[3.5,+inf[", "[4,+inf[",
+    "]-inf, - 0.8]", "[-0.7,-0.3]", "[-0.2,0.2]", "[0.3,0.7]", "[0.8,1.2]", "[1.3,1.7]",
+    "[1.8,2.2]", "[2.3,2.7]", "[2.8,3.2]", "[3.3,3.7]", "[3.8,4.2]", "[4.3,4.7]", "[4.8,+inf[",
+)
+
+#: The fourteen bins of the grid in force through the 2024Q3 round, after the
+#: historic open tails have been pooled into the two end bins.
+GRID_PRE_BINS: tuple[str, ...] = (
+    "]-inf, - 1]", "[-1,-0.6]", "[-0.5,-0.1]", "[0,0.4]", "[0.5,0.9]", "[1,1.4]", "[1.5,1.9]",
+    "[2,2.4]", "[2.5,2.9]", "[3,3.4]", "[3.5,3.9]", "[4.0,4.4]", "[4.5,4.9]", "[5,+inf[",
+)
+
+#: Historic columns pooled into the pre-2024Q4 grid's bottom and top bins.
+GRID_PRE_LEFT_SOURCES: tuple[str, ...] = (
+    "]-inf, - 4]", "[-4,-3.6]", "[-3.5,-3.1]", "[-3,-2.6]", "[-2.5,-2.1]", "[-2,-1.6]",
+    "[-1.5,-1.1]", "]-inf, - 2]", "]-inf, - 1]", "]-inf, -0]",
+)
+GRID_PRE_RIGHT_SOURCES: tuple[str, ...] = ("[3.5,+inf[", "[4,+inf[", "[5,+inf[")
+
+#: The thirteen bins of the grid introduced with the 2024Q4 round.
+GRID_POST_BINS: tuple[str, ...] = (
+    "]-inf, - 0.8]", "[-0.7,-0.3]", "[-0.2,0.2]", "[0.3,0.7]", "[0.8,1.2]", "[1.3,1.7]",
+    "[1.8,2.2]", "[2.3,2.7]", "[2.8,3.2]", "[3.3,3.7]", "[3.8,4.2]", "[4.3,4.7]", "[4.8,+inf[",
+)
+
+
+def grid_edges(post: bool = False, hicp_min: float = HICP_MIN, hicp_max: float = HICP_MAX):
+    """The closed intervals of the two grids, as the authoritative builder sets them.
+
+    One-decimal reporting makes "3.5 to 3.9" the interval [3.5, 4.0). The open
+    bottom bin runs from ``min(edge, hicp_min)`` to its edge -- with the lowest
+    realized rate above the edge it is a point -- and the open top bin from its
+    edge to ``hicp_max``.
+    """
+    if post:
+        edges = [(min(-0.75, hicp_min), -0.75), (-0.75, -0.25), (-0.25, 0.25), (0.25, 0.75),
+                 (0.75, 1.25), (1.25, 1.75), (1.75, 2.25), (2.25, 2.75), (2.75, 3.25),
+                 (3.25, 3.75), (3.75, 4.25), (4.25, 4.75), (4.75, hicp_max)]
+    else:
+        edges = [(min(-1.0, hicp_min), -1.0), (-1.0, -0.5), (-0.5, 0.0), (0.0, 0.5),
+                 (0.5, 1.0), (1.0, 1.5), (1.5, 2.0), (2.0, 2.5), (2.5, 3.0),
+                 (3.0, 3.5), (3.5, 4.0), (4.0, 4.5), (4.5, 5.0), (5.0, hicp_max)]
+    return edges
+
+
+# --------------------------------------------------------------------------
+# Asymmetry Coherence: the conventions of the authoritative panel
+# --------------------------------------------------------------------------
+
+#: Each forecaster's Bowley skewness is smoothed over this many consecutive
+#: rounds (a trailing mean, one round where only one exists) before it enters
+#: the index.
+AC_SMOOTHING_ROUNDS: int = 2
+
+#: Bowley skewness is set to this value when a density puts more than
+#: :data:`AC_TAIL_MASS_LIMIT` per cent of its mass in the open bottom bin
+#: (negative sign) or the open top bin (positive sign): the quartiles of such a
+#: density sit inside a bin whose width is a closure, not a measurement.
+AC_TAIL_SKEWNESS: float = 0.1
+AC_TAIL_MASS_LIMIT: float = 25.0
+
+#: The interquartile ranges that scale the two components of AC are computed
+#: on the whole panel at hand (``None``). Passing a window freezes them, which
+#: is what a user who extends the sample and wants a comparable index needs.
+AC_IQR_WINDOW: tuple[str, str] | None = None
+
+# --------------------------------------------------------------------------
 # Calibrations
 # --------------------------------------------------------------------------
 
 #: Ratio b+/a of the law on the average individual predictive variance W on the
-#: certified sample (0.855 / 0.383): the fitted NU denominator. What the
-#: denominator divides is one forecaster's density, so its envelope is W's; the
-#: round-mean total variance obeys the law with another ratio (``total_r_plus``,
-#: 4.48), which is not the calibration.
-NU_R_FITTED: float = 2.23
+#: certified sample (0.855 / 0.383 = 2.23 as printed; the code carries the
+#: ratio of the fit at full precision, as the papers' scripts do): the fitted
+#: NU denominator. What the denominator divides is one forecaster's density,
+#: so its envelope is W's; the round-mean total variance obeys the law with
+#: another ratio (``total_r_plus``, 4.48), which is not the calibration.
+NU_R_FITTED: float = 2.232204845699
 
-#: The calibration-free denominator. Both readings are published on equal
-#: footing; neither is presented as the correct one.
+#: The calibration-free denominator, ``a = b = 1``: the default of every NU
+#: function in this library. It needs no estimate, so the number it gives for a
+#: forecaster-round is the same whatever the sample it is computed in -- it
+#: does not depend on the history or on the observation window, which is what
+#: makes it usable on any density survey with an announced target. The fitted
+#: ratio above is the papers' estimate and stays available as an option.
 NU_R_UNIT: float = 1.0
+
+#: The default denominator: the unit calibration.
+NU_R_DEFAULT: float = NU_R_UNIT
 
 #: Smoothing parameter of the Hodrick-Prescott trend used for potential growth
 #: (quarterly data).
@@ -159,6 +299,8 @@ CERTIFIED: dict[str, float] = {
     "W_b_plus": 0.855,
     "W_r2": 0.71,
     "W_r_plus": 2.23,
+    "W_r_plus_exact": 2.232204845699,
+    "W_r_plus_se": 0.49,
     "W_kink": 1.90,
     "W_kink_set_low": 1.76,
     "W_kink_set_high": 2.00,
@@ -168,7 +310,7 @@ CERTIFIED: dict[str, float] = {
     "between_b_plus": 1.028,
     "between_b_minus": 0.113,
     "within_share": 0.73,
-    "pooled_individual_b_plus": 0.864,
+    "pooled_individual_b_plus": 0.8635,
     # Agreement with an independent proxy (Economic Policy Uncertainty).
     "epu_corr_nu_unit": 0.848,
     "epu_corr_nu_fitted": 0.785,

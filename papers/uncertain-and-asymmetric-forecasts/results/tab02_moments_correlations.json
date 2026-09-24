@@ -1,0 +1,38 @@
+{
+ "across_forecaster_rounds": {
+  "CV": {
+   "CV": 1.0,
+   "Mean": -0.225699,
+   "Skew": -0.027384
+  },
+  "Mean": {
+   "CV": -0.225699,
+   "Mean": 1.0,
+   "Skew": 0.107085
+  },
+  "Skew": {
+   "CV": -0.027384,
+   "Mean": 0.107085,
+   "Skew": 1.0
+  }
+ },
+ "across_rounds": {
+  "CV": {
+   "CV": 1.0,
+   "Mean": -0.48586,
+   "Skew": -0.371531
+  },
+  "Mean": {
+   "CV": -0.48586,
+   "Mean": 1.0,
+   "Skew": 0.361747
+  },
+  "Skew": {
+   "CV": -0.371531,
+   "Mean": 0.361747,
+   "Skew": 1.0
+  }
+ },
+ "forecaster_rounds": 4624,
+ "rounds": 111
+}

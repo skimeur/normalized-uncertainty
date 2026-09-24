@@ -1,0 +1,23 @@
+\begin{table}[tbp]
+\centering
+\small
+\caption{Monte Carlo simulation: raw versus corrected moments}\label{tab:mc_simulation_summary}
+\begin{tabular}{@{}llcc@{}}
+\toprule
+\textbf{Strategy} & \textbf{Metric} & \textbf{Raw} & \textbf{Corrected} \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{Panel A: Normalized Uncertainty}} \\[2pt]
+A.\ Oracle $R^2$: tracking $u_t$ & $R^2(\cdot,\, u_t)$ & 0.581 & \textbf{0.829} \\
+A.\ Artifact exposure: tracking $d_t$ & $R^2(\cdot,\, d_t)$ & 0.437 & \textbf{0.094} \\
+B.\ Spurious rejection (HAC, outcome $\sim$ measure) & \% reject at 5\% & 57.6\% & 23.6\% \\
+B.\ Controlled (HAC, outcome $\sim$ measure $+$ $d$) & \% reject at 5\% & 4.6\% & \textbf{4.6\%} \\
+\addlinespace[4pt]
+\multicolumn{4}{@{}l}{\emph{Panel B: Asymmetry Coherence}} \\[2pt]
+A.\ Coherent signal recovery & $R^2(\cdot,\, \mathrm{AC}^{nf})$ & 0.780 & \textbf{0.941} \\
+\bottomrule
+\end{tabular}
+\vspace{0.2em}
+\begin{minipage}{0.97\linewidth}\footnotesize
+\textit{Notes:} Monte Carlo simulation with 500 replications, $T=$200 periods, $N=$30 forecasters. The DGP is an extended UCSV model with a latent inflation target (mean-reverting with state-dependent drift, $\kappa_\theta=$0.02), AR(1) genuine uncertainty $u_t$, and AR(1) directional risk $\delta_t$. Raw: cross-sectional mean of individual variances (IU) or raw asymmetry (Bowley's formula). Corrected: NU $= \sqrt{\mathrm{Var}}/\sqrt{a + b\,|{\mu-\mu^*}|}$ or AC $= [(\tilde{Q}+\tilde{A})/2]\cdot[(1+\tilde{Q}\tilde{A})/2]$. $\mathrm{AC}^{nf}$: noise-free AC computed from structural and genuine Bowley components (without incoherent noise). Strategy~B uses Newey--West (HAC) standard errors; Strategy~D uses expanding-window (real-time) AC normalisation with no look-ahead. Bold: the measure with better performance. Full results in Section~\ref{sec:simulation}. Script: \texttt{tab06\_mc\_summary.py}.
+\end{minipage}
+\end{table}

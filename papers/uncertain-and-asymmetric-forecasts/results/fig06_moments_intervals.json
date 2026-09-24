@@ -1,0 +1,13 @@
+{
+ "first_moment_interval_excludes_target": 96,
+ "forecaster_rounds": 4624,
+ "forecasters_per_round": [
+  30,
+  63
+ ],
+ "of_which_below": 77,
+ "peak_2022_2023_over_2015_2019_nu_unit": 1.4143904782747458,
+ "peak_2022_2023_over_2015_2019_raw_variance": 6.0849046228273895,
+ "rounds": 111,
+ "third_moment_interval_excludes_zero": 19
+}

@@ -1,0 +1,1058 @@
+{
+ "april_2026_cross_validation_cells": 27,
+ "dealer_rows": [
+  {
+   "center_iqr_bp": 0.0,
+   "date": "2023-03",
+   "di_dpi": 0.8333333333333334,
+   "di_du": -0.5833333333333334,
+   "horizon_months": 9,
+   "instance": "Mar 2023",
+   "iqr_matrix_bp": [
+    [
+     25,
+     50,
+     50
+    ],
+    [
+     25,
+     0,
+     25
+    ],
+    [
+     50,
+     25,
+     50
+    ]
+   ],
+   "mean_cond_iqr_bp": 33.333333333333336,
+   "median_matrix": [
+    [
+     5.13,
+     4.88,
+     4.38
+    ],
+    [
+     5.38,
+     5.13,
+     4.88
+    ],
+    [
+     5.88,
+     5.63,
+     5.38
+    ]
+   ],
+   "n": 25,
+   "n_note": "matrix N not annotated; survey N=25",
+   "panel": "SPD",
+   "ratio": 1.3333333333333335,
+   "source": "PDF",
+   "uncond_horizon": "unconditional modal path, Dec 12-13 2023 meeting (PDF)",
+   "uncond_iqr_bp": 25.0
+  },
+  {
+   "center_iqr_bp": 18.99999999999995,
+   "date": "2023-09",
+   "di_dpi": 1.0433333333333332,
+   "di_du": -0.7933333333333333,
+   "horizon_months": 15,
+   "instance": "Sep 2023",
+   "iqr_matrix_bp": [
+    [
+     50,
+     50,
+     119
+    ],
+    [
+     18,
+     19,
+     87
+    ],
+    [
+     44,
+     25,
+     44
+    ]
+   ],
+   "mean_cond_iqr_bp": 50.66666666666664,
+   "median_matrix": [
+    [
+     4.38,
+     4.13,
+     3.5
+    ],
+    [
+     4.88,
+     4.63,
+     4.13
+    ],
+    [
+     5.38,
+     5.13,
+     4.63
+    ]
+   ],
+   "n": 22,
+   "n_note": "",
+   "panel": "SPD",
+   "ratio": 0.5757575757575756,
+   "source": "workbook",
+   "uncond_horizon": "2024 Q4",
+   "uncond_iqr_bp": 87.99999999999999
+  },
+  {
+   "center_iqr_bp": 25.0,
+   "date": "2024-04",
+   "di_dpi": 0.96,
+   "di_du": -0.54,
+   "horizon_months": 8,
+   "instance": "Apr/May 2024",
+   "iqr_matrix_bp": [
+    [
+     56,
+     38,
+     82
+    ],
+    [
+     50,
+     25,
+     56
+    ],
+    [
+     25,
+     0,
+     57
+    ]
+   ],
+   "mean_cond_iqr_bp": 43.22222222222225,
+   "median_matrix": [
+    [
+     4.63,
+     4.5,
+     4.13
+    ],
+    [
+     5.0,
+     4.88,
+     4.38
+    ],
+    [
+     5.63,
+     5.38,
+     5.13
+    ]
+   ],
+   "n": 24,
+   "n_note": "xlsx count",
+   "panel": "SPD",
+   "ratio": 1.3506944444444442,
+   "source": "PDF",
+   "uncond_horizon": "Dec. 17-18 2024 (workbook)",
+   "uncond_iqr_bp": 32.00000000000003
+  },
+  {
+   "center_iqr_bp": 25.0,
+   "date": "2024-09",
+   "di_dpi": 0.5,
+   "di_du": -0.5833333333333334,
+   "horizon_months": 3,
+   "instance": "Sep 2024",
+   "iqr_matrix_bp": [
+    [
+     37,
+     37,
+     50
+    ],
+    [
+     38,
+     25,
+     25
+    ],
+    [
+     50,
+     25,
+     25
+    ]
+   ],
+   "mean_cond_iqr_bp": 34.666666666666664,
+   "median_matrix": [
+    [
+     4.88,
+     4.63,
+     4.13
+    ],
+    [
+     5.13,
+     4.88,
+     4.38
+    ],
+    [
+     5.13,
+     5.13,
+     4.88
+    ]
+   ],
+   "n": 23,
+   "n_note": "(23 responses)",
+   "panel": "SPD",
+   "ratio": null,
+   "source": "PDF",
+   "uncond_horizon": "Dec. 17-18 2024 (workbook)",
+   "uncond_iqr_bp": 0.0
+  },
+  {
+   "center_iqr_bp": 25.0,
+   "date": "2025-07",
+   "di_dpi": 0.5833333333333334,
+   "di_du": -0.5833333333333334,
+   "horizon_months": 5,
+   "instance": "Jul 2025",
+   "iqr_matrix_bp": [
+    [
+     25,
+     25,
+     50
+    ],
+    [
+     25,
+     25,
+     50
+    ],
+    [
+     0,
+     25,
+     50
+    ]
+   ],
+   "mean_cond_iqr_bp": 30.555555555555557,
+   "median_matrix": [
+    [
+     3.88,
+     3.63,
+     3.38
+    ],
+    [
+     4.38,
+     3.88,
+     3.63
+    ],
+    [
+     4.38,
+     4.38,
+     3.88
+    ]
+   ],
+   "n": 24,
+   "n_note": "",
+   "panel": "Dealer",
+   "ratio": 1.2222222222222179,
+   "source": "workbook",
+   "uncond_horizon": "Dec. 9-10 2025",
+   "uncond_iqr_bp": 25.00000000000009
+  },
+  {
+   "center_iqr_bp": 43.99999999999999,
+   "date": "2026-04",
+   "di_dpi": 0.5833333333333334,
+   "di_du": -0.6666666666666666,
+   "horizon_months": 8,
+   "instance": "Apr 2026",
+   "iqr_matrix_bp": [
+    [
+     25,
+     18,
+     25
+    ],
+    [
+     0,
+     44,
+     25
+    ],
+    [
+     50,
+     0,
+     50
+    ]
+   ],
+   "mean_cond_iqr_bp": 26.333333333333332,
+   "median_matrix": [
+    [
+     3.38,
+     3.13,
+     2.63
+    ],
+    [
+     3.63,
+     3.38,
+     2.88
+    ],
+    [
+     3.88,
+     3.63,
+     3.38
+    ]
+   ],
+   "n": 26,
+   "n_note": "",
+   "panel": "Dealer",
+   "ratio": 0.5266666666666671,
+   "source": "workbook",
+   "uncond_horizon": "Dec. 8-9 2026",
+   "uncond_iqr_bp": 49.99999999999996
+  }
+ ],
+ "panel": [
+  {
+   "center_iqr_bp": 50.0,
+   "date": "2023-03",
+   "di_dpi": 0.9566666666666667,
+   "di_du": -0.7066666666666667,
+   "horizon_months": 9,
+   "instance": "Mar 2023",
+   "iqr_matrix_bp": [
+    [
+     50,
+     75,
+     75
+    ],
+    [
+     50,
+     50,
+     50
+    ],
+    [
+     50,
+     50,
+     75
+    ]
+   ],
+   "mean_cond_iqr_bp": 58.333333333333336,
+   "median_matrix": [
+    [
+     5.13,
+     4.88,
+     4.13
+    ],
+    [
+     5.38,
+     5.13,
+     4.88
+    ],
+    [
+     6.0,
+     5.63,
+     5.38
+    ]
+   ],
+   "n": 21,
+   "n_note": "(21 responses)",
+   "panel": "SMP",
+   "ratio": 2.3333333333333335,
+   "source": "PDF",
+   "uncond_horizon": "unconditional modal path, Dec 12-13 2023 meeting (PDF)",
+   "uncond_iqr_bp": 25.0
+  },
+  {
+   "center_iqr_bp": 0.0,
+   "date": "2023-03",
+   "di_dpi": 0.8333333333333334,
+   "di_du": -0.5833333333333334,
+   "horizon_months": 9,
+   "instance": "Mar 2023",
+   "iqr_matrix_bp": [
+    [
+     25,
+     50,
+     50
+    ],
+    [
+     25,
+     0,
+     25
+    ],
+    [
+     50,
+     25,
+     50
+    ]
+   ],
+   "mean_cond_iqr_bp": 33.333333333333336,
+   "median_matrix": [
+    [
+     5.13,
+     4.88,
+     4.38
+    ],
+    [
+     5.38,
+     5.13,
+     4.88
+    ],
+    [
+     5.88,
+     5.63,
+     5.38
+    ]
+   ],
+   "n": 25,
+   "n_note": "matrix N not annotated; survey N=25",
+   "panel": "SPD",
+   "ratio": 1.3333333333333335,
+   "source": "PDF",
+   "uncond_horizon": "unconditional modal path, Dec 12-13 2023 meeting (PDF)",
+   "uncond_iqr_bp": 25.0
+  },
+  {
+   "center_iqr_bp": 50.0,
+   "date": "2023-09",
+   "di_dpi": 1.1266666666666667,
+   "di_du": -0.8766666666666666,
+   "horizon_months": 15,
+   "instance": "Sep 2023",
+   "iqr_matrix_bp": [
+    [
+     82,
+     75,
+     82
+    ],
+    [
+     50,
+     50,
+     88
+    ],
+    [
+     75,
+     50,
+     82
+    ]
+   ],
+   "mean_cond_iqr_bp": 70.44444444444444,
+   "median_matrix": [
+    [
+     4.38,
+     4.13,
+     3.25
+    ],
+    [
+     4.88,
+     4.63,
+     4.13
+    ],
+    [
+     5.38,
+     5.13,
+     4.63
+    ]
+   ],
+   "n": 44,
+   "n_note": "",
+   "panel": "Combined",
+   "ratio": 0.5635555555555556,
+   "source": "workbook",
+   "uncond_horizon": "2024 Q4",
+   "uncond_iqr_bp": 125.0
+  },
+  {
+   "center_iqr_bp": 94.0,
+   "date": "2023-09",
+   "di_dpi": 1.4566666666666668,
+   "di_du": -0.79,
+   "horizon_months": 15,
+   "instance": "Sep 2023",
+   "iqr_matrix_bp": [
+    [
+     119,
+     94,
+     50
+    ],
+    [
+     87,
+     94,
+     100
+    ],
+    [
+     113,
+     93,
+     112
+    ]
+   ],
+   "mean_cond_iqr_bp": 95.77777777777774,
+   "median_matrix": [
+    [
+     4.13,
+     3.75,
+     3.13
+    ],
+    [
+     4.63,
+     4.5,
+     3.88
+    ],
+    [
+     5.5,
+     5.0,
+     4.88
+    ]
+   ],
+   "n": 22,
+   "n_note": "",
+   "panel": "SMP",
+   "ratio": 0.9577777777777774,
+   "source": "workbook",
+   "uncond_horizon": "2024 Q4",
+   "uncond_iqr_bp": 100.0
+  },
+  {
+   "center_iqr_bp": 18.99999999999995,
+   "date": "2023-09",
+   "di_dpi": 1.0433333333333332,
+   "di_du": -0.7933333333333333,
+   "horizon_months": 15,
+   "instance": "Sep 2023",
+   "iqr_matrix_bp": [
+    [
+     50,
+     50,
+     119
+    ],
+    [
+     18,
+     19,
+     87
+    ],
+    [
+     44,
+     25,
+     44
+    ]
+   ],
+   "mean_cond_iqr_bp": 50.66666666666664,
+   "median_matrix": [
+    [
+     4.38,
+     4.13,
+     3.5
+    ],
+    [
+     4.88,
+     4.63,
+     4.13
+    ],
+    [
+     5.38,
+     5.13,
+     4.63
+    ]
+   ],
+   "n": 22,
+   "n_note": "",
+   "panel": "SPD",
+   "ratio": 0.5757575757575756,
+   "source": "workbook",
+   "uncond_horizon": "2024 Q4",
+   "uncond_iqr_bp": 87.99999999999999
+  },
+  {
+   "center_iqr_bp": 25.0,
+   "date": "2024-04",
+   "di_dpi": 1.0,
+   "di_du": -0.5833333333333334,
+   "horizon_months": 8,
+   "instance": "Apr/May 2024",
+   "iqr_matrix_bp": [
+    [
+     25,
+     25,
+     25
+    ],
+    [
+     50,
+     25,
+     50
+    ],
+    [
+     25,
+     25,
+     50
+    ]
+   ],
+   "mean_cond_iqr_bp": 33.333333333333336,
+   "median_matrix": [
+    [
+     4.63,
+     4.63,
+     4.13
+    ],
+    [
+     5.13,
+     4.88,
+     4.63
+    ],
+    [
+     5.88,
+     5.38,
+     5.13
+    ]
+   ],
+   "n": 21,
+   "n_note": "(21 responses)",
+   "panel": "SMP",
+   "ratio": null,
+   "source": "PDF",
+   "uncond_horizon": "Dec. 17-18 2024 (workbook)",
+   "uncond_iqr_bp": 0.0
+  },
+  {
+   "center_iqr_bp": 25.0,
+   "date": "2024-04",
+   "di_dpi": 0.96,
+   "di_du": -0.54,
+   "horizon_months": 8,
+   "instance": "Apr/May 2024",
+   "iqr_matrix_bp": [
+    [
+     56,
+     38,
+     82
+    ],
+    [
+     50,
+     25,
+     56
+    ],
+    [
+     25,
+     0,
+     57
+    ]
+   ],
+   "mean_cond_iqr_bp": 43.22222222222225,
+   "median_matrix": [
+    [
+     4.63,
+     4.5,
+     4.13
+    ],
+    [
+     5.0,
+     4.88,
+     4.38
+    ],
+    [
+     5.63,
+     5.38,
+     5.13
+    ]
+   ],
+   "n": 24,
+   "n_note": "xlsx count",
+   "panel": "SPD",
+   "ratio": 1.3506944444444442,
+   "source": "PDF",
+   "uncond_horizon": "Dec. 17-18 2024 (workbook)",
+   "uncond_iqr_bp": 32.00000000000003
+  },
+  {
+   "center_iqr_bp": 50.0,
+   "date": "2024-09",
+   "di_dpi": 0.7933333333333333,
+   "di_du": -0.5433333333333333,
+   "horizon_months": 3,
+   "instance": "Sep 2024",
+   "iqr_matrix_bp": [
+    [
+     25,
+     25,
+     75
+    ],
+    [
+     25,
+     50,
+     32
+    ],
+    [
+     50,
+     50,
+     56
+    ]
+   ],
+   "mean_cond_iqr_bp": 43.111111111111114,
+   "median_matrix": [
+    [
+     4.63,
+     4.63,
+     4.0
+    ],
+    [
+     5.13,
+     4.88,
+     4.38
+    ],
+    [
+     5.38,
+     5.13,
+     5.13
+    ]
+   ],
+   "n": 24,
+   "n_note": "xlsx count",
+   "panel": "SMP",
+   "ratio": 1.1651651651651678,
+   "source": "PDF",
+   "uncond_horizon": "Dec. 17-18 2024 (workbook)",
+   "uncond_iqr_bp": 36.99999999999992
+  },
+  {
+   "center_iqr_bp": 25.0,
+   "date": "2024-09",
+   "di_dpi": 0.5,
+   "di_du": -0.5833333333333334,
+   "horizon_months": 3,
+   "instance": "Sep 2024",
+   "iqr_matrix_bp": [
+    [
+     37,
+     37,
+     50
+    ],
+    [
+     38,
+     25,
+     25
+    ],
+    [
+     50,
+     25,
+     25
+    ]
+   ],
+   "mean_cond_iqr_bp": 34.666666666666664,
+   "median_matrix": [
+    [
+     4.88,
+     4.63,
+     4.13
+    ],
+    [
+     5.13,
+     4.88,
+     4.38
+    ],
+    [
+     5.13,
+     5.13,
+     4.88
+    ]
+   ],
+   "n": 23,
+   "n_note": "(23 responses)",
+   "panel": "SPD",
+   "ratio": null,
+   "source": "PDF",
+   "uncond_horizon": "Dec. 17-18 2024 (workbook)",
+   "uncond_iqr_bp": 0.0
+  },
+  {
+   "center_iqr_bp": 25.0,
+   "date": "2025-07",
+   "di_dpi": 0.5833333333333334,
+   "di_du": -0.5833333333333334,
+   "horizon_months": 5,
+   "instance": "Jul 2025",
+   "iqr_matrix_bp": [
+    [
+     25,
+     25,
+     50
+    ],
+    [
+     25,
+     25,
+     25
+    ],
+    [
+     0,
+     25,
+     50
+    ]
+   ],
+   "mean_cond_iqr_bp": 27.77777777777778,
+   "median_matrix": [
+    [
+     3.88,
+     3.63,
+     3.38
+    ],
+    [
+     4.38,
+     3.88,
+     3.63
+    ],
+    [
+     4.38,
+     4.38,
+     3.88
+    ]
+   ],
+   "n": 50,
+   "n_note": "",
+   "panel": "Combined",
+   "ratio": 1.1111111111111072,
+   "source": "workbook",
+   "uncond_horizon": "Dec. 9-10 2025",
+   "uncond_iqr_bp": 25.00000000000009
+  },
+  {
+   "center_iqr_bp": 25.0,
+   "date": "2025-07",
+   "di_dpi": 0.5833333333333334,
+   "di_du": -0.5833333333333334,
+   "horizon_months": 5,
+   "instance": "Jul 2025",
+   "iqr_matrix_bp": [
+    [
+     25,
+     25,
+     50
+    ],
+    [
+     25,
+     25,
+     50
+    ],
+    [
+     0,
+     25,
+     50
+    ]
+   ],
+   "mean_cond_iqr_bp": 30.555555555555557,
+   "median_matrix": [
+    [
+     3.88,
+     3.63,
+     3.38
+    ],
+    [
+     4.38,
+     3.88,
+     3.63
+    ],
+    [
+     4.38,
+     4.38,
+     3.88
+    ]
+   ],
+   "n": 24,
+   "n_note": "",
+   "panel": "Dealer",
+   "ratio": 1.2222222222222179,
+   "source": "workbook",
+   "uncond_horizon": "Dec. 9-10 2025",
+   "uncond_iqr_bp": 25.00000000000009
+  },
+  {
+   "center_iqr_bp": 0.0,
+   "date": "2025-07",
+   "di_dpi": 0.5433333333333333,
+   "di_du": -0.6666666666666666,
+   "horizon_months": 5,
+   "instance": "Jul 2025",
+   "iqr_matrix_bp": [
+    [
+     25,
+     25,
+     50
+    ],
+    [
+     44,
+     0,
+     50
+    ],
+    [
+     0,
+     25,
+     50
+    ]
+   ],
+   "mean_cond_iqr_bp": 29.88888888888889,
+   "median_matrix": [
+    [
+     3.88,
+     3.63,
+     3.25
+    ],
+    [
+     4.25,
+     3.88,
+     3.38
+    ],
+    [
+     4.38,
+     4.13,
+     3.88
+    ]
+   ],
+   "n": 26,
+   "n_note": "",
+   "panel": "Participant",
+   "ratio": 1.1955555555555513,
+   "source": "workbook",
+   "uncond_horizon": "Dec. 9-10 2025",
+   "uncond_iqr_bp": 25.00000000000009
+  },
+  {
+   "center_iqr_bp": 50.0,
+   "date": "2026-04",
+   "di_dpi": 0.5833333333333334,
+   "di_du": -0.6266666666666666,
+   "horizon_months": 8,
+   "instance": "Apr 2026",
+   "iqr_matrix_bp": [
+    [
+     50,
+     43,
+     25
+    ],
+    [
+     0,
+     50,
+     25
+    ],
+    [
+     50,
+     25,
+     50
+    ]
+   ],
+   "mean_cond_iqr_bp": 35.333333333333336,
+   "median_matrix": [
+    [
+     3.38,
+     3.13,
+     2.63
+    ],
+    [
+     3.63,
+     3.38,
+     3.0
+    ],
+    [
+     3.88,
+     3.63,
+     3.38
+    ]
+   ],
+   "n": 58,
+   "n_note": "",
+   "panel": "Combined",
+   "ratio": 0.7066666666666673,
+   "source": "workbook",
+   "uncond_horizon": "Dec. 8-9 2026",
+   "uncond_iqr_bp": 49.99999999999996
+  },
+  {
+   "center_iqr_bp": 43.99999999999999,
+   "date": "2026-04",
+   "di_dpi": 0.5833333333333334,
+   "di_du": -0.6666666666666666,
+   "horizon_months": 8,
+   "instance": "Apr 2026",
+   "iqr_matrix_bp": [
+    [
+     25,
+     18,
+     25
+    ],
+    [
+     0,
+     44,
+     25
+    ],
+    [
+     50,
+     0,
+     50
+    ]
+   ],
+   "mean_cond_iqr_bp": 26.333333333333332,
+   "median_matrix": [
+    [
+     3.38,
+     3.13,
+     2.63
+    ],
+    [
+     3.63,
+     3.38,
+     2.88
+    ],
+    [
+     3.88,
+     3.63,
+     3.38
+    ]
+   ],
+   "n": 26,
+   "n_note": "",
+   "panel": "Dealer",
+   "ratio": 0.5266666666666671,
+   "source": "workbook",
+   "uncond_horizon": "Dec. 8-9 2026",
+   "uncond_iqr_bp": 49.99999999999996
+  },
+  {
+   "center_iqr_bp": 31.000000000000007,
+   "date": "2026-04",
+   "di_dpi": 0.5833333333333334,
+   "di_du": -0.5833333333333334,
+   "horizon_months": 8,
+   "instance": "Apr 2026",
+   "iqr_matrix_bp": [
+    [
+     50,
+     31,
+     32
+    ],
+    [
+     0,
+     31,
+     25
+    ],
+    [
+     50,
+     25,
+     32
+    ]
+   ],
+   "mean_cond_iqr_bp": 30.666666666666668,
+   "median_matrix": [
+    [
+     3.38,
+     3.13,
+     2.63
+    ],
+    [
+     3.63,
+     3.38,
+     3.13
+    ],
+    [
+     3.88,
+     3.63,
+     3.38
+    ]
+   ],
+   "n": 32,
+   "n_note": "",
+   "panel": "Participant",
+   "ratio": 1.2266666666666688,
+   "source": "workbook",
+   "uncond_horizon": "Dec. 8-9 2026",
+   "uncond_iqr_bp": 24.999999999999957
+  }
+ ],
+ "pdf_read_inputs": "tolerable-inflation-intolerable-uncertainty/inputs/nyfed_scenario_matrices_pdf_read.csv"
+}

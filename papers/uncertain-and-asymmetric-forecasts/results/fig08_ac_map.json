@@ -1,0 +1,15 @@
+{
+ "ac_at_the_cases": {
+  "coherent downside (-0.6, -0.6)": -0.408,
+  "coherent upside (+0.6, +0.6)": 0.408,
+  "incoherent (+0.6, -0.3)": 0.0615,
+  "incoherent (-0.6, +0.3)": -0.0615
+ },
+ "forecaster_rounds": 4638,
+ "iqr_scales": {
+  "median_gap": 0.5749074249668802,
+  "skewness": 0.07395644283121565,
+  "window": null
+ },
+ "share_signs_disagree": 0.4726175075463562
+}

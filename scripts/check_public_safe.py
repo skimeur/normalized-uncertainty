@@ -75,8 +75,11 @@ RESTRICTED = {
 
 def tracked_files() -> list[Path]:
     try:
+        # Tracked files and untracked ones alike (ignored files excluded): the
+        # gate must catch a violation before it is ever committed.
         out = subprocess.run(
-            ["git", "ls-files"], cwd=ROOT, capture_output=True, text=True, check=True
+            ["git", "ls-files", "--cached", "--others", "--exclude-standard"],
+            cwd=ROOT, capture_output=True, text=True, check=True,
         ).stdout.split()
         return [ROOT / p for p in out]
     except (subprocess.CalledProcessError, FileNotFoundError):

@@ -1,0 +1,26 @@
+\begin{table}[tbp]\centering
+\caption{Inflation and growth uncertainty}\label{tab:ngu_orth}
+\begin{tabular}{lc}
+\toprule
+\multicolumn{2}{l}{\emph{the matched panel}}\\
+forecaster-rounds with both densities, through 2026Q2 & $4{,}327$ \\
+\hspace{1em} through the latest round & $4{,}350$ \\
+forecasters carrying their own slope ($\geq 10$ matched rounds) & $86$ \\
+forecasters taking the within-forecaster slope & $21$ \\
+\addlinespace
+\multicolumn{2}{l}{\emph{correlation between the two round series}}\\
+full sample, 1999Q1--2026Q3 & $+0.66$ \\
+\addlinespace
+\multicolumn{2}{l}{\emph{agreement with the text-based uncertainty index}}\\
+raw growth standard deviation & $0.60$ \\
+$\mathrm{NGU}$ & $0.72$ \\
+\addlinespace
+\multicolumn{2}{l}{\emph{the orthogonalized components}}\\
+correlation of $\mathrm{NGU}\perp\mathrm{NU}$ built on the two NU series & $0.99$ \\
+\bottomrule
+\end{tabular}
+\vspace{0.3em}
+\parbox{0.95\linewidth}{\footnotesize \textit{Notes:} the matched panel is the set of
+forecaster-rounds reporting both an inflation and a GDP-growth density. The purge is
+\eqref{eq:orth}, run forecaster by forecaster. Script: \texttt{tab04\_ngu\_orthogonalization.py}.}
+\end{table}

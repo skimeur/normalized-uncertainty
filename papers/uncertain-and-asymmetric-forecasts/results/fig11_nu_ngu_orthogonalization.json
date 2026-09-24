@@ -1,0 +1,8 @@
+{
+ "corr_ngu_purged": 0.8142043284796736,
+ "corr_nu_purged": 0.720500090807585,
+ "forecasters": 107,
+ "matched_forecaster_rounds": 4350,
+ "own_slope": 86,
+ "within_slope": 21
+}

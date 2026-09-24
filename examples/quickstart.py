@@ -12,7 +12,7 @@ Run it: ``python3 examples/quickstart.py``
 from __future__ import annotations
 
 from nu_measures import measures, moments
-from nu_measures.calendar import NU_R_FITTED, NU_R_UNIT, TARGET
+from nu_measures.conventions import NU_R_FITTED, NU_R_UNIT, TARGET
 
 # A half-point grid, the shape the survey uses.
 EDGES = [0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]

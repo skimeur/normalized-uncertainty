@@ -1,4 +1,4 @@
-.PHONY: help install lint test check data uaf tolerable all clean
+.PHONY: help install lint test reproduce check data example uaf tolerable all clean
 
 PY ?= python3
 
@@ -6,6 +6,8 @@ help:
 	@echo "install    install the package and its development extras"
 	@echo "lint       ruff over the whole tree"
 	@echo "test       unit tests (synthetic inputs, no data needed)"
+	@echo "reproduce  the reproduction tests against the data in NU_DATA_DIR"
+	@echo "example    NU (a = b = 1) and AC from the ECB-SPF round files"
 	@echo "check      public-safety gate: no restricted code, data or local paths"
 	@echo "data       report which third-party sources are present and which are missing"
 	@echo "uaf        rebuild every exhibit of 'Uncertain and Asymmetric Forecasts'"
@@ -23,6 +25,12 @@ lint:
 
 test:
 	$(PY) -m pytest
+
+reproduce:
+	$(PY) -m pytest tests/test_reproduction.py -v
+
+example:
+	$(PY) examples/nu_and_ac_from_ecb_spf.py --out $${NU_DATA_DIR:-data}/derived/nu_and_ac
 
 check:
 	$(PY) scripts/check_public_safe.py

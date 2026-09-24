@@ -1,0 +1,26 @@
+{
+ "chi_drawn": [
+  0.1,
+  0.39
+ ],
+ "chi_range": [
+  0.0989,
+  0.3889
+ ],
+ "dominance_boundaries": [
+  0.54945,
+  0.69445
+ ],
+ "intensity_band": [
+  0.72,
+  0.91
+ ],
+ "optimum_band": [
+  0.36,
+  0.6825
+ ],
+ "surge_share_readings": [
+  0.5,
+  0.75
+ ]
+}

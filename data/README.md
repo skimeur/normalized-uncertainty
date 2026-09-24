@@ -13,17 +13,22 @@ Expected layout under `NU_DATA_DIR`:
 
 ```
 ecb_spf/rounds/1999Q1.csv ... 2026Q3.csv     individual density forecasts, one file per round
-ecb/macro_block.csv                          written by the fetcher, not downloaded by hand
-ecb/real_gdp.csv                             written by the fetcher
+ecb_spf/ECB_SPF_individual_NIU_ACI_1Y.csv     optional: the authoritative individual panel, for the identity test
+ecb/macro_block.csv                          written by the fetcher (nu_measures.io_ecb_data_portal.macro_block)
+ecb/macro_block_unbalanced.csv               written by the fetcher (the union, ragged edge kept)
+ecb/real_gdp.csv                             written by the fetcher (real GDP, quarterly)
+ecb/hicp_index.csv                           optional: the monthly HICP index, to recompute the tail closures
 us_spf/SPFmicrodata.xlsx                      the Philadelphia Fed workbook, as distributed
-fred/T5YIE.csv                                five-year breakeven inflation rate
+fred/T5YIE.csv, fred/T10YIE.csv               five- and ten-year breakeven inflation rates (FRED CSV downloads)
+fred/CPILFESL.csv                             US core CPI index, monthly (FRED CSV download)
 epu/All_Country_Data.xlsx                     Economic Policy Uncertainty, country workbook
-nyfed/*.xlsx                                  Survey of Primary Dealers / Market Participants results
-crosscountry/barlee*.csv                      Barro–Lee cross-country panel
-crosscountry/gmd*.parquet                     Global Macro Database extract
+nyfed/<instance>-data.xlsx                    NY Fed survey workbooks: sep-2023, apr-may-2024, sep-2024, jul-2025, apr-2026
+crosscountry/barlee_long.csv                  Barro–Lee data set, long form (SHCODE, year, the block variables; ISO3 crosswalk)
+crosscountry/gmd*.parquet | gmd*.csv          Global Macro Database (columns ISO3, year, infl)
+derived/                                      what the library builds (the panels, the series); never committed
 ```
 
-The two `ecb/` files are produced by the ECB fetcher in this repository, which reads the ECB Data Portal's SDMX API; everything else is a manual download.
+The `ecb/` files are produced by the ECB reader in this repository, which reads the ECB Data Portal's SDMX API; everything else is a manual download. `nu_measures.paths` maps every one of these to a function, so no script spells a path.
 
 ## The sources, named exactly
 
@@ -56,23 +61,23 @@ Columns 1–10 are the current year and 11–20 the next year, each block summin
 
 *Trap:* the workbook carries a document-properties field that makes `openpyxl` raise on open. Every reader in this repository stubs the properties reader before loading it.
 
-### FRED — five-year breakeven inflation rate
+### FRED — breakeven inflation rates and US core CPI
 
-Series `T5YIE` from the [St. Louis Fed](https://fred.stlouisfed.org/series/T5YIE). Daily. Used for the daily-market figure of the second paper.
+Series `T5YIE` and `T10YIE` from the [St. Louis Fed](https://fred.stlouisfed.org/series/T5YIE), daily, for the daily-market figure of the second paper (the five-year series is the primary one; the ten-year is the check in its footnote); and `CPILFESL`, the monthly core CPI index, for the euro-area–US comparison of the first paper. A FRED CSV carries `.` on holidays and a blank where a release was skipped (October 2025): the readers drop the former and, for year-on-year changes, lag by calendar month so that the latter does not shift the lag (`io_other.monthly_yoy`).
 
 ### Economic Policy Uncertainty
 
 The country workbook from [policyuncertainty.com](https://www.policyuncertainty.com/). Used only as an *independent* proxy, to ask whether the corrected measures agree better with an outside indicator than the raw ones do.
 
-**Check the country columns after every download.** The July 2026 vintage dropped Sweden, taking the euro-area basket from six countries to five; Greece was materially revised at the same time. Sweden is not a euro-area member, so its removal is arguably a correction, but it is a composition change and it moves the series. The basket is fixed in the sample calendar and the reader verifies it.
+**Check the country columns after every download.** The July 2026 vintage dropped Sweden, taking the euro-area basket from six countries to five; Greece was materially revised at the same time. Sweden is not a euro-area member, so its removal is arguably a correction, but it is a composition change and it moves the series. The basket is fixed in the conventions module and the reader verifies it.
 
 ### New York Fed — Survey of Primary Dealers and Survey of Market Participants
 
-The [scenario-matrix results](https://www.newyorkfed.org/markets/primarydealer_survey_questions), which since 2023 ask respondents for the policy rate they expect under stated macroeconomic outcomes. Some instances publish a workbook; older ones only a results PDF, and the entries read from those are marked with their provenance in the panel the code builds.
+The [scenario-matrix results](https://www.newyorkfed.org/markets/primarydealer_survey_questions), which since 2023 ask respondents for the policy rate they expect under stated macroeconomic outcomes. Save each instance's data workbook as `nyfed/<instance>-data.xlsx` (`sep-2023`, `apr-may-2024`, `sep-2024`, `jul-2025`, `apr-2026`). The March 2023 instance predates the workbook format and the two 2024 workbooks carry zeroed scenario cells; those matrices were read from the published results PDFs and are committed with this repository, each row with its source, in `papers/tolerable-inflation-intolerable-uncertainty/inputs/nyfed_scenario_matrices_pdf_read.csv` — a transcription of published numbers, not a redistribution of a data product.
 
 ### Barro–Lee panel and the Global Macro Database
 
-The cross-country growth regressions of the second paper. The Barro–Lee panel is the long-form country–period file; the Global Macro Database extract supplies the matched macroeconomic series. Both are public research datasets with their own citation requirements — cite them where you use them.
+The cross-country growth regressions of the second paper. The Barro–Lee data set (the 1994 distribution, one row per country and year with the five-year block variables replicated down the rows, the `SHCODE` country code, and the ISO3 crosswalk either in the file or in `barlee_selected_x_gmd_1960_1990.csv` beside it) supplies Barro's regressors; the [Global Macro Database](https://www.globalmacrodata.com/) (Müller et al., 2025; only `ISO3`, `year` and `infl` are read) supplies the inflation moments. Both are public research datasets with their own citation requirements — cite them where you use them. The script writes the panel it builds to `derived/crosscountry_panel.csv` and reads it back when the Barro–Lee source is absent.
 
 ## Vintages and comparability
 

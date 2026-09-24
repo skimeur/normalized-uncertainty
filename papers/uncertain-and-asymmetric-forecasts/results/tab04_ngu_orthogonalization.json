@@ -1,0 +1,13 @@
+{
+ "corr_nu_fitted_ngu_full_sample": 0.6578939704009017,
+ "corr_nu_unit_ngu_full_sample": 0.7737605014190795,
+ "corr_purged_series_two_nu_readings": 0.9876737777154755,
+ "epu_correlation_ngu": 0.724802639885069,
+ "epu_correlation_raw_growth_sd": 0.6008690466931975,
+ "forecasters": 107,
+ "matched_forecaster_rounds": 4350,
+ "matched_through_2026Q2": 4327,
+ "own_slope": 86,
+ "span": "1999Q1--2026Q3",
+ "within_slope": 21
+}

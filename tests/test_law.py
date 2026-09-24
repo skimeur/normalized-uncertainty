@@ -20,9 +20,8 @@ def _draw(n=400, a=0.42, b_minus=0.0, b_plus=1.88, sd=0.10, seed=20260918):
 
 def test_design_is_flat_below_and_rising_above_the_kink():
     X = law.arms_design([-1.0, 0.0, 2.0])
-    assert X[:, 0].tolist() == [1.0, 1.0, 1.0]
-    assert X[:, 1].tolist() == [1.0, 0.0, 0.0]
-    assert X[:, 2].tolist() == [0.0, 0.0, 2.0]
+    assert X[:, 0].tolist() == [1.0, 0.0, 0.0]
+    assert X[:, 1].tolist() == [0.0, 0.0, 2.0]
 
 
 def test_the_arms_are_recovered():
@@ -62,33 +61,74 @@ def test_too_few_observations_is_an_error():
 
 def test_the_kink_profile_finds_the_break():
     rng = np.random.default_rng(7)
-    d = rng.uniform(-1.5, 2.0, 600)
-    true_kink = 0.5
-    y = 0.4 + 1.9 * np.clip(d - true_kink, 0, None) + rng.normal(0, 0.05, 600)
-    profile = law.kink_profile(y, d, grid=np.arange(-0.5, 1.51, 0.1))
-    best = profile.loc[profile["rss"].idxmin(), "kink"]
-    assert abs(best - true_kink) <= 0.15
+    level = rng.uniform(0.5, 4.0, 600)
+    true_kink = 2.5
+    y = 0.4 + 1.9 * np.clip(level - true_kink, 0, None) + rng.normal(0, 0.05, 600)
+    profile = law.kink_profile(y, level, grid=np.arange(1.5, 3.51, 0.1))
+    assert abs(profile["c_hat"] - true_kink) <= 0.15
+    lo, hi = profile["set95"]
+    assert lo <= profile["c_hat"] <= hi
+    assert profile["rss_min"] <= profile["rss_target"]
 
 
-def test_within_and_between_split_the_individual_law():
-    rng = np.random.default_rng(11)
+def test_the_kink_bootstrap_brackets_the_estimate():
+    rng = np.random.default_rng(8)
+    level = rng.uniform(0.5, 4.0, 200)
+    y = 0.4 + 1.9 * np.clip(level - 2.5, 0, None) + rng.normal(0, 0.05, 200)
+    grid = np.arange(1.5, 3.51, 0.1)
+    boot = law.kink_bootstrap(y, level, grid, draws=50, seed=1)
+    lo, hi = boot["interval90"]
+    assert lo <= boot["median"] <= hi
+    assert boot["draws"].shape == (50,)
+
+
+def _panel(seed=11):
+    rng = np.random.default_rng(seed)
     rows = []
-    for i in range(30):
-        level = rng.normal(0.0, 0.25)
-        for _ in range(25):
-            d = rng.uniform(-1.0, 1.5)
-            rows.append(
-                {
-                    "forecaster": f"f{i:02d}",
-                    "gap": d,
-                    "variance": 0.4 + level + 0.9 * max(d, 0.0) + rng.normal(0, 0.05),
-                }
-            )
-    panel = pd.DataFrame(rows)
-    parts = law.within_between(panel, value="variance", gap="gap")
-    assert set(parts) == {"pooled", "within", "between"}
-    # The mechanism is within: the same forecaster widens as the overshoot grows.
-    assert math.isclose(parts["within"].b_plus, 0.9, abs_tol=0.06)
-    assert math.isclose(parts["within"].b_minus, 0.0, abs_tol=0.06)
-    # Forecaster averages carry the level differences, not the slope.
-    assert parts["between"].n == 30
+    dates = pd.date_range("2000-03-01", periods=40, freq="QS")
+    for date in dates:
+        mu = 2.0 + rng.normal(0.0, 0.6)
+        for i in range(30):
+            m = mu + rng.normal(0.0, 0.15)
+            v = 0.4 + 0.9 * max(m - 2.0, 0.0) + abs(rng.normal(0, 0.03))
+            rows.append({"Date": date, "FCT_SOURCE": i, "Mean_spd": m, "Variance_spd": v})
+    return pd.DataFrame(rows)
+
+
+def test_round_aggregates_carry_the_three_objects():
+    A = law.round_aggregates(_panel())
+    assert list(A.index) == sorted(A.index)
+    assert np.allclose(A["T"], A["W"] + A["D"])
+    assert (A["n"] == 30).all()
+    assert A["Q"].iloc[0] == pd.Period("2000Q2")
+
+
+def test_the_estimation_sample_applies_the_round_rule_and_the_cutoff():
+    A = law.round_aggregates(_panel())
+    A.loc[A.index[3], "mu"] = 6.0
+    S = law.estimation_sample(A, max_date=None)
+    assert len(S) == len(A) - 1
+    S2 = law.estimation_sample(A, max_date=A.index[10])
+    assert len(S2) == 9
+
+
+def test_the_law_by_object_recovers_the_arms():
+    A = law.round_aggregates(_panel())
+    fits = law.law_by_object(law.estimation_sample(A, max_date=None))
+    assert set(fits) == {"W", "D", "T"}
+    assert math.isclose(fits["W"].b_plus, 0.9, abs_tol=0.1)
+    assert math.isclose(fits["W"].b_minus, 0.0, abs_tol=0.1)
+
+
+def test_the_pooled_individual_fit_uses_white_errors():
+    fit = law.pooled_individual(_panel(), max_date=None)
+    assert fit.hac_lags == 0
+    assert math.isclose(fit.b_plus, 0.9, abs_tol=0.05)
+
+
+def test_the_split_test_reports_both_sides():
+    A = law.round_aggregates(_panel())
+    S = law.estimation_sample(A, max_date=None)
+    out = law.split_test(S, "W", S.index[20])
+    assert out["pre"].n + out["post"].n == len(S)
+    assert 0.0 <= out["p_joint"] <= 1.0

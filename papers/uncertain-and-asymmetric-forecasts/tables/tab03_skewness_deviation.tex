@@ -1,0 +1,26 @@
+\begin{table}[tbp]\centering
+\caption{Asymmetry against the signed distance from target}\label{tab:skew_dev_regs}
+\begin{tabular}{lcccc}
+\toprule
+ & (1) & (2) & (3) & (4) \\
+\midrule
+$\mu_{i,t}-\mu^{*}$ & $0.0128$ & $0.0147$ & $0.0126$ & $0.0103$ \\
+                    & $(0.0018)$ & $(0.0035)$ & $(0.0028)$ & $(0.0045)$ \\
+$t$                 & $7.01$ & $4.24$ & $4.43$ & $2.31$ \\
+\midrule
+Observations        & $4{,}624$ & $4{,}624$ & $4{,}549$ & $4{,}549$ \\
+$R^2$               & $0.011$ & $0.056$ & $0.006$ & $0.053$ \\
+Survey-round effects & No & Yes & No & Yes \\
+Trimmed $|d_{i,t}|\leq 2$ & No & No & Yes & Yes \\
+\bottomrule
+\end{tabular}
+\vspace{0.3em}
+\parbox{0.95\linewidth}{\footnotesize \textit{Notes:} ordinary least squares of individual
+Bowley skewness on the signed deviation of that forecaster's density mean from the $2\,\%$
+target, ECB-SPF one-year-ahead inflation densities, 1999Q1 to the latest round. Standard
+errors clustered by survey round in parentheses. Columns (2) and (4) add a full set of
+survey-round dummies, so the slope is identified from disagreement within a round. A positive
+and significant coefficient says that asymmetry is coherent on average, $c>0$ in the notation
+of Section~\ref{sec:distance_asymmetry}. The small $R^2$ is the noise the index of
+Section~\ref{sec:AC_measure} is built to handle. Script: \texttt{tab03\_skewness\_deviation.py}.}
+\end{table}

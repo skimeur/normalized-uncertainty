@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 from datetime import date
 
-from nu_measures import calendar as cal
+from nu_measures import conventions as cal
 
 
 def test_the_top_bin_point_is_the_midpoint_of_its_interval():
@@ -42,7 +42,8 @@ def test_the_fitted_calibration_is_the_ratio_of_the_individual_law():
     # average individual variance's, not the round-mean total's.
     ratio = cal.CERTIFIED["W_b_plus"] / cal.CERTIFIED["W_a"]
     assert math.isclose(ratio, cal.CERTIFIED["W_r_plus"], abs_tol=0.01)
-    assert math.isclose(cal.NU_R_FITTED, cal.CERTIFIED["W_r_plus"])
+    assert math.isclose(cal.NU_R_FITTED, cal.CERTIFIED["W_r_plus"], abs_tol=0.005)
+    assert math.isclose(cal.NU_R_FITTED, cal.CERTIFIED["W_r_plus_exact"])
 
 
 def test_the_total_law_keeps_its_own_ratio():

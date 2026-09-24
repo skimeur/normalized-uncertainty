@@ -1,0 +1,45 @@
+\begin{table}[!htbp]\centering
+\caption{The arms specification, source by source}
+\label{tab:armsbysource}
+\begin{tabular}{lrrrrr}
+\toprule
+ & $n$ & $a$ & $b_-$ & $b_+$ & $R^2$ \\
+\midrule
+ECB SPF, average individual variance $W_t$ & $109$ & $0.383$ & $+0.004$ & $+0.855$ & $0.705$ \\
+                              &         &         & $(0.05)$ & $(12.22)$ &        \\
+ECB SPF, disagreement $D_t$   & $109$   & $0.038$ & $+0.113$ & $+1.028$ & $0.719$ \\
+                              &         &         & $(2.36)$ & $(8.93)$ &        \\
+ECB SPF, total mixture variance $T_t$ & $109$ & $0.420$ & $+0.117$ & $+1.882$ & $0.789$ \\
+                              &         &         & $(1.01)$ & $(13.69)$ &        \\
+Inflation swaps, 2y, 63d RV   & $5{,}421$ & $0.451$ & $-0.078$ & $+1.606$ & $0.496$ \\
+                              &         &         & --- & --- &        \\
+\quad non-overlapping windows & $87$ & $0.395$ & $-0.015$ & $+1.664$ & $0.461$ \\
+                              &         &         & $(-0.1)$ & $(6.4)$ &        \\
+Inflation options, adjusted   & $3{,}941$ & $0.380$ & $-0.089$ & $+0.680$ & $0.359$ \\
+                              &         &         & $(-0.78)$ & $(7.85)$ &         \\
+US SPF, core CPI, individual  & $1{,}783$ & $0.314$ & $+0.046$ & $+0.063$ & $0.005$ \\
+                              &         &         & $(0.59)$ & $(2.67)$ &          \\
+\bottomrule
+\end{tabular}
+\vspace{0.3em}
+\parbox{\linewidth}{\footnotesize \textit{Notes:} $t$-statistics in parentheses.
+Each row fits $V=a+b_-(-d)_++b_+(d)_+$ on that source's own distance measure; the survey
+rows use the forecast gap, the market rows the level gap. Inference is each source's own:
+the survey rows HAC(4); the daily swap row reports no $t$-statistics: because its sixty-three-day windows
+overlap, daily HAC inference overstates precision (it returns $t\approx25$); the honest
+inference uses the $87$ non-overlapping windows of the row beneath it, where the same arms
+are $+1.664$ with $t=6.4$ (block-bootstrap $95\%$ interval $[1.24,\,2.26]$) and $-0.015$
+with $t=-0.1$; the options row on the premium-adjusted daily series; the US row clustered by round. \emph{Slopes are
+not comparable across rows}---the variances are in different units; only the shape is. The
+three ECB rows are the objects of Section~\ref{sec:fitlaw}: the law is estimated on the average
+individual variance; the total is what aggregate data deliver and is the object of the US
+announcement regressions, the market rows and every macro application; disagreement is the
+complement. The ratio $b_+/a$ that normalizes the corrected series where it is estimated is that of the average individual variance, $0.855/0.383=2.23$. The level of the survey arms depends on where the mass in the open top bin is
+placed; the bracket is in \citet{vansteenberghe2026uncertain}. The
+US SPF row is the individual-level fit after January 2012; the aggregate US fit is
+symmetric because disagreement, which is symmetric there, dominates it
+(Section~\ref{sec:law}). The options row is the premium-adjusted series; the same days
+fitted on raw implied variance return inverted arms, the case for the adjustment
+(Section~\ref{sec:law}). Script: \texttt{tab01\_arms\_by\_source.py}, which estimates the
+survey rows; the swap and option rows rest on licensed data and are carried as printed.}
+\end{table}

@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the paper whose result you use, and — if you use the code itself — this repository."
 title: "Normalized Uncertainty: measures of uncertainty and directional risk from survey density forecasts"
-abstract: "Implementation of Normalized Uncertainty (NU), Normalized Growth Uncertainty (NGU) and Asymmetry Coherence (AC), measures that remove from survey forecast dispersion the part explained by the distance of expected inflation from the announced target, together with the scripts reproducing the public-data exhibits of the papers 'Uncertain and Asymmetric Forecasts' and 'Tolerable Inflation, Intolerable Uncertainty'."
+abstract: "Implementation of Normalized Uncertainty (NU, at the calibration a = b = 1 that needs no estimate), Normalized Growth Uncertainty (NGU) and Asymmetry Coherence (AC), measures that remove from survey forecast dispersion the part explained by the distance of expected inflation from the announced target and read directional risk where the asymmetry of a density is coherent with its central forecast, together with the scripts reproducing the public-data exhibits of the working papers 'Uncertain and Asymmetric Forecasts' and 'Tolerable Inflation, Intolerable Uncertainty' (Eric Vansteenberghe, Banque de France)."
 type: software
 authors:
   - family-names: Vansteenberghe
@@ -20,31 +20,29 @@ keywords:
   - normalized uncertainty
   - asymmetry
 preferred-citation:
-  type: article
-  title: "Uncertain and Asymmetric Forecasts"
+  type: unpublished
+  title: "Tolerable Inflation, Intolerable Uncertainty"
   authors:
     - family-names: Vansteenberghe
       given-names: Eric
       affiliation: "Banque de France; Université Paris 1 Panthéon-Sorbonne"
       orcid: "https://orcid.org/0009-0004-4566-4043"
   year: 2026
-  notes: "arXiv:2411.05938"
-  url: "https://arxiv.org/abs/2411.05938"
+  notes: "Working paper, Banque de France (BibTeX key vansteenberghe2026tolerable)"
 references:
-  - type: article
+  - type: unpublished
     title: "Uncertain and Asymmetric Forecasts"
     authors:
       - family-names: Vansteenberghe
         given-names: Eric
         orcid: "https://orcid.org/0009-0004-4566-4043"
-    year: 2026
-    notes: "arXiv:2411.05938; SSRN 4995675"
+    notes: "Working paper, forthcoming (BibTeX key vansteenberghe2026uncertain); arXiv:2411.05938; SSRN 4995675"
     url: "https://arxiv.org/abs/2411.05938"
   - type: unpublished
-    title: "Tolerable Inflation, Intolerable Uncertainty: The Unidentifiable Optimum of Monetary Policy"
+    title: "Tolerable Inflation, Intolerable Uncertainty"
     authors:
       - family-names: Vansteenberghe
         given-names: Eric
         orcid: "https://orcid.org/0009-0004-4566-4043"
     year: 2026
-    notes: "Working paper"
+    notes: "Working paper, Banque de France (BibTeX key vansteenberghe2026tolerable)"

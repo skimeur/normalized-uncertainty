@@ -13,11 +13,12 @@ data/derived/
 *.pkl
 *.feather
 !papers/*/results/*.csv
+# The scenario matrices transcribed from published NY Fed PDFs travel with the second paper's package.
+!papers/*/inputs/*.csv
 
-# Generated exhibits are committed only when a release is tagged.
-papers/*/figures/*.pdf
+# Generated exhibits: the figure PDFs and the table files are committed, because they are the files the
+# manuscripts embed; the PNG previews are rebuilt by the scripts and stay local.
 papers/*/figures/*.png
-papers/*/tables/*.tex
 
 # Python
 __pycache__/

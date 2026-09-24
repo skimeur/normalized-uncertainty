@@ -1,10 +1,53 @@
 # Normalized Uncertainty
 
-Measures of uncertainty and directional risk built from survey density forecasts, and the code behind two working papers by **Eric Vansteenberghe** (Banque de France; Université Paris 1 Panthéon-Sorbonne).
+**Two measures for anyone with a survey of density forecasts and an announced target — Normalized Uncertainty (NU) and Asymmetry Coherence (AC) — and the code behind the two working papers that introduce and apply them**, by **Eric Vansteenberghe** (Banque de France; Université Paris 1 Panthéon-Sorbonne).
 
-Raw forecast dispersion is not a measure of uncertainty: a large part of it records how far expected inflation sits from the central bank's announced target. **Normalized Uncertainty (NU)** removes that predictable component; **Normalized Growth Uncertainty (NGU)** does the same for growth, where a benchmark exists but no announced target; **Asymmetry Coherence (AC)** extracts directional risk only where observed asymmetry is coherent with the central forecast. This repository holds the implementation of those measures and the scripts that produce the exhibits of the two papers below from public data.
+Raw forecast dispersion is not a measure of uncertainty. A large part of it records how far expected inflation sits from the central bank's announced target: the variance of a forecaster's density is flat while expected inflation is at or below the target and rises with the expected overshoot above it. NU removes that arithmetic; AC reads directional risk only where the asymmetry of a density is coherent with its central forecast.
 
-> **Status — private, under construction.** The measure library and the two paper packages are being built phase by phase; the reproduction gates against the authoritative survey panels run before the first release. The repository becomes public when *Tolerable Inflation, Intolerable Uncertainty* is posted. See [CHANGELOG.md](CHANGELOG.md).
+> **Status — private, under construction.** The repository becomes public when *Tolerable Inflation, Intolerable Uncertainty* is posted. Both manuscripts embed the figures and tables produced here and point to this repository as their replication code. See [CHANGELOG.md](CHANGELOG.md).
+
+---
+
+## The measures
+
+For a forecaster *i* reporting a density with mean $\mu_i$ and standard deviation $\sigma_i$ in round *t*, with the announced target $\pi^\star$ (2 per cent for the ECB):
+
+### Normalized Uncertainty, $a = b = 1$
+
+$$\mathrm{NU}_i \;=\; \frac{\sigma_i}{\sqrt{1 + (\mu_i - \pi^\star)_+}}$$
+
+Three numbers per forecaster and **no estimate**: the value of a forecaster-round is the same whatever the sample it is computed in, so the measure does not depend on the history or on the observation window. A series computed today and one computed after ten more survey rounds agree on every common round. The round's NU is the mean across forecasters.
+
+The denominator is one-sided because the target is announced: below the number there is nothing to explain away. It comes from the law of the predictive variance measured in the papers,
+
+$$V(d) \;=\; a \;+\; b_-\,(-d)_+ \;+\; b_+\,(d)_+ , \qquad d = \mu - \pi^\star,$$
+
+flat below the announced number and rising above it. The **fitted** reading, $\sigma_i/\sqrt{1 + r\,(\mu_i-\pi^\star)_+}$ with $r = b_+/a = 2.23$ estimated on the euro-area panel through 2026Q2, is the papers' own estimate and stays available as an option (`r=NU_R_FITTED`); the unit calibration is the default of every function in this library.
+
+### Asymmetry Coherence
+
+For each forecaster, the median of the density minus the target, $Q$, and the Bowley skewness of the density smoothed over two rounds, $A$, are each scaled by an interquartile range and passed through $\tanh$ so that they live in $(-1,1)$; the individual index is
+
+$$\mathrm{AC} \;=\; \frac{\tilde Q + \tilde A}{2}\cdot\frac{1 + \tilde Q \tilde A}{2} \;\in\; [-1, 1],$$
+
+and the round's AC is its mean across forecasters. The first factor is the signed directional signal; the second, the *coherence weight*, is above one half when the two components agree in sign and below it when they disagree. The interquartile ranges are the one thing to decide before using AC across vintages: computed on the sample at hand they rescale the whole history when rounds are added, so every function here takes the normalisation window as an explicit argument and reports the scales it used.
+
+### The growth analogue
+
+**Normalized Growth Uncertainty** applies the same correction to growth densities, $\mathrm{NGU}_i = \sigma^g_i / \sqrt{1 + |\mu^g_i - g^{\mathrm{pot}}_t|}$, with potential growth (a Hodrick–Prescott trend) in place of the announced target and a symmetric denominator, since a benchmark that is estimated rather than announced has no side on which a deviation must be explained.
+
+## Use them in five lines
+
+```python
+from nu_measures import io_ecb_spf, measures, asymmetry
+
+flat  = io_ecb_spf.flat_panel(io_ecb_spf.read_rounds("ecb_spf/rounds"))  # the ECB's round files
+panel = io_ecb_spf.individual_panel(flat)                                 # moments of every density
+nu    = measures.nu_series(panel)                                          # raw_sd, NU_unit, NU_fitted by round
+ac    = asymmetry.ac_series(asymmetry.ac_panel(panel))                     # components, weight, AC by round
+```
+
+On any other survey, `measures.nu(sigma, mean, target)` needs only the three numbers. [`examples/nu_and_ac_from_ecb_spf.py`](examples/nu_and_ac_from_ecb_spf.py) does the above from the round files, prints the latest rounds and draws both series; [`examples/quickstart.py`](examples/quickstart.py) runs on synthetic inputs and needs no data.
 
 ---
 
@@ -12,56 +55,46 @@ Raw forecast dispersion is not a measure of uncertainty: a large part of it reco
 
 ### Uncertain and Asymmetric Forecasts
 
-**Eric Vansteenberghe** (Banque de France; Université Paris 1 Panthéon-Sorbonne)
-arXiv: [2411.05938](https://arxiv.org/abs/2411.05938) · SSRN: [4995675](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675) · versions: v1 8 November 2024, v2 19 January 2026, v3 19 March 2026 (v4 in preparation)
-
-> Forecasts uncertainty and directional risk are commonly proxied by the second and third moments of forecast distributions. We show that these proxies can be improved by incorporating interactions with the first moment, though the mechanisms differ fundamentally across the two. Using individual density forecasts from the ECB Survey of Professional Forecasters, this paper shows that 42% of the variation in raw forecast variance is explained by the distance of expected inflation from target—a mechanical level effect—while raw asymmetry is too noisy to identify directional risk unless disciplined by the central forecast. We propose two complementary corrections grounded in micro-founded mechanisms. *Normalized Uncertainty* (NU) separates the first from the second moment by purging dispersion of its predictable component driven by the distance of forecasts from a policy anchor, thus isolating genuine belief imprecision. *Asymmetry Coherence* (AC) re-entangles the first and third moments by extracting directional risk only when observed asymmetry is coherent with the central forecast, providing an operational formalization of the balance of risks.
-
-*Keywords:* Uncertainty, Asymmetry, Balance of Risks, Predictive Distributions, Monetary Policy, Growth. *JEL:* C53, D81, D84, E31, E37, E43, E52.
-
-Package: [`papers/uncertain-and-asymmetric-forecasts/`](papers/uncertain-and-asymmetric-forecasts/) — all exhibits run on public data.
+The construction of the measures: NU, NGU and AC, the law they rest on, and the evidence that the corrected series agree better with an independent text-based index of uncertainty than the raw ones.
+arXiv: [2411.05938](https://arxiv.org/abs/2411.05938) · SSRN: [4995675](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675) — package: [`papers/uncertain-and-asymmetric-forecasts/`](papers/uncertain-and-asymmetric-forecasts/), every exhibit on public data.
 
 ```bibtex
 @unpublished{vansteenberghe2026uncertain,
   author = {Vansteenberghe, Eric},
   title  = {Uncertain and Asymmetric Forecasts},
-  note   = {arXiv:2411.05938},
-  year   = {2026},
-  url    = {https://arxiv.org/abs/2411.05938}
+  note   = {Working paper},
+  year   = {forthcoming}
 }
 ```
 
 ### Tolerable Inflation, Intolerable Uncertainty
 
-**Eric Vansteenberghe** (Banque de France; Université Paris 1 Panthéon-Sorbonne)
-Working paper, September 2026 — links added when the paper is posted.
-
-> Numerical inflation targets anchor beliefs. Across euro-area and US professional forecasts, inflation swaps and options, and realized inflation, uncertainty about inflation is compressed at the announced number and kinks exactly there. This paper identifies a cost of the same design that, to our knowledge, has not been shown before, and that appears in second moments only. Within the workhorse New Keynesian model, tolerating part of the inflation a supply shock produces is optimal, yet the optimal tolerated share is not identified: optimal look-through and an unwarranted drift of the effective target are observationally equivalent in the inflation history, so a central bank cannot demonstrate that a warranted deviation is warranted, ex post as much as in real time. Agents holding finite, heterogeneous patience then generate predictive variance that is flat below the target and rises linearly with the expected overshoot above it—an observational-equivalence bill, zero at the announced number and accumulating with the point-years inflation spends above it. The first-order benefit of the number stands; what the cost changes is how inflation uncertainty must be measured. The distance from target explains 71% of the variation in professional forecast variance, and the bill lies within that component; Normalized Uncertainty—to our knowledge the first such correction—removes it.
-
-*Keywords:* Uncertainty, Tolerance, Observational Equivalence, Identification, Monetary Policy, Inflation. *JEL:* C18, D81, E31, E52, E58.
-
-Package: [`papers/tolerable-inflation-intolerable-uncertainty/`](papers/tolerable-inflation-intolerable-uncertainty/) — public-data exhibits; the market and credit legs are described but not reproducible here (see below).
+The principal application: the law of the predictive variance around an announced target measured across sources, what a numerical target does to second moments, and what the purge changes in the transmission of uncertainty to credit and activity. Links are added when the paper is posted — package: [`papers/tolerable-inflation-intolerable-uncertainty/`](papers/tolerable-inflation-intolerable-uncertainty/), the public-data exhibits, with the market numbers carried as printed and flagged; the credit legs are described, not reproduced.
 
 ```bibtex
 @unpublished{vansteenberghe2026tolerable,
   author = {Vansteenberghe, Eric},
-  title  = {Tolerable Inflation, Intolerable Uncertainty: The Unidentifiable Optimum of Monetary Policy},
-  note   = {Working paper},
+  title  = {Tolerable Inflation, Intolerable Uncertainty},
+  note   = {Working paper, Banque de France},
   year   = {2026}
 }
 ```
+
+Cite the paper whose result you use — *Uncertain and Asymmetric Forecasts* for the construction of the measures, *Tolerable Inflation, Intolerable Uncertainty* for the law, the identification results and the purge — and, if you use the code itself, this repository ([CITATION.cff](CITATION.cff); a DOI is minted at the first public release).
 
 ---
 
 ## What is here, and what is not
 
-**Here.** `src/nu_measures/` — the shared library: moments from binned density forecasts, the NU / NGU / AC measures, the two-arm variance law with its tests, the readers for each public source, and the plotting style. `papers/<paper>/exhibits/` — one script per figure and per table, each writing its exhibit *and* a results file recording every number it prints. `docs/METHODS.md` — the constructions, the sample conventions and the traps, written to be read by someone who has never seen this project.
+**Here.** `src/nu_measures/` — the library: the readers for each public source (the ECB-SPF round files to the flat and individual panels, the Philadelphia Fed microdata, the ECB Data Portal, FRED, the EPU workbook), the moments of a binned density, NU / NGU / AC, the two-arm law with its tests, the estimators with the papers' conventions named, and the house plotting style. `papers/<paper>/exhibits/` — one script per figure and table of each paper, each writing its exhibit *and* a results file recording every number it prints. `docs/METHODS.md` — the constructions, the sample and the conventions, for someone who has not read the papers. `tests/` — unit tests on synthetic inputs, and reproduction tests that run when the data is present.
 
-**Not here: data.** No third-party file is redistributed. Every source is named in [`data/README.md`](data/README.md) with its series keys, its download page and its terms, and `make data` reports which ones are present locally. Point `NU_DATA_DIR` at the folder holding them.
+**Not here: data.** No third-party file is redistributed. Every source is named in [`data/README.md`](data/README.md) with its keys, its download page and its terms; `make data` reports which ones are present locally. Point `NU_DATA_DIR` at the folder holding them.
 
-**Not here: restricted material.** Two parts of *Tolerable Inflation, Intolerable Uncertainty* rest on data that cannot be redistributed and whose code is therefore not published: the loan-level credit application (AnaCredit, Banque de France internal) and the inflation-swap and option legs of the market evidence (licensed Bloomberg exports). Both are documented, specification and sample, in [`papers/tolerable-inflation-intolerable-uncertainty/restricted/README.md`](papers/tolerable-inflation-intolerable-uncertainty/restricted/README.md), so that a reader with the same access can rebuild them. The survey legs of the same exhibits are published and run here.
+**Not here: restricted material.** Two parts of *Tolerable Inflation, Intolerable Uncertainty* rest on data that cannot be redistributed and whose code is not published: the loan-level credit application (AnaCredit, Banque de France internal) and the inflation-swap and option legs of the market evidence (licensed Bloomberg exports). Both are documented, specification and sample, in [`papers/tolerable-inflation-intolerable-uncertainty/restricted/README.md`](papers/tolerable-inflation-intolerable-uncertainty/restricted/README.md). Where a published exhibit combines the two, the script here computes the survey part and carries the market coefficients as printed in the paper, flagged as not computed.
 
----
+## Reproduction, and what "certified" means
+
+The individual panel rebuilt from the ECB's round files is byte-identical to the authoritative panel the papers run on (4,638 forecaster-rounds, 111 rounds, 1999Q1–2026Q3); the law on it prints the papers' numbers ($a = 0.383$, $b_- = 0.004$, $b_+ = 0.855$, $R^2 = 0.71$ on the average individual variance; $0.4204$, $0.1173$, $1.8825$, $0.789$ on the total; $n = 109$); the kink profile, the bootstrap, the AC index and the agreement with the independent proxy (raw $0.746$, NU $0.848$) reproduce to their printed digits. These are the tests of `tests/test_reproduction.py`, run with the data present; `nu_measures.conventions.CERTIFIED` lists the numbers.
 
 ## Quick start
 
@@ -73,36 +106,17 @@ python3 -m pip install -e ".[dev]"
 make test          # unit tests on synthetic inputs; no data needed
 make data          # which of the sources in data/README.md are present
 export NU_DATA_DIR=/path/to/your/data
-make tolerable     # rebuild the public-data exhibits of the second paper
-make uaf           # rebuild the exhibits of the first
+python3 examples/nu_and_ac_from_ecb_spf.py     # NU (a = b = 1) and AC from the round files
+make uaf           # rebuild the exhibits of the first paper
+make tolerable     # rebuild the public-data exhibits of the second
 ```
-
-## The measures
-
-For a forecaster *i* reporting a density with standard deviation $\sigma_i$ and mean $\mu_i$ in round *t*, with the central bank's announced target $\pi^\star$ and the expected gap $d_i = \mu_i - \pi^\star$:
-
-| | definition | why |
-|---|---|---|
-| **NU** (fitted) | $\mathrm{NU}_i = \sigma_i / \sqrt{1 + r\,(d_i)_+}$ | dispersion rises with the *overshoot* only; $r = b_+/a$ is estimated from the two-arm law on the average individual variance (2.23) |
-| **NU** (unit) | $\mathrm{NU}_i = \sigma_i / \sqrt{1 + (d_i)_+}$ | the calibration-free reading; both are published on equal footing |
-| **NGU** | $\mathrm{NGU}_i = \sigma_i^g / \sqrt{1 + \lvert \mu_i^g - g^{\mathrm{pot}}_t\rvert}$ | growth has a benchmark but no announced number, so the denominator is symmetric |
-| **AC** | directional risk retained where asymmetry is coherent with the central forecast | raw asymmetry alone is too noisy to signal the balance of risks |
-
-The denominator comes from the measured law of the predictive variance on the expected gap,
-
-$$V(d) \;=\; a \;+\; b_-\,(-d)_+ \;+\; b_+\,(d)_+ ,$$
-
-flat below the announced number and rising above it. [`docs/METHODS.md`](docs/METHODS.md) gives the estimation sample, the bin conventions, the date rule and the closure of the open top bin.
-
-## How to cite
-
-Cite the paper whose result you are using — *Uncertain and Asymmetric Forecasts* for the construction of the measures, *Tolerable Inflation, Intolerable Uncertainty* for the law, the identification results and the purge — and, if you use the code itself, this repository (see [CITATION.cff](CITATION.cff); a DOI is minted at the first public release).
 
 ## Related work by the author
 
 - **Monetary Policy, Uncertainty, and Credit Supply**, arXiv [2512.12255](https://arxiv.org/abs/2512.12255), 2025.
 - **Inflation and growth: professional forecasters continue to express high levels of uncertainty**, [Banque de France Eco Notepad No. 436](https://www.banque-france.fr/en/publications-and-statistics/publications/inflation-and-growth-professional-forecasters-continue-express-high-levels-uncertainty), 27 February 2026.
-- **Seventy Years of Claimed Identification: The Phillips Curve and the Policy Rule**, working paper.
+- **Seventy Years of Identifying the Phillips Curve and the Policy Rule**, working paper.
+- **Pioneer Detection Method**, an expert-aggregation method that weights the experts others converge toward: [github.com/skimeur/pioneer-detection-method](https://github.com/skimeur/pioneer-detection-method).
 
 Full list: [Google Scholar](https://scholar.google.com/citations?user=KInXUlUAAAAJ) · [ORCID 0009-0004-4566-4043](https://orcid.org/0009-0004-4566-4043) · [Banque de France](https://www.banque-france.fr/en/eric-vansteenberghe).
 

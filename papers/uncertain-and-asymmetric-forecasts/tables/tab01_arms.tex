@@ -1,0 +1,38 @@
+\begin{table}[tbp]\centering
+\caption{The variance--distance envelope, euro-area panel}\label{tab:arms}
+\begin{tabular}{lccccc}
+\toprule
+ & $a$ & $b_-$ & $b_+$ & $R^2$ & $n$ \\
+\midrule
+\multicolumn{6}{l}{\emph{average individual variance $W_t$: the envelope the measure divides by}}\\
+two arms, all rounds & $0.390$ & $-0.007$ & $0.853$ & $0.697$ & $110$ \\
+ & ($0.064$) & ($0.098$) & ($0.072$) & & \\
+two arms, rounds before 2020 & $0.288$ & $0.127$ & $0.431$ & $0.177$ & $84$ \\
+ & ($0.033$) & ($0.049$) & ($0.140$) & & \\
+\addlinespace
+\multicolumn{6}{l}{\emph{the same rounds: disagreement, and the total}}\\
+disagreement $D_t$ & $0.036$ & $0.115$ & $1.028$ & $0.719$ & $110$ \\
+ & ($0.027$) & ($0.047$) & ($0.115$) & & \\
+total $T_t=W_t+D_t$ & $0.426$ & $0.108$ & $1.881$ & $0.788$ & $110$ \\
+ & ($0.074$) & ($0.116$) & ($0.138$) & & \\
+\bottomrule
+\end{tabular}
+\vspace{0.3em}
+\parbox{0.95\linewidth}{\footnotesize \textit{Notes:} round-level regressions of each variance on
+the signed distance of the consensus forecast (the cross-forecaster mean) from the $2\,\%$
+target, in the two-arm form of~\eqref{eq:vstruct}. $W_t$ is the round mean
+of the individual density variances, $D_t$ the cross-forecaster variance of their means.
+ECB-SPF one-year-ahead inflation densities, 1999Q1 to the latest round; rounds whose consensus
+lies outside $[-1,5]$ are excluded, which removes one round, 2022Q4 (consensus
+$5.01$). Newey--West standard errors at four lags in parentheses. Wald tests on the two-arm
+fit of $W_t$: $b_-=0$ gives $\chi^2_1=0.005$ ($p=0.94$); $b_-=b_+$ gives $\chi^2_1=91.9$
+($p<0.001$). $W_t$ is 73 per cent of $T_t$. The measure uses the ratio of the $W_t$ fit
+through 2026Q2, $b_+/a=2.23$ ($n=109$, delta-method standard error 0.49); on these $110$ rounds it
+is $2.19$. Fitted on the rounds before 2020 the same ratio is $1.50$ (0.63): over those rounds the
+consensus gap ran over $[-1.27,+0.49]$ and only 9 rounds sat above target, against
+$[-1.01,+1.76]$ from 2020Q1, so the upper arm is barely identified there. The two periods do not share
+one envelope ($\chi^2_3=380$, $p<0.001$, the shift being the intercept rather than the upper arm),
+while the difference between the two ratios alone is within one standard error of zero. A fitted ratio is
+therefore a dated object, tied to the range of distances the sample happens to contain; the calibration
+$r_+=1$ of~\eqref{eq:nu_cal} is not. Script: \texttt{tab01\_arms.py}.}
+\end{table}

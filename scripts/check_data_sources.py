@@ -39,6 +39,16 @@ SOURCES: list[tuple[str, str, str]] = [
         "the daily market figure",
     ),
     (
+        "FRED ten-year breakeven inflation rate (T10YIE)",
+        "fred/T10YIE.csv",
+        "the daily market figure's footnote check",
+    ),
+    (
+        "FRED US core CPI index (CPILFESL)",
+        "fred/CPILFESL.csv",
+        "the euro area against the United States",
+    ),
+    (
         "Economic Policy Uncertainty, country workbook",
         "epu/All_Country_Data.xlsx",
         "the independent-proxy agreement checks",
@@ -49,8 +59,8 @@ SOURCES: list[tuple[str, str, str]] = [
         "the perceived-rule band",
     ),
     (
-        "Barro-Lee cross-country panel",
-        "crosscountry/barlee*.csv",
+        "Barro-Lee data set, long form",
+        "crosscountry/barlee_long.csv",
         "the cross-country growth regressions",
     ),
     (

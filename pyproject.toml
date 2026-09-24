@@ -55,7 +55,9 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "W"]
-ignore = ["E501"]
+# E501: the line length is advisory; UP031: printf-style formatting is kept in the exhibit
+# scripts, where a LaTeX cell such as "$%+.3f$ $(%.1f)$" reads better than an f-string.
+ignore = ["E501", "UP031"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

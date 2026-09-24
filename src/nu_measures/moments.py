@@ -9,8 +9,8 @@ starts here, so the conventions matter more than the arithmetic:
   spread. One-decimal reporting makes "3.5 to 3.9" the interval [3.5, 4.0), so
   its midpoint is 3.75.
 * **Closed tails.** The open bottom bin is closed at
-  :data:`~nu_measures.calendar.LEFT_TAIL_POINT`; the open top bin at
-  :data:`~nu_measures.calendar.TOP_BIN_POINT`, the midpoint of the interval
+  :data:`~nu_measures.conventions.LEFT_TAIL_POINT`; the open top bin at
+  :data:`~nu_measures.conventions.TOP_BIN_POINT`, the midpoint of the interval
   running to the highest inflation rate the sample contains. The level of the
   upper arm of the variance law inherits this choice, which is why the papers
   report it as a bracket over closures rather than as one number.
