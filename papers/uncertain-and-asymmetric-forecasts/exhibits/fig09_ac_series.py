@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 9 of *Uncertain and Asymmetric Forecasts*: Asymmetry Coherence and the pieces it is made of.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 4.3, Figure 9
 (``fig:ac_series``) and the counts of its note.
 

@@ -3,8 +3,8 @@
 
 Paper: Vansteenberghe, E. (2026), *Tolerable Inflation, Intolerable Uncertainty*,
 working paper, Banque de France (``vansteenberghe2026tolerable``), Section 3,
-Figure 3 (``fig:benefit``), and the numbers of Appendix A.8 (the renewal
-calibration and the re-basing).
+Figure 3 (``fig:benefit``), and the numbers of Appendix A.4 (``app:clocks``:
+the renewal calibration and the re-basing).
 
 The share of ECB SPF respondents whose longer-term (four-to-five-years-ahead)
 HICP point forecast is at or above 2.2 per cent -- two tenths above the
@@ -63,7 +63,7 @@ DENOMINATOR = "reporting"
 OLD_RATES = (0.424, 5.886)  # (eta, r) of the earlier calibration the appendix compares with
 REBASING_WINDOW = (pd.Period("2021Q1", "Q"), pd.Period("2026Q3", "Q"))
 PSI = 0.9  # the pass-through at conventional calibrations (eq:passthrough): zeta = psi * Jbar
-#: Appendix A.8, the swap-window curvature check: licensed daily data, carried as printed.
+#: Appendix A.4, the swap-window curvature check: licensed daily data, carried as printed.
 SWAP_CURVATURE = {"computed": False, "n_daily": 5282, "n_nonoverlapping": 84, "s_best": 3.4, "r2_best": 0.520, "r2_linear": 0.508,
                   "r2_nonoverlapping_linear": 0.474, "r2_nonoverlapping_s3": 0.462}
 RC = {"font.family": "serif", "font.size": 9}

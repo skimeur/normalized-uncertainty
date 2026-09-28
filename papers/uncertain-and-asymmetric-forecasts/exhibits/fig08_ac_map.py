@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 8 of *Uncertain and Asymmetric Forecasts*: what the coherence weight does.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 4.2, Figure 8
 (``fig:ac_map``).
 

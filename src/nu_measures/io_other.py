@@ -1,7 +1,7 @@
 """Readers for the smaller public sources: FRED, the EPU workbook, and the files they yield.
 
 References: Vansteenberghe (2026), *Tolerable Inflation, Intolerable
-Uncertainty*, Figures 2 and 5; Vansteenberghe (forthcoming), *Uncertain and
+Uncertainty*, Figures 2 and 5; Vansteenberghe (2026), *Uncertain and
 Asymmetric Forecasts*, Figures 5 and 10.
 """
 
@@ -60,13 +60,14 @@ def epu_countries(path: str | Path, sheet: str = "EPU") -> list[str]:
     return [c for c in epu.columns if c not in ("Year", "Month")]
 
 
-def epu_basket(path: str | Path, basket=cv.EPU_BASKET, sheet: str = "EPU", strict: bool = True) -> pd.Series:
+def epu_basket(path: str | Path, basket=cv.EPU_BASKET, sheet: str = "EPU", strict: bool = True, through: str | None = None) -> pd.Series:
     """The euro-area Economic Policy Uncertainty basket, quarterly.
 
     Monthly country indices are averaged to quarters country by country, then
     across the countries of ``basket``. With ``strict`` every basket country
     must be present in the workbook (the 2026 vintage dropped Sweden, which is
     why the basket is fixed and checked rather than read off the file).
+    ``through`` -- a month such as ``"2026-06"`` -- drops the later months first.
     """
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
@@ -79,6 +80,8 @@ def epu_basket(path: str | Path, basket=cv.EPU_BASKET, sheet: str = "EPU", stric
     epu["Year"] = epu["Year"].astype(int)
     epu["Month"] = epu["Month"].astype(int)
     epu["date"] = pd.to_datetime(dict(year=epu["Year"], month=epu["Month"], day=1))
+    if through is not None:
+        epu = epu[epu["date"].dt.to_period("M") <= pd.Period(through, freq="M")]
     epu["Q"] = epu["date"].dt.to_period("Q")
     out = epu.groupby("Q")[have].mean().mean(axis=1).rename("EPU")
     out.attrs["countries"] = have

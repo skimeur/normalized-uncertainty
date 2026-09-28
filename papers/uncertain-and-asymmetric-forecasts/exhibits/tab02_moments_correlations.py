@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Table 2 of *Uncertain and Asymmetric Forecasts*: moments of the reported densities, correlations.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 4, Table 2
 (``tab:momentscorr``).
 

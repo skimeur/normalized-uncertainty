@@ -10,6 +10,8 @@ authors:
     email: eric.vansteenberghe@banque-france.fr
     orcid: "https://orcid.org/0009-0004-4566-4043"
 repository-code: "https://github.com/skimeur/normalized-uncertainty"
+version: "1.0.0"
+date-released: "2026-09-28"
 license: MIT
 keywords:
   - inflation uncertainty
@@ -28,7 +30,8 @@ preferred-citation:
       affiliation: "Banque de France; Université Paris 1 Panthéon-Sorbonne"
       orcid: "https://orcid.org/0009-0004-4566-4043"
   year: 2026
-  notes: "Working paper, Banque de France (BibTeX key vansteenberghe2026tolerable)"
+  notes: "Working paper, Banque de France; arXiv:2609.31512 (BibTeX key vansteenberghe2026tolerable)"
+  url: "https://arxiv.org/abs/2609.31512"
 references:
   - type: unpublished
     title: "Uncertain and Asymmetric Forecasts"
@@ -36,8 +39,9 @@ references:
       - family-names: Vansteenberghe
         given-names: Eric
         orcid: "https://orcid.org/0009-0004-4566-4043"
-    notes: "Working paper, forthcoming (BibTeX key vansteenberghe2026uncertain); arXiv:2411.05938; SSRN 4995675"
-    url: "https://arxiv.org/abs/2411.05938"
+    year: 2026
+    notes: "Working paper (BibTeX key vansteenberghe2026uncertain); current version SSRN 4995675, revised 24 September 2026; arXiv:2411.05938"
+    url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675"
   - type: unpublished
     title: "Tolerable Inflation, Intolerable Uncertainty"
     authors:
@@ -45,4 +49,5 @@ references:
         given-names: Eric
         orcid: "https://orcid.org/0009-0004-4566-4043"
     year: 2026
-    notes: "Working paper, Banque de France (BibTeX key vansteenberghe2026tolerable)"
+    notes: "Working paper, Banque de France; arXiv:2609.31512 (BibTeX key vansteenberghe2026tolerable)"
+    url: "https://arxiv.org/abs/2609.31512"

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Table 6 of *Uncertain and Asymmetric Forecasts*: the Monte Carlo summary, raw against corrected moments.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 7, Table 6
 (``tab:mc_simulation_summary``).
 

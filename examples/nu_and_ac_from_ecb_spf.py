@@ -19,7 +19,7 @@ pass ``--iqr-window none`` to normalise on the sample at hand instead.
 
 References
 ----------
-Vansteenberghe, E. (forthcoming). Uncertain and Asymmetric Forecasts. Working
+Vansteenberghe, E. (2026). Uncertain and Asymmetric Forecasts. Working
 paper.  (the construction of NU, NGU and AC)
 Vansteenberghe, E. (2026). Tolerable Inflation, Intolerable Uncertainty.
 Working paper, Banque de France.  (the law behind the denominator)

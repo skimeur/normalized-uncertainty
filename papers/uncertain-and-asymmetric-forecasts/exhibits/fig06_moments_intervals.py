@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 6 of *Uncertain and Asymmetric Forecasts*: the moments of the reported densities, round by round.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 4, Figure 6
 (``fig:moments``) and the counts of its note.
 

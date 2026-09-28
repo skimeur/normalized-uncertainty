@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 3 of *Uncertain and Asymmetric Forecasts*: skewness of two densities against skewness of their average.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 2, Figure 3
 (``fig:two_SPD_skewness_illustration``).
 

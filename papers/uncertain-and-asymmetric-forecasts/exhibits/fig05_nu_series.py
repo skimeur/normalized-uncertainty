@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Figure 5 of *Uncertain and Asymmetric Forecasts*: the correction in the euro-area series.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 3, Figure 5
-(``fig:nu_series``); the agreement numbers of Section 3.4.
+(``fig:nu_series``); the agreement numbers of Section 3.1.
 
 Panel (a): raw survey uncertainty (the round mean of the individual standard
 deviations) and its two corrected counterparts, NU at the fitted ratio and NU

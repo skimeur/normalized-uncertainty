@@ -17,7 +17,7 @@ ecb_spf/ECB_SPF_individual_NIU_ACI_1Y.csv     optional: the authoritative indivi
 ecb/macro_block.csv                          written by the fetcher (nu_measures.io_ecb_data_portal.macro_block)
 ecb/macro_block_unbalanced.csv               written by the fetcher (the union, ragged edge kept)
 ecb/real_gdp.csv                             written by the fetcher (real GDP, quarterly)
-ecb/hicp_index.csv                           optional: the monthly HICP index, to recompute the tail closures
+ecb/hicp_index.csv                           the monthly HICP index: optional for the law; UAF Figures 1 and 13 read realized inflation from it
 us_spf/SPFmicrodata.xlsx                      the Philadelphia Fed workbook, as distributed
 fred/T5YIE.csv, fred/T10YIE.csv               five- and ten-year breakeven inflation rates (FRED CSV downloads)
 fred/CPILFESL.csv                             US core CPI index, monthly (FRED CSV download)
@@ -78,6 +78,24 @@ The [scenario-matrix results](https://www.newyorkfed.org/markets/primarydealer_s
 ### Barro–Lee panel and the Global Macro Database
 
 The cross-country growth regressions of the second paper. The Barro–Lee data set (the 1994 distribution, one row per country and year with the five-year block variables replicated down the rows, the `SHCODE` country code, and the ISO3 crosswalk either in the file or in `barlee_selected_x_gmd_1960_1990.csv` beside it) supplies Barro's regressors; the [Global Macro Database](https://www.globalmacrodata.com/) (Müller et al., 2025; only `ISO3`, `year` and `infl` are read) supplies the inflation moments. Both are public research datasets with their own citation requirements — cite them where you use them. The script writes the panel it builds to `derived/crosscountry_panel.csv` and reads it back when the Barro–Lee source is absent.
+
+## The extent the published exhibits use
+
+The exhibits of both papers were produced from the downloads below. The loaders of `nu_measures.exhibit` stop every source at the observation in the middle column (`nu_measures.conventions.PUBLISHED_EXTENT`), so a later download — which will hold more rounds, days and months — reproduces the published numbers; pass `published=False` to a loader to read everything. What no pin can undo is a provider's revision of past values (national accounts, a re-estimated policy-uncertainty index, a rebased price index): with a later vintage those can move the last digits.
+
+| Source | Last observation the exhibits use | Download behind the published exhibits |
+|---|---|---|
+| ECB-SPF round files | round 2026Q3 (111 rounds, 1999Q1–2026Q3; estimates on the rounds through 2026Q2) | July 2026 |
+| Philadelphia Fed SPF microdata | 2026Q2 | 28 July 2026 |
+| FRED `T5YIE`, `T10YIE` | 14 August 2026 | 17 August 2026 |
+| FRED `CPILFESL` | April 2026 | 30 May 2026 |
+| EPU country workbook | June 2026 (basket: Germany, France, Italy, Spain, Greece) | 28 July 2026 |
+| ECB real GDP | 2026Q1 | 28 July 2026 |
+| ECB macro block | by column: `logS` 2026-07, `DFR` 2026-08, `UNRATE` 2026-06, `logIP` 2026-05, `HICP_YOY` 2026-07 | fetch of 28 July 2026 |
+| ECB HICP index (`ICP.M.U2.Y.000000.3.INX`) | November 2025 | 30 December 2025 (the vintage the tail closures `HICP_MIN`, `HICP_MAX` come from) |
+| NY Fed survey workbooks | the five instances listed above | as published |
+| Global Macro Database | release 2025_12 | — |
+| Barro–Lee | the 1994 distribution | — |
 
 ## Vintages and comparability
 

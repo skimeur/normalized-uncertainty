@@ -7,7 +7,7 @@ run on, with the conventions of the authoritative builder reproduced line for
 line -- the rebuilt individual panel is byte-identical to the certified one on
 every moment (``tests/test_certified_panel.py``).
 
-Reference: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric
+Reference: Vansteenberghe, E. (2026), *Uncertain and Asymmetric
 Forecasts*, working paper (``vansteenberghe2026uncertain``), Section 2, which
 documents the four conventions implemented here: renormalization within the
 grid regime, tails closed on the realized range of inflation, bin midpoints for
@@ -149,10 +149,24 @@ def longer_term_points(path: str | Path, keep_missing: bool = False) -> pd.DataF
     return out.reset_index(drop=True)
 
 
-def longer_term_panel(directory: str | Path, keep_missing: bool = False) -> pd.DataFrame:
-    """The longer-term points of every round file of ``directory``, with the survey quarter ``round``."""
+def round_files(directory: str | Path, through: str | None = None) -> list[Path]:
+    """The round files ``YYYYQn.csv`` of ``directory`` in chronological order.
+
+    ``through`` -- a round label such as ``"2026Q3"`` -- drops the files of later
+    rounds; ``None`` keeps them all.
+    """
     directory = Path(directory)
     files = sorted(p for p in directory.iterdir() if ROUND_FILE.match(p.name))
+    if through is not None:
+        last = pd.Period(through, freq="Q")
+        files = [p for p in files if pd.Period(p.stem, freq="Q") <= last]
+    return files
+
+
+def longer_term_panel(directory: str | Path, keep_missing: bool = False, through: str | None = None) -> pd.DataFrame:
+    """The longer-term points of every round file of ``directory`` (up to ``through``), with the survey quarter ``round``."""
+    directory = Path(directory)
+    files = round_files(directory, through)
     if not files:
         raise FileNotFoundError(f"no round files (YYYYQn.csv) in {directory}")
     lt = pd.concat([longer_term_points(p, keep_missing=keep_missing) for p in files], ignore_index=True)
@@ -160,10 +174,10 @@ def longer_term_panel(directory: str | Path, keep_missing: bool = False) -> pd.D
     return lt
 
 
-def read_rounds(directory: str | Path) -> pd.DataFrame:
-    """Every round file of ``directory``, in chronological order, concatenated."""
+def read_rounds(directory: str | Path, through: str | None = None) -> pd.DataFrame:
+    """Every round file of ``directory`` (up to the round ``through``), in chronological order, concatenated."""
     directory = Path(directory)
-    files = sorted(p for p in directory.iterdir() if ROUND_FILE.match(p.name))
+    files = round_files(directory, through)
     if not files:
         raise FileNotFoundError(f"no round files (YYYYQn.csv) in {directory}")
     return pd.concat([read_round(p) for p in files], ignore_index=True)
@@ -464,17 +478,18 @@ def individual_panel(
     return out
 
 
-def build_panels(rounds_dir: str | Path, out_dir: str | Path, **kwargs) -> tuple[pd.DataFrame, pd.DataFrame]:
+def build_panels(rounds_dir: str | Path, out_dir: str | Path, through: str | None = None, **kwargs) -> tuple[pd.DataFrame, pd.DataFrame]:
     """The pipeline step: rounds -> ``flat_panel.csv`` -> ``individual_panel.csv`` under ``out_dir``.
 
     The flat panel is written and read back before the individual panel is
     built, as the authoritative builder does; the round trip through the file
     is what makes the rebuilt individual panel byte-identical to the certified
-    one. Keyword arguments go to :func:`individual_panel`.
+    one. ``through`` stops at a round (see :func:`round_files`). Other keyword
+    arguments go to :func:`individual_panel`.
     """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
-    flat = flat_panel(read_rounds(rounds_dir))
+    flat = flat_panel(read_rounds(rounds_dir, through))
     flat_path = out / "flat_panel.csv"
     flat.to_csv(flat_path, index=False)
     flat = pd.read_csv(flat_path)

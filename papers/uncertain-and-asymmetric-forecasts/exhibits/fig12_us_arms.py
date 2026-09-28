@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 12 of *Uncertain and Asymmetric Forecasts*: the envelope in the US survey.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 6, Figure 12
 (``fig:us_arms``).
 

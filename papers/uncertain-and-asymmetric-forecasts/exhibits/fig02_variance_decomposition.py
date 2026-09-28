@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 2 of *Uncertain and Asymmetric Forecasts*: the variance decomposition of the averaged density.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 2, Figure 2
 (``fig:var_decomposition``).
 

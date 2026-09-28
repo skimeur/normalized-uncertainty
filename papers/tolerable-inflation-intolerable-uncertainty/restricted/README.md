@@ -22,7 +22,7 @@ Nothing on this page is needed to reproduce any other exhibit. The measures them
 
 ---
 
-## 2. Market legs of the law (Figures 1 and 4, Table 1, Appendix A.8)
+## 2. Market legs of the law (Figures 1 and 4, Table 1, Appendix A.4)
 
 **The data.** Euro inflation-linked swap quotes and the option (cap and floor) surface, exported from a commercial terminal under a licence that does not permit redistribution — neither of the raw quotes nor of series derived from them.
 

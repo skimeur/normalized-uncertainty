@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 13 of *Uncertain and Asymmetric Forecasts*: the euro area and the United States side by side.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 6, Figure 13
 (``fig:ea_us``).
 

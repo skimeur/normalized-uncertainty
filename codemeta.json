@@ -3,6 +3,8 @@
   "@type": "SoftwareSourceCode",
   "name": "Normalized Uncertainty",
   "description": "Implementation of Normalized Uncertainty (NU, at the calibration a = b = 1 that needs no estimate), Normalized Growth Uncertainty (NGU) and Asymmetry Coherence (AC) from survey density forecasts, with the scripts reproducing the public-data exhibits of the working papers 'Uncertain and Asymmetric Forecasts' and 'Tolerable Inflation, Intolerable Uncertainty' (Eric Vansteenberghe, Banque de France).",
+  "version": "1.0.0",
+  "datePublished": "2026-09-28",
   "codeRepository": "https://github.com/skimeur/normalized-uncertainty",
   "programmingLanguage": "Python",
   "runtimePlatform": "Python 3.10+",
@@ -45,7 +47,9 @@
         }
       ],
       "datePublished": "2026",
-      "description": "Working paper, Banque de France (BibTeX key vansteenberghe2026tolerable)"
+      "description": "Working paper, Banque de France (BibTeX key vansteenberghe2026tolerable)",
+      "url": "https://arxiv.org/abs/2609.31512",
+      "identifier": "arXiv:2609.31512"
     },
     {
       "@type": "ScholarlyArticle",
@@ -58,9 +62,10 @@
           "familyName": "Vansteenberghe"
         }
       ],
-      "url": "https://arxiv.org/abs/2411.05938",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675",
       "identifier": "arXiv:2411.05938",
-      "description": "Working paper, forthcoming (BibTeX key vansteenberghe2026uncertain)"
+      "description": "Working paper (BibTeX key vansteenberghe2026uncertain); current version SSRN 4995675, revised 24 September 2026",
+      "datePublished": "2026"
     }
   ]
 }

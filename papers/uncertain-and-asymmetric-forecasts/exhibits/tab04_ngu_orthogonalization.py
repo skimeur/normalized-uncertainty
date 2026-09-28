@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Table 4 of *Uncertain and Asymmetric Forecasts*: inflation and growth uncertainty.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 5, Table 4
 (``tab:ngu_orth``).
 

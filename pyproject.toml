@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nu-measures"
-version = "0.1.0.dev0"
+version = "1.0.0"
 description = "Normalized Uncertainty (NU), Normalized Growth Uncertainty (NGU) and Asymmetry Coherence (AC) from survey density forecasts"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -43,7 +43,8 @@ dev = ["pytest>=8.0", "ruff>=0.6"]
 
 [project.urls]
 Repository = "https://github.com/skimeur/normalized-uncertainty"
-"Paper: Uncertain and Asymmetric Forecasts" = "https://arxiv.org/abs/2411.05938"
+"Paper: Tolerable Inflation, Intolerable Uncertainty" = "https://arxiv.org/abs/2609.31512"
+"Paper: Uncertain and Asymmetric Forecasts" = "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675"
 "Author profile" = "https://scholar.google.com/citations?user=KInXUlUAAAAJ"
 
 [tool.setuptools.packages.find]

@@ -1,14 +1,14 @@
 # Uncertain and Asymmetric Forecasts
 
 **Eric Vansteenberghe** (Banque de France; Université Paris 1 Panthéon-Sorbonne)
-Working paper, forthcoming. Earlier versions: arXiv [2411.05938](https://arxiv.org/abs/2411.05938) · SSRN [4995675](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675) (v1 November 2024, v2 January 2026, v3 March 2026).
+Working paper, 2026. Current version: SSRN [4995675](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675) (revised 24 September 2026). Earlier versions: arXiv [2411.05938](https://arxiv.org/abs/2411.05938) (v1 November 2024, v2 January 2026, v3 March 2026).
 
 > Survey density forecasts are summarized by their second and third moments, read as uncertainty and as the balance of risks. Neither can be read on its own. In the ECB Survey of Professional Forecasters the variance of an individual inflation density rises with the distance of that forecaster's central forecast from the official target, flat below it and rising above, so that raw dispersion mixes belief imprecision with the arithmetic of the level; and a third moment computed over a handful of bins is too noisy to identify directional risk unless it is read together with the location of the density. This paper builds, from the reported bins up, two measures that repair these defects. Normalized Uncertainty divides a density's standard deviation by the one the fitted variance–distance envelope predicts at the observed distance. Asymmetry Coherence retains directional risk only where the sign of the reported asymmetry agrees with the sign of the median's deviation from the target, weighted by that agreement. Both are carried to growth densities, where the reference is estimated rather than announced; to a simulation in which the latent objects are known; and to the US Survey of Professional Forecasters.
 
 *Keywords:* Uncertainty, Asymmetry, Balance of Risks, Predictive Distributions, Survey of Professional Forecasters. *JEL:* C53, D81, D84, E31, E37.
 
 ```bibtex
-@unpublished{vansteenberghe2026uncertain, author = {Vansteenberghe, Eric}, title = {Uncertain and Asymmetric Forecasts}, note = {Working paper}, year = {forthcoming}}
+@unpublished{vansteenberghe2026uncertain, author = {Vansteenberghe, Eric}, title = {Uncertain and Asymmetric Forecasts}, note = {Working paper}, year = {2026}, eprint = {2411.05938}, archivePrefix = {arXiv}, url = {https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675}}
 ```
 
 The construction of NU is developed, and the law behind it estimated across sources, in the companion paper *Tolerable Inflation, Intolerable Uncertainty* (`vansteenberghe2026tolerable`, [package](../tolerable-inflation-intolerable-uncertainty/)); the unit calibration $a = b = 1$ this repository puts forward is the one both papers recommend.
@@ -65,4 +65,4 @@ or `make uaf` from the repository root. The first run builds the ECB-SPF panels 
 
 ## Sample
 
-One vintage for the whole paper: the ECB-SPF rounds 1999Q1–2026Q3 (110 rounds; the 2026Q3 round is the latest complete one), the round-level estimates on the rounds through 2026Q2 with the consensus inside $[-1, 5]$ per cent (109 rounds; the rule removes 2022Q4), the individual fits on every density whose mean lies in the same interval; the US microdata through 2026Q2. The date convention (formation time, survey quarter) is in [`../../docs/METHODS.md`](../../docs/METHODS.md) §3. Before the sample is extended to a newer round, the numbers of the frozen sample are reproduced exactly — a change in magnitude is carried and reported, a change in sign or in significance class stops the rebuild.
+One vintage for the whole paper: the ECB-SPF rounds 1999Q1–2026Q3 (111 rounds; the 2026Q3 round is the latest complete one), the round-level estimates on the rounds through 2026Q2 with the consensus inside $[-1, 5]$ per cent (109 rounds; the rule removes 2022Q4), the individual fits on every density whose mean lies in the same interval; the US microdata through 2026Q2. The date convention (formation time, survey quarter) is in [`../../docs/METHODS.md`](../../docs/METHODS.md) §3. Before the sample is extended to a newer round, the numbers of the frozen sample are reproduced exactly — a change in magnitude is carried and reported, a change in sign or in significance class stops the rebuild.

@@ -12,7 +12,7 @@ trend (``lambda = 1600``) of log real euro-area GDP, carried to the survey
 quarter of each round; the denominator of NGU is symmetric in the distance of
 the forecaster's mean from it (:func:`nu_measures.measures.ngu`).
 
-Reference: Vansteenberghe (forthcoming), *Uncertain and Asymmetric Forecasts*
+Reference: Vansteenberghe (2026), *Uncertain and Asymmetric Forecasts*
 (``vansteenberghe2026uncertain``), Section 5.
 """
 
@@ -25,7 +25,7 @@ import numpy as np
 import pandas as pd
 
 from . import conventions as cv
-from .io_ecb_spf import ROUND_FILE
+from .io_ecb_spf import ROUND_FILE, round_files
 from .measures import ngu as _ngu
 
 __all__ = [
@@ -105,9 +105,10 @@ def read_round_growth(path: str | Path) -> pd.DataFrame:
     return df
 
 
-def read_rounds_growth(directory: str | Path) -> pd.DataFrame:
+def read_rounds_growth(directory: str | Path, through: str | None = None) -> pd.DataFrame:
+    """The growth blocks of every round file of ``directory`` (up to the round ``through``)."""
     directory = Path(directory)
-    files = sorted(p for p in directory.iterdir() if ROUND_FILE.match(p.name))
+    files = round_files(directory, through)
     frames = [read_round_growth(p) for p in files]
     frames = [f for f in frames if not f.empty]
     if not frames:
@@ -250,7 +251,7 @@ def growth_densities(flat: pd.DataFrame, gmin: float = GDP_YOY_MIN, gmax: float 
             variances.append(np.nan)
             continue
         edges = [edge_map[b] for b in case]
-        probs = pd.to_numeric(row[case], errors="coerce").to_numpy(dtype=float)
+        probs = pd.to_numeric(row[case], errors="coerce").to_numpy(dtype=float, copy=True)  # writable under pandas 3
         probs[np.isnan(probs)] = 0
         probs[np.isposinf(probs) | np.isneginf(probs)] = 0
         mid = [(lo + hi) / 2 for (lo, hi) in edges]

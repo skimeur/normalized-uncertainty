@@ -28,7 +28,7 @@ The kink location is read, not optimised over and then tested at the winner:
 locations, and the law is estimated at the announced number.
 
 References: Vansteenberghe (2026), *Tolerable Inflation, Intolerable
-Uncertainty*, Section 3 and Table 1; Vansteenberghe (forthcoming), *Uncertain
+Uncertainty*, Section 3 and Table 1; Vansteenberghe (2026), *Uncertain
 and Asymmetric Forecasts*, Section 3 and Table 1.
 """
 

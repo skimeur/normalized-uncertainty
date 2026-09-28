@@ -48,6 +48,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from nu_measures import conventions as cv
 from nu_measures import econometrics as ec
 from nu_measures import paths
 from nu_measures.exhibit import Exhibit
@@ -209,8 +210,12 @@ def load_panel(ex: Exhibit) -> pd.DataFrame:
     folder = paths.crosscountry_dir()
     long_csv = folder / "barlee_long.csv"
     gmd = sorted(list(folder.glob("gmd*.parquet")) + list(folder.glob("gmd*.csv")))
+    # the published table uses the 2025_12 release of the Global Macro Database; prefer it when several are present
+    gmd = sorted(gmd, key=lambda f: cv.PUBLISHED_EXTENT["gmd"] not in f.name)
     derived = paths.derived_dir() / "crosscountry_panel.csv"
     if long_csv.exists() and gmd:
+        if cv.PUBLISHED_EXTENT["gmd"] not in gmd[0].name:
+            ex.say(f"note: the published table uses the {cv.PUBLISHED_EXTENT['gmd']} release of the Global Macro Database; reading {gmd[0].name}")
         d, notes = build_panel(long_csv, gmd[0])
         for n in notes:
             ex.say("  " + n)

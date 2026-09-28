@@ -24,7 +24,7 @@ Every function here therefore takes the window the IQRs are computed on as an
 explicit argument and reports the scales it used; a user who extends the panel
 and wants a comparable series freezes the window at the papers' sample.
 
-Reference: Vansteenberghe (forthcoming), *Uncertain and Asymmetric Forecasts*
+Reference: Vansteenberghe (2026), *Uncertain and Asymmetric Forecasts*
 (``vansteenberghe2026uncertain``), Section 4 (``eq:ac_normalization``,
 ``eq:ac``), which this module follows line by line.
 """

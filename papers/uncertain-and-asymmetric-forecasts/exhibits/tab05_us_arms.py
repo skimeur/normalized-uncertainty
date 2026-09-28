@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Table 5 of *Uncertain and Asymmetric Forecasts*: the envelope in the US survey, by density question.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 6, Table 5
 (``tab:us_arms``).
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 7 of *Uncertain and Asymmetric Forecasts*: coherent against incoherent asymmetry, four cases.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 4, Figure 7
 (``fig:skewed_distributions``).
 

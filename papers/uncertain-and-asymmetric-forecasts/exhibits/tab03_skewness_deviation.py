@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Table 3 of *Uncertain and Asymmetric Forecasts*: asymmetry against the signed distance from target.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 4.1, Table 3
 (``tab:skew_dev_regs``).
 

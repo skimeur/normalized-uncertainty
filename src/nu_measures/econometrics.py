@@ -11,7 +11,7 @@ coefficients and slightly different standard errors.
 
 References: Vansteenberghe (2026), *Tolerable Inflation, Intolerable
 Uncertainty* (``vansteenberghe2026tolerable``), Section 3; Vansteenberghe
-(forthcoming), *Uncertain and Asymmetric Forecasts*
+(2026), *Uncertain and Asymmetric Forecasts*
 (``vansteenberghe2026uncertain``), Section 3.
 """
 

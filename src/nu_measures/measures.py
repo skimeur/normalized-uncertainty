@@ -30,7 +30,7 @@ overshoot are treated alike.
 
 Asymmetry Coherence lives in :mod:`nu_measures.asymmetry`.
 
-References: Vansteenberghe (forthcoming), *Uncertain and Asymmetric Forecasts*
+References: Vansteenberghe (2026), *Uncertain and Asymmetric Forecasts*
 (``vansteenberghe2026uncertain``), Sections 3 and 5 -- the construction;
 Vansteenberghe (2026), *Tolerable Inflation, Intolerable Uncertainty*
 (``vansteenberghe2026tolerable``), Sections 2-3 -- the law and the purge.

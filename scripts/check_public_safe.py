@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Refuse anything that must not be published from this repository.
 
-The repository is private today and public the day the second paper is posted;
-git keeps its history across that switch, so the rule has to hold from the
-first commit rather than be applied at the end. This gate runs in continuous
+The repository was private until the second paper was posted (arXiv:2609.31512,
+September 2026) and is public since; git keeps its history across that switch,
+so the rule has held from the first commit rather than being applied at the end. This gate runs in continuous
 integration and as a test, and fails on:
 
 1. **Restricted-data code.** The loan-level credit application rests on
@@ -83,11 +83,21 @@ def tracked_files() -> list[Path]:
         ).stdout.split()
         return [ROOT / p for p in out]
     except (subprocess.CalledProcessError, FileNotFoundError):
+        # No git (a ZIP or Zenodo download): skip what .gitignore skips -- build
+        # products, virtual environments and caches -- so that `pip install -e .`
+        # (which copies the README into *.egg-info) does not trip the gate.
         return [
             p
             for p in ROOT.rglob("*")
-            if p.is_file() and ".git" not in p.parts and "__pycache__" not in p.parts
+            if p.is_file() and not any(_ignored(part) for part in p.relative_to(ROOT).parts)
         ]
+
+
+def _ignored(part: str) -> bool:
+    return part in _IGNORED_PARTS or part.endswith(".egg-info")
+
+
+_IGNORED_PARTS = {".git", "__pycache__", ".pytest_cache", ".ruff_cache", ".venv", "venv", "build", "dist", ".tox", "htmlcov"}
 
 
 def check() -> list[str]:

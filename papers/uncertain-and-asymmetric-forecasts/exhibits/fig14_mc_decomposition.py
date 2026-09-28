@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 14 of *Uncertain and Asymmetric Forecasts*: period-by-period anatomy of raw and corrected moments.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 7, Figure 14
 (``fig:mc_decomposition``).
 

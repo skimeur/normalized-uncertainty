@@ -4,7 +4,7 @@
 
 Raw forecast dispersion is not a measure of uncertainty. A large part of it records how far expected inflation sits from the central bank's announced target: the variance of a forecaster's density is flat while expected inflation is at or below the target and rises with the expected overshoot above it. NU removes that arithmetic; AC reads directional risk only where the asymmetry of a density is coherent with its central forecast.
 
-> **Status — private, under construction.** The repository becomes public when *Tolerable Inflation, Intolerable Uncertainty* is posted. Both manuscripts embed the figures and tables produced here and point to this repository as their replication code. See [CHANGELOG.md](CHANGELOG.md).
+> **Status — public, version 1.0.0.** The replication code of *Tolerable Inflation, Intolerable Uncertainty* ([arXiv:2609.31512](https://arxiv.org/abs/2609.31512), v1, September 2026) and of *Uncertain and Asymmetric Forecasts* ([SSRN 4995675](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675), revised 24 September 2026). Both papers embed the figures and tables produced here and point to this repository as their replication code. See [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -56,27 +56,33 @@ On any other survey, `measures.nu(sigma, mean, target)` needs only the three num
 ### Uncertain and Asymmetric Forecasts
 
 The construction of the measures: NU, NGU and AC, the law they rest on, and the evidence that the corrected series agree better with an independent text-based index of uncertainty than the raw ones.
-arXiv: [2411.05938](https://arxiv.org/abs/2411.05938) · SSRN: [4995675](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675) — package: [`papers/uncertain-and-asymmetric-forecasts/`](papers/uncertain-and-asymmetric-forecasts/), every exhibit on public data.
+SSRN: [4995675](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675) (current version, revised 24 September 2026) · arXiv: [2411.05938](https://arxiv.org/abs/2411.05938) — package: [`papers/uncertain-and-asymmetric-forecasts/`](papers/uncertain-and-asymmetric-forecasts/), every exhibit on public data.
 
 ```bibtex
 @unpublished{vansteenberghe2026uncertain,
-  author = {Vansteenberghe, Eric},
-  title  = {Uncertain and Asymmetric Forecasts},
-  note   = {Working paper},
-  year   = {forthcoming}
+  author        = {Vansteenberghe, Eric},
+  title         = {Uncertain and Asymmetric Forecasts},
+  note          = {Working paper},
+  year          = {2026},
+  eprint        = {2411.05938},
+  archivePrefix = {arXiv},
+  url           = {https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4995675}
 }
 ```
 
 ### Tolerable Inflation, Intolerable Uncertainty
 
-The principal application: the law of the predictive variance around an announced target measured across sources, what a numerical target does to second moments, and what the purge changes in the transmission of uncertainty to credit and activity. Links are added when the paper is posted — package: [`papers/tolerable-inflation-intolerable-uncertainty/`](papers/tolerable-inflation-intolerable-uncertainty/), the public-data exhibits, with the market numbers carried as printed and flagged; the credit legs are described, not reproduced.
+The principal application: the law of the predictive variance around an announced target measured across sources, what a numerical target does to second moments, and what the purge changes in the transmission of uncertainty to credit and activity. arXiv: [2609.31512](https://arxiv.org/abs/2609.31512) (v1, September 2026) — package: [`papers/tolerable-inflation-intolerable-uncertainty/`](papers/tolerable-inflation-intolerable-uncertainty/), the public-data exhibits, with the market numbers carried as printed and flagged; the credit legs are described, not reproduced.
 
 ```bibtex
 @unpublished{vansteenberghe2026tolerable,
-  author = {Vansteenberghe, Eric},
-  title  = {Tolerable Inflation, Intolerable Uncertainty},
-  note   = {Working paper, Banque de France},
-  year   = {2026}
+  author        = {Vansteenberghe, Eric},
+  title         = {Tolerable Inflation, Intolerable Uncertainty},
+  note          = {Working paper, Banque de France},
+  year          = {2026},
+  eprint        = {2609.31512},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2609.31512}
 }
 ```
 
@@ -94,7 +100,9 @@ Cite the paper whose result you use — *Uncertain and Asymmetric Forecasts* for
 
 ## Reproduction, and what "certified" means
 
-The individual panel rebuilt from the ECB's round files is byte-identical to the authoritative panel the papers run on (4,638 forecaster-rounds, 111 rounds, 1999Q1–2026Q3); the law on it prints the papers' numbers ($a = 0.383$, $b_- = 0.004$, $b_+ = 0.855$, $R^2 = 0.71$ on the average individual variance; $0.4204$, $0.1173$, $1.8825$, $0.789$ on the total; $n = 109$); the kink profile, the bootstrap, the AC index and the agreement with the independent proxy (raw $0.746$, NU $0.848$) reproduce to their printed digits. These are the tests of `tests/test_reproduction.py`, run with the data present; `nu_measures.conventions.CERTIFIED` lists the numbers.
+The individual panel rebuilt from the ECB's round files is byte-identical to the authoritative panel the papers run on (4,638 forecaster-rounds, 111 rounds, 1999Q1–2026Q3); the law on it prints the papers' numbers ($a = 0.383$, $b_- = 0.004$, $b_+ = 0.855$, $R^2 = 0.705$ on the average individual variance; $0.4204$, $0.1173$, $1.8825$, $0.789$ on the total; $n = 109$); the kink profile, the bootstrap, the AC index and the agreement with the independent proxy (raw $0.746$, NU $0.848$) reproduce to their printed digits. These are the tests of `tests/test_reproduction.py`, run with the data present; `nu_measures.conventions.CERTIFIED` lists the numbers.
+
+**The exhibits.** Every figure PDF in `papers/*/figures/` and every table in `papers/*/tables/` is the file the published paper embeds: *Tolerable Inflation, Intolerable Uncertainty* as posted on arXiv (2609.31512 v1), *Uncertain and Asymmetric Forecasts* in its version of 24 September 2026. Rebuilding them from the scripts reproduces them — tables byte for byte and figures pixel for pixel with the versions pinned in [`requirements-lock.txt`](requirements-lock.txt); tables and every printed number on newer versions too (checked up to Python 3.12 with pandas 3.0). The loaders of `nu_measures.exhibit` stop each source at the last observation the published exhibits use (`conventions.PUBLISHED_EXTENT`, listed in [`data/README.md`](data/README.md)), so a download made after publication still reproduces the papers, up to the revisions a provider makes to past values.
 
 ## Quick start
 
@@ -102,6 +110,7 @@ The individual panel rebuilt from the ECB's round files is byte-identical to the
 git clone https://github.com/skimeur/normalized-uncertainty.git
 cd normalized-uncertainty
 python3 -m pip install -e ".[dev]"
+# exact reproduction of the published figures: python3 -m pip install -r requirements-lock.txt
 
 make test          # unit tests on synthetic inputs; no data needed
 make data          # which of the sources in data/README.md are present

@@ -13,7 +13,7 @@ the one-year-ahead object is the next-year block. **Column 1 is the highest
 bin and the columns descend.** One-decimal reporting makes "3.5 to 3.9" the
 interval [3.5, 4.0), midpoint 3.75; each open tail takes one bin width.
 
-References: Vansteenberghe (forthcoming), *Uncertain and Asymmetric
+References: Vansteenberghe (2026), *Uncertain and Asymmetric
 Forecasts*, Section 6; Vansteenberghe (2026), *Tolerable Inflation,
 Intolerable Uncertainty*, Section 3 and Table 1.
 """

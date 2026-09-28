@@ -51,6 +51,31 @@ DATA_CUTOFF: date = date(2026, 6, 30)
 #: every estimate; it enters the published series but never the fit.
 HELD_OUT_SURVEY_ROUND: str = "2026Q3"
 
+#: The last observation of each source that the published exhibits use: the data
+#: behind *Tolerable Inflation, Intolerable Uncertainty* (arXiv:2609.31512 v1) and
+#: *Uncertain and Asymmetric Forecasts* (the version of 24 September 2026). The
+#: loaders of :mod:`nu_measures.exhibit` stop every source here by default, so that
+#: a later download reproduces the published numbers -- up to the revisions a
+#: provider makes to past values, which no pin can undo. Pass ``published=False``
+#: to a loader to read everything; the general readers (``io_*``, ``growth``) never
+#: truncate. ``data/README.md`` lists the same extents with the download dates.
+PUBLISHED_EXTENT: dict = {
+    "ecb_spf": "2026Q3",  # last round file read: 1999Q1-2026Q3, 111 rounds
+    "us_spf": "2026Q2",  # last survey quarter of the Philadelphia Fed workbook
+    "fred": {"T5YIE": "2026-08-14", "T10YIE": "2026-08-14", "CPILFESL": "2026-04-01"},
+    "epu": "2026-06",  # last month of the euro-area basket
+    "real_gdp": "2026-03-31",  # 2026Q1
+    "hicp_index": "2025-11",  # last month of the December 2025 vintage
+    "macro_block": {  # the fetch of 28 July 2026, column by column
+        "logS": "2026-07-31",
+        "DFR": "2026-08-31",
+        "UNRATE": "2026-06-30",
+        "logIP": "2026-05-31",
+        "HICP_YOY": "2026-07-31",
+    },
+    "gmd": "2025_12",  # Global Macro Database release (cross-country table, build from source)
+}
+
 # --------------------------------------------------------------------------
 # Bins and the closure of the open top bin
 # --------------------------------------------------------------------------
@@ -297,7 +322,7 @@ CERTIFIED: dict[str, float] = {
     "W_a": 0.383,
     "W_b_minus": 0.004,
     "W_b_plus": 0.855,
-    "W_r2": 0.71,
+    "W_r2": 0.705,
     "W_r_plus": 2.23,
     "W_r_plus_exact": 2.232204845699,
     "W_r_plus_se": 0.49,

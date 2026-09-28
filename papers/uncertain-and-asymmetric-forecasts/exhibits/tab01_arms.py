@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Table 1 of *Uncertain and Asymmetric Forecasts*: the variance--distance envelope, euro-area panel.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 3, Table 1
 (``tab:arms``). Also the surge-and-ratio numbers of Section 3 (the envelope
 before 2020, the split test) that the table's note prints.

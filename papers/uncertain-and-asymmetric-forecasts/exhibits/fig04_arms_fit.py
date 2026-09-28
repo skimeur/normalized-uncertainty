@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 4 of *Uncertain and Asymmetric Forecasts*: the variance--distance envelope on the euro-area panel.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 3, Figure 4
 (``fig:arms_fit``).
 

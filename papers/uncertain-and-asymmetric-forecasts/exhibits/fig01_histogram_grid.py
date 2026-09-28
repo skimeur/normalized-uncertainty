@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Figure 1 of *Uncertain and Asymmetric Forecasts*: the histogram grid, the realized series and the reported densities.
 
-Paper: Vansteenberghe, E. (forthcoming), *Uncertain and Asymmetric Forecasts*,
+Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
 working paper (``vansteenberghe2026uncertain``), Section 2, Figure 1
 (``fig:grid``) and the numbers of its note.
 
