@@ -1,0 +1,31 @@
+\begin{table}[tbp]\centering
+\caption{Division or residual: the envelope fitted additively and multiplicatively}\label{tab:residuals}
+\begin{tabular}{lcc}
+\toprule
+ & Additive & Multiplicative \\
+ & (least squares) & (Poisson pseudo-maximum likelihood) \\
+\midrule
+\multicolumn{3}{l}{\emph{Panel A. The residualising regression: $W_t$ on the two arms}}\\
+$a$ & $0.3828$ $(6.07)$ & $0.3672$ $(6.35)$ \\
+$b_-$ & $+0.0044$ $(0.05)$ & $+0.0288$ $(0.33)$ \\
+$b_+$ & $0.8546$ $(12.22)$ & $0.9347$ $(9.64)$ \\
+$r_+=b_+/a$ & $2.232$ & $2.546$ $[0.529]$ \\
+residual & $W_t-\widehat W_t$ & $\log(W_t/\widehat W_t)$ \\
+\addlinespace
+\multicolumn{3}{l}{\emph{Panel B. $\mathrm{NU}^{\mathrm{fit}}_t$ regressed on the residual}}\\
+slope & $0.544$ $(9.54)$ & $0.270$ $(28.26)$ \\
+$R^2$ & $0.811$ & $0.914$ \\
+correlation & $0.900$ & $0.956$ \\
+\bottomrule
+\end{tabular}
+\vspace{0.3em}
+\parbox{0.95\linewidth}{\footnotesize \textit{Notes:} the rounds of the fitted envelope
+($n=109$, through 2026Q2, consensus in $[-1,5]$). Panel~A fits the two-arm envelope
+\eqref{eq:vstruct} to $W_t$ by least squares (the fit of Table~\ref{tab:arms}) and, as the
+mean of a multiplicative model $W_t=V_{\mathrm{struct}}(d_t)\,e^{u_t}$, by Poisson
+pseudo-maximum likelihood with an identity link \citep{santos2006log}; the residual of each
+fit is taken with its coefficients frozen. Newey--West $t$-statistics at four lags in
+parentheses; the delta-method standard error of the multiplicative ratio in brackets.
+Panel~B regresses the fitted series~\eqref{eq:nu_fit}, round means, on each residual, with a
+constant; $t$-statistics as in Panel~A. Script: \texttt{tab01b\_residuals.py}.}
+\end{table}

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Table 3 of *Uncertain and Asymmetric Forecasts*: asymmetry against the signed distance from target.
+"""Table 4 of *Uncertain and Asymmetric Forecasts*: asymmetry against the signed distance from target.
 
 Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
-working paper (``vansteenberghe2026uncertain``), Section 4.1, Table 3
+working paper (``vansteenberghe2026uncertain``), Section 4.1, Table 4
 (``tab:skew_dev_regs``).
 
 Ordinary least squares of the individual Bowley skewness on the signed
@@ -83,7 +83,7 @@ def main() -> None:
                 .replace(f"@t{k}@", "%.2f" % c["t"]).replace(f"@n{k}@", thousands(c["n"])).replace(f"@r{k}@", "%.3f" % c["r2"]))
     ex.write_table(text)
     ex.write_results({"columns": cols, "sample": "forecaster-rounds with a mean, a positive variance and a skewness"},
-                     "Table 3 — asymmetry against the signed distance from target")
+                     "Table 4 — asymmetry against the signed distance from target")
 
 
 if __name__ == "__main__":

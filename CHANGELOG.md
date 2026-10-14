@@ -2,6 +2,15 @@
 
 This repository is built in phases; each release records the state of the two papers and the data vintage the exhibits were produced on.
 
+## Unreleased — prepared 2026-10-14 (proposed 1.1.0)
+
+### *Uncertain and Asymmetric Forecasts*: division or residual (new Table 2)
+
+- **New exhibit** `papers/uncertain-and-asymmetric-forecasts/exhibits/tab01b_residuals.py` → `tables/tab01b_residuals.tex` (`tab:residuals`, Table 2 of the manuscript) and its results file. On the 109 rounds of the fitted envelope it fits the two-arm envelope of the mean individual variance $W_t$ by least squares (the fit of Table 1: $a=0.3828$, $b_-=+0.0044$, $b_+=0.8546$, $r_+=2.232$) and, as the mean of the multiplicative model $W_t=V_{\mathrm{struct}}(d_t)e^{u_t}$, by Poisson pseudo-maximum likelihood with an identity link (Santos Silva and Tenreyro, 2006: $0.3672$, $+0.0288$, $0.9347$, $r_+=2.546$, s.e. $0.529$), Newey--West $t$ at four lags; then regresses the fitted NU series on each residual ($W_t-\widehat W_t$: slope $0.544$, $t=9.54$, $R^2=0.811$; $\log(W_t/\widehat W_t)$: $0.270$, $t=28.26$, $R^2=0.914$). The manuscript's paragraph "Division or residual." (Section 3) explains why the measure is the ratio.
+- **Library.** `nu_measures.econometrics.poisson_pml_identity`: Poisson pseudo-maximum likelihood with an identity link by iteratively reweighted least squares, with the Newey--West sandwich in the papers' convention (Bartlett weights, $n/(n-k)$); tested against statsmodels' GLM (coefficients, and the sandwich built from its scores and expected information).
+- **Numbering.** The new table is the manuscript's Table 2, so the tables of release 1.0.0 are now Tables 3–7. Their scripts keep their published file names (`tab02`…`tab06`); docstrings, results headers and the paper page's exhibit map carry the new numbers (Figure 12's consistency check now names Table 6).
+- **Manuscript.** The table file is embedded in the manuscript verbatim (`UAF_rework/paper/tab/tab01b_residuals.tex`); `santos2006log` is in its bibliography.
+
 ## 1.0.0 — 2026-09-28 — first public release
 
 ### 2026-09-28 — the pre-publication audit against the published papers (phase G6)

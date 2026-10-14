@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Table 5 of *Uncertain and Asymmetric Forecasts*: the envelope in the US survey, by density question.
+"""Table 6 of *Uncertain and Asymmetric Forecasts*: the envelope in the US survey, by density question.
 
 Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
-working paper (``vansteenberghe2026uncertain``), Section 6, Table 5
+working paper (``vansteenberghe2026uncertain``), Section 6, Table 6
 (``tab:us_arms``).
 
 Round-level two-arm fits of the total density variance on the signed distance
@@ -152,7 +152,7 @@ def main() -> None:
     if "@" in text:
         raise SystemExit("unfilled placeholder in the table")
     ex.write_table(text)
-    ex.write_results(results, "Table 5 — the envelope in the US survey, by density question")
+    ex.write_results(results, "Table 6 — the envelope in the US survey, by density question")
 
 
 if __name__ == "__main__":

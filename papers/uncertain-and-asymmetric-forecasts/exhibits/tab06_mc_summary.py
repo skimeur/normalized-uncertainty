@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Table 6 of *Uncertain and Asymmetric Forecasts*: the Monte Carlo summary, raw against corrected moments.
+"""Table 7 of *Uncertain and Asymmetric Forecasts*: the Monte Carlo summary, raw against corrected moments.
 
 Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
-working paper (``vansteenberghe2026uncertain``), Section 7, Table 6
+working paper (``vansteenberghe2026uncertain``), Section 7, Table 7
 (``tab:mc_simulation_summary``).
 
 Strategies A and B of the simulation in ``_simulation.py`` (500 replications,
@@ -81,7 +81,7 @@ def main() -> None:
                "strategy_A_means": {k: float(v.mean()) for k, v in A.items()},
                "strategy_A_medians": {k: float(np.median(v)) for k, v in A.items()},
                "strategy_B_rejection_rates_pct": {k: rejection_rate(v) for k, v in B.items()}}
-    ex.write_results(results, "Table 6 — Monte Carlo summary, raw against corrected moments")
+    ex.write_results(results, "Table 7 — Monte Carlo summary, raw against corrected moments")
 
 
 if __name__ == "__main__":

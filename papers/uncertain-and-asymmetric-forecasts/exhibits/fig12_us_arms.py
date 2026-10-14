@@ -8,7 +8,7 @@ working paper (``vansteenberghe2026uncertain``), Section 6, Figure 12
 Panel (a): the round total variance of the two grid-stable core questions of
 the Philadelphia Fed survey (core CPI, core PCE) against the signed distance
 of the round's mean forecast from 2 per cent, after the FOMC's announcement
-of a numerical target (2012Q1--), with the two-arm fits of Table 5. Panel (b):
+of a numerical target (2012Q1--), with the two-arm fits of Table 6. Panel (b):
 the round total variance of the GDP price index question from the resumption
 of the question in 1992Q1, the announcement marked by a dashed line and the
 window of the halved grid (2014Q1--) shaded.
@@ -16,7 +16,7 @@ window of the halved grid (2014Q1--) shaded.
 The question on the GDP price index was suspended after 1980Q2; of the rounds
 before the suspension only one has a mean forecast inside the [-1, 6] window
 the estimates are formed on, so the panel starts where the continuous record
-starts. The fitted arms are asserted against the published rows of Table 5
+starts. The fitted arms are asserted against the published rows of Table 6
 before anything is written, so figure and table cannot drift apart.
 
 Inputs:  ``SPFmicrodata.xlsx`` (sheets PRCCPI, PRCPCE, PRPGDP).
@@ -43,7 +43,7 @@ ANNOUNCE = pd.Timestamp("2012-01-01")
 GRID_CHANGE = pd.Timestamp("2014-01-01")
 RESUMED = pd.Timestamp("1992-01-01")
 
-#: Table 5, rows "after 2012": (n, b_-, t_-, b_+, t_+), the values the figure must reproduce.
+#: Table 6, rows "after 2012": (n, b_-, t_-, b_+, t_+), the values the figure must reproduce.
 PUBLISHED = {"PRCCPI": (58, 0.631, 7.6, 0.294, 6.7), "PRCPCE": (58, 0.316, 2.3, 0.357, 8.0)}
 CPI, PCE, RAW = "#1f4e79", "#c0504d", "0.55"
 STYLE = {
@@ -65,9 +65,9 @@ def main() -> None:
         got = (fit.n, round(fit.b_minus, 3), round(fit.t_b_minus, 1), round(fit.b_plus, 3), round(fit.t_b_plus, 1))
         ex.say(f"{sheet} after 2012: n {fit.n} b- {fit.b_minus:+.3f} ({fit.t_b_minus:.1f}) b+ {fit.b_plus:+.3f} ({fit.t_b_plus:.1f}) R2 {fit.r2:.3f}")
         if got != PUBLISHED[sheet]:
-            raise SystemExit(f"{sheet}: the figure's fit {got} differs from Table 5 {PUBLISHED[sheet]}")
+            raise SystemExit(f"{sheet}: the figure's fit {got} differs from Table 6 {PUBLISHED[sheet]}")
         results[f"{sheet}_post2012"] = fit.summary_row()
-    ex.say("check: both arms reproduce Table 5")
+    ex.say("check: both arms reproduce Table 6")
 
     Ag = io_us_spf.round_aggregates(load_us_densities("PRPGDP"))
     dropped = Ag[Ag.index < RESUMED]

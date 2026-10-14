@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Table 2 of *Uncertain and Asymmetric Forecasts*: moments of the reported densities, correlations.
+"""Table 3 of *Uncertain and Asymmetric Forecasts*: moments of the reported densities, correlations.
 
 Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
-working paper (``vansteenberghe2026uncertain``), Section 4, Table 2
+working paper (``vansteenberghe2026uncertain``), Section 4, Table 3
 (``tab:momentscorr``).
 
 Correlations of the mean, the coefficient of variation (standard deviation
@@ -71,7 +71,7 @@ def main() -> None:
     text = HEAD.replace("@nr@", str(len(rnd))) + mat(ri) + MID.replace("@ni@", str(len(sub))) + mat(ic) + TAIL
     ex.write_table(text)
     ex.write_results({"rounds": len(rnd), "forecaster_rounds": len(sub), "across_rounds": ri.round(6).to_dict(),
-                      "across_forecaster_rounds": ic.round(6).to_dict()}, "Table 2 — moments of the reported densities: correlations")
+                      "across_forecaster_rounds": ic.round(6).to_dict()}, "Table 3 — moments of the reported densities: correlations")
 
 
 if __name__ == "__main__":

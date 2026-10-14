@@ -76,3 +76,22 @@ def test_named_results_serialise():
     res = ec.hac_ols(y, x, names=("x1", "x2"))
     d = res.as_dict()
     assert set(d) >= {"const", "x1", "x2", "se_x1", "t_x2", "r2", "n"}
+
+
+@pytest.mark.filterwarnings("ignore:The Identity link function does not respect the domain")
+def test_poisson_pml_identity_matches_statsmodels_glm():
+    rng = np.random.default_rng(11)
+    n = 150
+    x = np.column_stack([np.maximum(rng.normal(size=n), 0), np.maximum(rng.normal(size=n), 0)])
+    mean = 0.4 * (1 + 0.2 * x[:, 0] + 2.0 * x[:, 1])
+    y = mean * np.exp(rng.normal(scale=0.3, size=n) - 0.045)
+    ours = ec.poisson_pml_identity(y, x, lags=0)
+    glm = sm.GLM(y, sm.add_constant(x), family=sm.families.Poisson(link=sm.families.links.Identity())).fit(
+        start_params=np.linalg.lstsq(sm.add_constant(x), y, rcond=None)[0], cov_type="HC0")
+    assert np.allclose(ours.params, glm.params, atol=1e-8)
+    # the sandwich with lags = 0, from statsmodels' scores and expected information, times n / (n - k)
+    H = -glm.model.hessian(glm.params, observed=False)
+    G = glm.model.score_obs(glm.params)
+    Hi = np.linalg.inv(H)
+    se = np.sqrt(np.diag(Hi @ G.T @ G @ Hi) * n / (n - 3))
+    assert np.allclose(ours.se, se, rtol=1e-6)

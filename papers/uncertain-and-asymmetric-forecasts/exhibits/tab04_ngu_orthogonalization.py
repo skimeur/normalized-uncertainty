@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Table 4 of *Uncertain and Asymmetric Forecasts*: inflation and growth uncertainty.
+"""Table 5 of *Uncertain and Asymmetric Forecasts*: inflation and growth uncertainty.
 
 Paper: Vansteenberghe, E. (2026), *Uncertain and Asymmetric Forecasts*,
-working paper (``vansteenberghe2026uncertain``), Section 5, Table 4
+working paper (``vansteenberghe2026uncertain``), Section 5, Table 5
 (``tab:ngu_orth``).
 
 The matched inflation--growth panel (forecaster-rounds reporting both
@@ -92,7 +92,7 @@ def main() -> None:
                       "own_slope": own, "within_slope": within, "corr_nu_fitted_ngu_full_sample": corr_full,
                       "corr_nu_unit_ngu_full_sample": corr_unit, "span": span, "epu_correlation_raw_growth_sd": e_raw,
                       "epu_correlation_ngu": e_ngu, "corr_purged_series_two_nu_readings": c_orth},
-                     "Table 4 — inflation and growth uncertainty")
+                     "Table 5 — inflation and growth uncertainty")
 
 
 if __name__ == "__main__":

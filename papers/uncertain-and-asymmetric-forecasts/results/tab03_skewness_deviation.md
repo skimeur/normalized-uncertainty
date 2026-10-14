@@ -1,4 +1,4 @@
-# Table 3 — asymmetry against the signed distance from target
+# Table 4 — asymmetry against the signed distance from target
 
 (1) slope 0.0128 (0.0018) t 7.01 R2 0.0115 n 4624
 (2) slope 0.0147 (0.0035) t 4.24 R2 0.0558 n 4624

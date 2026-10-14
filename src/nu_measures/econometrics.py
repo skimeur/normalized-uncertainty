@@ -22,7 +22,7 @@ from dataclasses import dataclass, field
 import numpy as np
 from scipy import stats
 
-__all__ = ["OLSResult", "hac_ols", "ols", "wald", "chi2_p", "cluster_ols", "wild_cluster_p", "add_constant"]
+__all__ = ["OLSResult", "hac_ols", "ols", "poisson_pml_identity", "wald", "chi2_p", "cluster_ols", "wild_cluster_p", "add_constant"]
 
 HAC_LAGS = 4
 
@@ -101,6 +101,58 @@ def hac_ols(y, X, lags: int = HAC_LAGS, constant: bool = True, names: tuple[str,
     if constant and names and len(names) == k - 1:
         names = ("const",) + tuple(names)
     return OLSResult(params=b, se=se, cov=V, r2=r2, n=n, k=k, resid=u, fitted=Xf @ b, names=tuple(names))
+
+
+def poisson_pml_identity(y, X, lags: int = HAC_LAGS, constant: bool = True, names: tuple[str, ...] = (),
+                         tol: float = 1e-13, max_iter: int = 500) -> OLSResult:
+    """Poisson pseudo-maximum likelihood with an identity link, Newey--West sandwich.
+
+    The estimator of Santos Silva and Tenreyro (2006, *The Log of Gravity*) for a
+    mean ``E[y | X] = X b`` when ``y = (X b) exp(u)``: consistent for ``b``
+    whatever the dispersion of ``u``, because only the mean is modelled. With the
+    two-arm design of :func:`nu_measures.law.arms_design` it fits the envelope as
+    the mean of a multiplicative model, ``W = a (1 + r_- (-d)_+ + r_+ (d)_+) e^u``,
+    the reading under which the division of Normalized Uncertainty is exact.
+
+    Fitted by iteratively reweighted least squares (weights ``1 / X b``); the
+    fitted mean must stay positive. The covariance is the sandwich
+    ``H^{-1} S H^{-1}`` with ``H = X' diag(1 / m) X`` and ``S`` the Bartlett
+    long-run variance of the scores ``x (y - m) / m`` at ``lags`` lags, times
+    ``n / (n - k)`` -- the convention of :func:`hac_ols`. ``r2`` is the squared
+    correlation of ``y`` with the fitted mean; ``resid`` is ``y - m``.
+    Used in *Uncertain and Asymmetric Forecasts* (``vansteenberghe2026uncertain``),
+    Section 3, Table 2.
+    """
+    y, X = _clean(y, X)
+    Xf = add_constant(X) if constant else X
+    n, k = Xf.shape
+    if n <= k:
+        raise ValueError("not enough observations")
+    b = np.linalg.lstsq(Xf, y, rcond=None)[0]
+    for _ in range(max_iter):
+        m = Xf @ b
+        if np.any(m <= 0):
+            raise ValueError("the fitted mean left the positive half-line; the identity-link model does not fit")
+        w = 1.0 / m
+        b_new = np.linalg.solve(Xf.T @ (Xf * w[:, None]), Xf.T @ (w * y))
+        if np.max(np.abs(b_new - b)) < tol:
+            b = b_new
+            break
+        b = b_new
+    else:
+        raise RuntimeError("Poisson pseudo-likelihood did not converge")
+    m = Xf @ b
+    Hi = np.linalg.inv(Xf.T @ (Xf / m[:, None]))
+    G = Xf * ((y - m) / m)[:, None]
+    S = G.T @ G
+    for lag in range(1, lags + 1):
+        C = G[lag:].T @ G[:-lag]
+        S += (1.0 - lag / (lags + 1.0)) * (C + C.T)
+    V = Hi @ S @ Hi * (n / (n - k))
+    if constant and names and len(names) == k - 1:
+        names = ("const",) + tuple(names)
+    return OLSResult(params=b, se=np.sqrt(np.diag(V)), cov=V, r2=float(np.corrcoef(y, m)[0, 1] ** 2), n=n, k=k,
+                     resid=y - m, fitted=m, names=tuple(names))
 
 
 def ols(y, X, constant: bool = True, names: tuple[str, ...] = ()) -> OLSResult:

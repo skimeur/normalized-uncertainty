@@ -1,4 +1,4 @@
-# Table 5 — the envelope in the US survey, by density question
+# Table 6 — the envelope in the US survey, by density question
 
 PRCPCE all: n 78 R2 sym 0.489 arms 0.493 b- +0.414 (7.3) b+ +0.364 (7.7)
 PRCPCE pre: n 20 R2 sym 0.583 arms 0.672 b- +0.348 (3.0) b+ -0.168 (-0.7)
