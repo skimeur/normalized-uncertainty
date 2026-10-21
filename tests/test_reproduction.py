@@ -107,3 +107,16 @@ def test_the_us_panel_rebuilds_the_archive_when_present():
     assert (p["grid"] == "post2014").sum() > 0
     core = io_us_spf.densities(wb, "PRCCPI")
     assert core["Date"].min() == np.datetime64("2007-01-01")
+
+
+def test_the_three_horizons_on_the_published_rounds(panel):
+    from nu_measures import series
+
+    S = series.ecb_spf_series(paths.ecb_spf_rounds(), through=cv.PUBLISHED_EXTENT["ecb_spf"])
+    one = S.xs("1Y", level="horizon")
+    assert np.allclose(one["NU"].to_numpy(), measures.nu_series(panel).set_index("Q")["NU_unit"].to_numpy())
+    assert np.allclose(one["AC"].to_numpy(), asymmetry.ac_series(asymmetry.ac_panel(panel))["AC"].to_numpy())
+    two, five = S.xs("2Y", level="horizon"), S.xs("5Y", level="horizon")
+    assert len(two) == len(five) == 111 and (two["n"] > 0).all()
+    assert [str(r) for r in five.index[five["n"] == 0]] == ["1999Q2", "1999Q3", "1999Q4", "2000Q2", "2000Q3", "2000Q4"]
+    assert int(two["n"].sum()) == 4163 and int(five["n"].sum()) == 4035

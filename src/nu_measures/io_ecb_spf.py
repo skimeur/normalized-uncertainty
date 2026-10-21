@@ -15,7 +15,8 @@ the moments, linear interpolation for the quartiles.
 
 Pipeline
 --------
-``read_rounds(directory)``      one-year-ahead inflation block of every round
+``read_rounds(directory)``      one horizon of the inflation block of every round
+                                (``horizon="1Y"``, ``"2Y"`` or ``"5Y"``)
 ``flat_panel(rounds)``          one row per forecaster and round, probabilities in per cent
 ``individual_panel(flat)``      moments, quartiles, Bowley skewness, the unit
                                 symmetric NIU, the individual AC (``ACI``)
@@ -29,6 +30,13 @@ carries that **target period** as ``Date``; the individual panel shifts it back
 one year to the **formation time**, so that its ``Date`` is the first month of
 the quarter preceding the round -- the 2022Q4 round has ``Date`` 2022-09-01 --
 and the survey quarter is ``Date`` plus one month.
+
+The two-year and five-year densities (``horizon="2Y"`` or ``"5Y"``) go through
+the same steps with the same conventions. Their flat panel carries as ``Date``
+the round's *one-year-ahead* target period -- a key of the round, not their own
+target -- so that the individual panels of the three horizons share the
+formation ``Date`` and the grid regime is decided by the round; the horizon's
+own target is ``TARGET_PERIOD`` in the output of :func:`read_round`.
 """
 
 from __future__ import annotations
@@ -73,26 +81,36 @@ INDIVIDUAL_PANEL_COLUMNS: tuple[str, ...] = (
 _MONTH = {1: (0, "Dec", 12), 2: (1, "Mar", 3), 3: (1, "Jun", 6), 4: (1, "Sep", 9)}
 
 
-def target_period(year: int, quarter: int) -> tuple[str, pd.Timestamp]:
-    """The one-year-ahead target period of a round, as label and date.
+def target_period(year: int, quarter: int, horizon: str = "1Y") -> tuple[str, pd.Timestamp]:
+    """The target period of a round at one horizon, as label and date.
 
     Forecasters answering in the first quarter know December's realized
     inflation and are asked about the next December; in the second quarter,
-    March's and the following March; and so on.
+    March's and the following March; and so on. The two-year-ahead target is
+    the same month one year later. The longer-term (``"5Y"``) target is a
+    calendar year -- the survey year plus four in Q1-Q2 rounds, plus five in
+    Q3-Q4 rounds -- dated by its December.
     """
     if quarter not in _MONTH:
         raise ValueError("quarter must be 1, 2, 3 or 4")
+    if horizon not in cv.HORIZONS:
+        raise ValueError(f"horizon must be one of {cv.HORIZONS}")
+    if horizon == "5Y":
+        target_year = year + (4 if quarter <= 2 else 5)
+        return str(target_year), pd.Timestamp(year=target_year, month=12, day=1)
     add, name, month = _MONTH[quarter]
+    add += 1 if horizon == "2Y" else 0
     return f"{year + add}{name}", pd.Timestamp(year=year + add, month=month, day=1)
 
 
-def read_round(path: str | Path) -> pd.DataFrame:
-    """The one-year-ahead HICP inflation block of one round file.
+def read_round(path: str | Path, horizon: str = "1Y") -> pd.DataFrame:
+    """One horizon of the HICP inflation block of one round file.
 
     The file starts with the inflation block; the first row with no value at
     all separates it from the next variable. Everything but ``TARGET_PERIOD``
-    is read as a number, and only the rows of the one-year-ahead target period
-    are kept. Adds ``Year``, ``Q`` and ``Date`` (the target period).
+    is read as a number, and only the rows of the horizon's target period
+    (:func:`target_period`) are kept. Adds ``Year``, ``Q`` and ``Date``: the
+    one-year-ahead target period, whatever the horizon (see the module notes).
     """
     path = Path(path)
     m = ROUND_FILE.match(path.name)
@@ -107,8 +125,9 @@ def read_round(path: str | Path) -> pd.DataFrame:
     for col in df.columns:
         if col != "TARGET_PERIOD":
             df[col] = pd.to_numeric(df[col], errors="coerce")
-    label, date = target_period(year, quarter)
-    df = df.loc[df["TARGET_PERIOD"] == label, :].copy()
+    label = target_period(year, quarter, horizon)[0]
+    date = target_period(year, quarter, "1Y")[1]
+    df = df.loc[df["TARGET_PERIOD"].astype(str).str.strip() == label, :].copy()
     df["Year"] = year
     df["Q"] = quarter
     df["Date"] = date
@@ -174,13 +193,13 @@ def longer_term_panel(directory: str | Path, keep_missing: bool = False, through
     return lt
 
 
-def read_rounds(directory: str | Path, through: str | None = None) -> pd.DataFrame:
-    """Every round file of ``directory`` (up to the round ``through``), in chronological order, concatenated."""
+def read_rounds(directory: str | Path, through: str | None = None, horizon: str = "1Y") -> pd.DataFrame:
+    """Every round file of ``directory`` (up to the round ``through``) at one horizon, in chronological order, concatenated."""
     directory = Path(directory)
     files = round_files(directory, through)
     if not files:
         raise FileNotFoundError(f"no round files (YYYYQn.csv) in {directory}")
-    return pd.concat([read_round(p) for p in files], ignore_index=True)
+    return pd.concat([read_round(p, horizon) for p in files], ignore_index=True)
 
 
 def flat_panel(rounds: pd.DataFrame) -> pd.DataFrame:
@@ -478,22 +497,26 @@ def individual_panel(
     return out
 
 
-def build_panels(rounds_dir: str | Path, out_dir: str | Path, through: str | None = None, **kwargs) -> tuple[pd.DataFrame, pd.DataFrame]:
+def build_panels(
+    rounds_dir: str | Path, out_dir: str | Path, through: str | None = None, horizon: str = "1Y", **kwargs
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """The pipeline step: rounds -> ``flat_panel.csv`` -> ``individual_panel.csv`` under ``out_dir``.
 
     The flat panel is written and read back before the individual panel is
     built, as the authoritative builder does; the round trip through the file
     is what makes the rebuilt individual panel byte-identical to the certified
-    one. ``through`` stops at a round (see :func:`round_files`). Other keyword
-    arguments go to :func:`individual_panel`.
+    one. ``through`` stops at a round (see :func:`round_files`); a ``horizon``
+    other than ``"1Y"`` suffixes both file names (``flat_panel_2Y.csv``). Other
+    keyword arguments go to :func:`individual_panel`.
     """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
-    flat = flat_panel(read_rounds(rounds_dir, through))
-    flat_path = out / "flat_panel.csv"
+    suffix = "" if horizon == "1Y" else f"_{horizon}"
+    flat = flat_panel(read_rounds(rounds_dir, through, horizon))
+    flat_path = out / f"flat_panel{suffix}.csv"
     flat.to_csv(flat_path, index=False)
     flat = pd.read_csv(flat_path)
     flat["Date"] = pd.to_datetime(flat["Date"])
     panel = individual_panel(flat, **kwargs)
-    panel.to_csv(out / "individual_panel.csv", index=False)
+    panel.to_csv(out / f"individual_panel{suffix}.csv", index=False)
     return flat, panel

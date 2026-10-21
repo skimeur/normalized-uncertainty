@@ -26,6 +26,7 @@ Modules
 ``moments``       mean, variance, quantiles, skewness and entropy of a binned density
 ``measures``      NU (unit calibration by default), NGU, the round series, the orthogonalisation
 ``asymmetry``     Asymmetry Coherence, individual and by round
+``series``        the ECB-SPF round series at one, two and five years, in one call
 ``law``           the two-arm variance law, its Wald tests, the kink profile
 ``econometrics``  the estimators, with the papers' conventions named
 ``exhibit``       what every exhibit script shares: folders, results files, loaders
@@ -46,6 +47,7 @@ from . import (  # noqa: F401
     measures,
     moments,
     plotting,
+    series,
 )
 
 __all__ = [
@@ -63,5 +65,6 @@ __all__ = [
     "moments",
     "paths",
     "plotting",
+    "series",
     "__version__",
 ]

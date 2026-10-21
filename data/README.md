@@ -34,7 +34,7 @@ The `ecb/` files are produced by the ECB reader in this repository, which reads 
 
 ### ECB Survey of Professional Forecasters — individual density forecasts
 
-The core of both papers: one file per quarterly round, each respondent's probability distribution for inflation one year ahead. Published by the ECB on its [SPF page](https://www.ecb.europa.eu/stats/ecb_surveys/survey_of_professional_forecasters/html/index.en.html). Save each round as `ecb_spf/rounds/<YYYY>Q<n>.csv`, named by the **survey quarter**, not the target period.
+The core of both papers: one file per quarterly round, each respondent's probability distribution for inflation one year ahead — and, in the same block, two years ahead and in the longer term (four to five years ahead), which `nu_measures.series` reads too. Published by the ECB on its [SPF page](https://www.ecb.europa.eu/stats/ecb_surveys/survey_of_professional_forecasters/html/index.en.html). Save each round as `ecb_spf/rounds/<YYYY>Q<n>.csv`, named by the **survey quarter**, not the target period.
 
 *Used by:* every exhibit of both papers.
 

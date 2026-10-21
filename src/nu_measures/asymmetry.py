@@ -68,6 +68,7 @@ def ac_panel(
     median: str = "Q2_median_spd",
     skewness: str = "Bowley_Skewness",
     by: str = "FCT_SOURCE",
+    scales: dict | None = None,
 ) -> pd.DataFrame:
     """The individual index, forecaster-round by forecaster-round.
 
@@ -80,6 +81,11 @@ def ac_panel(
     ``iqr_window`` -- a ``(start, end)`` pair of dates on the panel ``Date`` --
     restricts the observations the two interquartile ranges are computed on;
     ``None`` uses the whole panel, the papers' convention.
+
+    ``scales`` -- a dict with ``median_gap`` and ``skewness``, such as the
+    ``attrs['ac_iqr_scales']`` of another call -- imposes the two scales
+    instead of computing them, which is how AC is put on the one-year scales
+    at every horizon (:mod:`nu_measures.series`); ``iqr_window`` is then unused.
     """
     df = panel.copy()
     df["A_smoothed"] = (
@@ -87,12 +93,16 @@ def ac_panel(
         .groupby(by)[skewness]
         .transform(lambda s: s.rolling(window=smoothing, min_periods=1).mean())
     )
-    ref = df
-    if iqr_window is not None:
-        lo, hi = pd.Timestamp(iqr_window[0]), pd.Timestamp(iqr_window[1])
-        ref = df[(df["Date"] >= lo) & (df["Date"] <= hi)]
-    scale_med = iqr_scale(ref[median] - target)
-    scale_skw = iqr_scale(ref["A_smoothed"])
+    if scales is not None:
+        scale_med, scale_skw = float(scales["median_gap"]), float(scales["skewness"])
+        iqr_window = scales.get("window", iqr_window)
+    else:
+        ref = df
+        if iqr_window is not None:
+            lo, hi = pd.Timestamp(iqr_window[0]), pd.Timestamp(iqr_window[1])
+            ref = df[(df["Date"] >= lo) & (df["Date"] <= hi)]
+        scale_med = iqr_scale(ref[median] - target)
+        scale_skw = iqr_scale(ref["A_smoothed"])
     df["Q_tilde"] = np.tanh((df[median] - target) / scale_med)
     df["A_tilde"] = np.tanh(df["A_smoothed"] / scale_skw)
     df["coherence"] = coherence_weight(df["Q_tilde"], df["A_tilde"])

@@ -47,7 +47,35 @@ nu    = measures.nu_series(panel)                                          # raw
 ac    = asymmetry.ac_series(asymmetry.ac_panel(panel))                     # components, weight, AC by round
 ```
 
-On any other survey, `measures.nu(sigma, mean, target)` needs only the three numbers. [`examples/nu_and_ac_from_ecb_spf.py`](examples/nu_and_ac_from_ecb_spf.py) does the above from the round files, prints the latest rounds and draws both series; [`examples/quickstart.py`](examples/quickstart.py) runs on synthetic inputs and needs no data.
+On any other survey, `measures.nu(sigma, mean, target)` needs only the three numbers.
+
+## The ECB-SPF series at one, two and five years
+
+One call returns, round by round since 1999Q1, the six series the papers read off the individual densities — **level, disagreement, raw uncertainty, NU, skewness and AC** — at the rolling one- and two-year horizons and the longer-term (five-year) horizon:
+
+```python
+from nu_measures import series
+
+S = series.ecb_spf_series("ecb_spf/rounds")     # indexed by (horizon, round)
+S.loc["5Y", ["level", "NU", "AC"]].tail()
+series.to_wide(S).to_csv("ecb_spf_series.csv")  # level_1Y, level_2Y, level_5Y, NU_1Y, ...
+```
+
+or, from the shell, `make series` (`scripts/build_ecb_spf_series.py`), which writes the wide and long CSVs, the individual panel of each horizon and the scales used to `NU_DATA_DIR/derived/series/`.
+
+| column | definition |
+|---|---|
+| `level` | mean of the individual density means (the consensus) |
+| `disagreement` | cross-sectional standard deviation of the density means, $\sqrt{D}$ |
+| `raw_uncertainty` | mean individual standard deviation |
+| `NU` | mean Normalized Uncertainty, $\sigma_i/\sqrt{1+(\mu_i-2)_+}$ |
+| `skewness` | mean individual Bowley skewness |
+| `AC` | Asymmetry Coherence; with `Q_tilde`, `A_tilde`, `coherence`, its components and weight |
+| `n` | forecasters with a usable density |
+| `aggregate_uncertainty` | $T = W + D$, the variance of the averaged density; `W` the mean individual variance, `D` the variance of the means |
+| `level_point`, `disagreement_point`, `n_point` | the same from the point forecasts |
+
+**Horizons.** `1Y` and `2Y` are the rolling targets twelve and twenty-four months after the last observed month (every round); `5Y` is the longer-term calendar target, four and a quarter to five years ahead, which the ECB did not ask in 1999Q2–Q4 and 2000Q2–Q4 (those rounds are gaps, `n = 0`). The three horizons share the papers' cleaning — tails pooled and closed on realized inflation, renormalisation within the grid regime of the round, midpoints for moments, interpolated quartiles — so the one-year columns are the papers' numbers. **AC** is put on the one-year normalisation scales at every horizon, so the three lines are comparable (`ac_scales="own"` normalises each horizon on itself). The unit NU needs no estimate at any horizon; the variance law behind its denominator was measured at one year. Both cross-sectional standard deviations are population ones, so that $T = W + D$ holds exactly. Figure 15 of *Uncertain and Asymmetric Forecasts* draws the six series at the three horizons. [`examples/nu_and_ac_from_ecb_spf.py`](examples/nu_and_ac_from_ecb_spf.py) does the above from the round files, prints the latest rounds and draws both series; [`examples/quickstart.py`](examples/quickstart.py) runs on synthetic inputs and needs no data.
 
 ---
 
@@ -92,7 +120,7 @@ Cite the paper whose result you use — *Uncertain and Asymmetric Forecasts* for
 
 ## What is here, and what is not
 
-**Here.** `src/nu_measures/` — the library: the readers for each public source (the ECB-SPF round files to the flat and individual panels, the Philadelphia Fed microdata, the ECB Data Portal, FRED, the EPU workbook), the moments of a binned density, NU / NGU / AC, the two-arm law with its tests, the estimators with the papers' conventions named, and the house plotting style. `papers/<paper>/exhibits/` — one script per figure and table of each paper, each writing its exhibit *and* a results file recording every number it prints. `docs/METHODS.md` — the constructions, the sample and the conventions, for someone who has not read the papers. `tests/` — unit tests on synthetic inputs, and reproduction tests that run when the data is present.
+**Here.** `src/nu_measures/` — the library: the readers for each public source (the ECB-SPF round files to the flat and individual panels, the Philadelphia Fed microdata, the ECB Data Portal, FRED, the EPU workbook), the moments of a binned density, NU / NGU / AC, the round series at one, two and five years (`series`), the two-arm law with its tests, the estimators with the papers' conventions named, and the house plotting style. `papers/<paper>/exhibits/` — one script per figure and table of each paper, each writing its exhibit *and* a results file recording every number it prints. `docs/METHODS.md` — the constructions, the sample and the conventions, for someone who has not read the papers. `tests/` — unit tests on synthetic inputs, and reproduction tests that run when the data is present.
 
 **Not here: data.** No third-party file is redistributed. Every source is named in [`data/README.md`](data/README.md) with its keys, its download page and its terms; `make data` reports which ones are present locally. Point `NU_DATA_DIR` at the folder holding them.
 
@@ -116,6 +144,7 @@ make test          # unit tests on synthetic inputs; no data needed
 make data          # which of the sources in data/README.md are present
 export NU_DATA_DIR=/path/to/your/data
 python3 examples/nu_and_ac_from_ecb_spf.py     # NU (a = b = 1) and AC from the round files
+make series        # the six series at 1, 2 and 5 years, as CSV
 make uaf           # rebuild the exhibits of the first paper
 make tolerable     # rebuild the public-data exhibits of the second
 ```

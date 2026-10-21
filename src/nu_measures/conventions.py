@@ -27,6 +27,20 @@ from datetime import date
 TARGET: float = 2.0
 
 # --------------------------------------------------------------------------
+# Horizons of the ECB-SPF inflation densities
+# --------------------------------------------------------------------------
+
+#: The horizons the readers parse, each a block of the round file:
+#: ``"1Y"`` the rolling one-year-ahead target (the papers' object);
+#: ``"2Y"`` the rolling two-year-ahead target, the same month one year later,
+#: fielded in every round since 1999Q1; ``"5Y"`` the longer-term target, the
+#: bare calendar year four years after the survey year in Q1-Q2 rounds and
+#: five years after it in Q3-Q4 rounds (four and a quarter to five years
+#: ahead), absent from the 1999Q2-Q4 and 2000Q2-Q4 rounds, when the ECB
+#: asked it in first-quarter rounds only.
+HORIZONS: tuple[str, ...] = ("1Y", "2Y", "5Y")
+
+# --------------------------------------------------------------------------
 # Estimation sample
 # --------------------------------------------------------------------------
 
