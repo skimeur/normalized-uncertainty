@@ -67,6 +67,8 @@ PSI = 0.9  # the pass-through at conventional calibrations (eq:passthrough): zet
 SWAP_CURVATURE = {"computed": False, "n_daily": 5282, "n_nonoverlapping": 84, "s_best": 3.4, "r2_best": 0.520, "r2_linear": 0.508,
                   "r2_nonoverlapping_linear": 0.474, "r2_nonoverlapping_s3": 0.462}
 RC = {"font.family": "serif", "font.size": 9}
+#: The paper no longer carries the renewal law of motion (uncertainty-law rewrite, 2026-10-30): the figure shows the share only.
+SHOW_RENEWAL_LAW = False
 
 
 def path(eta: float, r: float, d: np.ndarray, a0: float, floor: float = 0.0) -> np.ndarray:
@@ -251,7 +253,8 @@ def main() -> None:
     ax.set_zorder(ax2.get_zorder() + 1)
     ax.patch.set_visible(False)
     ax.plot(t, M["share_all"], "-", color="#1b7837", lw=1.9, marker="o", ms=3, label="share of forecasters whose longer-term point is at or above 2.2%")
-    ax.plot(t, A_main, "--", color="#b2182b", lw=1.6, label="the renewal law of motion, fitted on 2021--26")
+    if SHOW_RENEWAL_LAW:  # retired 2026-10-30 with the patience/renewal law (the uncertainty-law rewrite)
+        ax.plot(t, A_main, "--", color="#b2182b", lw=1.6, label="the renewal law of motion, fitted on 2021--26")
     ax.set_ylim(0, 0.5)
     ax.set_yticks([0, 0.1, 0.2, 0.3, 0.4, 0.5])
     ax.set_ylabel("share", fontsize=8)
