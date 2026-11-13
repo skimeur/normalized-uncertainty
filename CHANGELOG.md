@@ -4,6 +4,21 @@ This repository is built in phases; each release records the state of the two pa
 
 ## Unreleased — prepared 2026-10-14 (proposed 1.1.0)
 
+### Abstracts shortened for the target journals; Figure 5 of the November version (2026-11-13)
+
+- **Text.** Both paper pages carry the new abstracts: the tolerance paper's abstract has 100 words (JME limit) and the first paper's 145 words (IJF limit). Their numbers are unchanged. The tolerance paper's November version now has 84 pages.
+- **Figure 5 (`fig:dsge`).** The November version has two panels; the three-bank comparison is in Table 5 only (`exhibits/fig07_tolerance_dsge.py`, `exhibits/nk_tolerance_dsge.py`).
+
+### *Tolerable Inflation, Intolerable Uncertainty*, November 2026 version: recheck and the new numbers (2026-11-12)
+
+- **Recheck.** In a clean Python 3.10 environment built from `requirements-lock.txt`, with the input files the paper used: the safety gate, `ruff` and the unit and reproduction tests pass; `run.py` rebuilds every exhibit; the four tables are byte-identical to the files the manuscript embeds; Figures 1–4 and 8 (and v1's Figure 2) are pixel-identical; Figures 5 and 7 reproduce every number, while the embedded PDFs were drawn with matplotlib 3.11 and differ by a few pixels of layout.
+- **Fix: `results_episodes.py`.** Headline inflation is now read explicitly as the official annual rate (the macro block's `HICP_YOY`), like core in the same script. Before, `load_hicp_yoy` switched to the rate recomputed from the index whenever `ecb/hicp_index.csv` was present, which every reader following `data/README.md` has; that gave slopes of 0.52 and 0.66 and $p = 0.18$ instead of the published 0.50, 0.65 and $p = 0.13$. Both setups now give the published numbers.
+- **New registers** for numbers the November version prints in its text: `results_wages.py` (Section 3, wages), `results_energy_split.py` (Section 3, the energy share of the realized upper arm), `results_realized_persistence.py` (Section 3, realized variance does not outlast the gap: ARMA–GARCH with the arms and the survey's habituation) and `results_us_appendix.py` (Appendix A, the United States). Each reproduces every number it supports.
+- **Library.** `exhibit.load_ecb_series` (one ECB Data Portal series by key, cached as `ecb/series/<key>.csv`), `exhibit.load_eurostat_series` and `io_other.eurostat_fetch`, `paths.ecb_series_csv`, `paths.eurostat_csv`; their extents in `conventions.PUBLISHED_EXTENT`.
+- **Vintages.** `conventions.PUBLISHED_INPUT_MD5` records the md5 of every input file the published numbers were computed from; `make data` (`scripts/check_data_sources.py`) compares a reader's files with them. With other downloads, in this recheck, a later ECB macro block moved the industrial-production responses and the episode register, an earlier Philadelphia Fed workbook the US row of Table 1, and an earlier EPU workbook the purge's agreement with EPU.
+- **Test.** The rebuilt-panel reproduction test compares numbers to $10^{-12}$ instead of text byte for byte: the shortest representation of a float can differ in its last digit across machines (a gap of $3 \times 10^{-15}$ was seen).
+- **Documentation.** The paper page follows the November version: abstract, numbering (89 pages; the script names keep v1's), the new registers, Figure 2 of v1 (`fig02_us_daily_breakeven.py`) kept and marked v1-only, and the reverse link of Section 4 and Appendix B listed as not yet in the repository.
+
 ### The ECB-SPF series at one, two and five years (2026-10-21)
 
 - **New module** `nu_measures.series`: `ecb_spf_series(rounds_dir)` returns, by horizon and survey round, the level, disagreement, raw uncertainty, NU (unit calibration), mean Bowley skewness and AC, with the number of densities, the aggregate uncertainty $T = W + D$, the point-forecast level and disagreement, and AC's components; `to_wide` / `to_long` lay them out for CSV. Every series is built by the functions the exhibits use, so the one-year columns are the papers' numbers (tested). AC is on the one-year scales at every horizon by default (`ac_scales="own"` otherwise).

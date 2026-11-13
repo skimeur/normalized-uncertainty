@@ -1,6 +1,6 @@
 # The restricted route
 
-Two parts of the paper rest on data that cannot be redistributed, and whose code is therefore not published here. This page is what replaces the code: enough of the specification, the sample and the construction for a reader holding the same data to rebuild the result, and enough for a reader without it to see exactly what was done.
+Three parts of the paper rest on data that cannot be redistributed. For the first two the code is not published either. This page is what replaces the code: enough of the specification, the sample and the construction for a reader holding the same data to rebuild the result, and enough for a reader without it to see exactly what was done.
 
 Nothing on this page is needed to reproduce any other exhibit. The measures themselves — NU, NGU, the law — are public, and the survey evidence stands on its own.
 
@@ -22,7 +22,7 @@ Nothing on this page is needed to reproduce any other exhibit. The measures them
 
 ---
 
-## 2. Market legs of the law (Figures 1 and 4, Table 1, Appendix A.4)
+## 2. Market legs of the law (Figures 1 and 2, Table 1, the appendix on the benefit of the doubt)
 
 **The data.** Euro inflation-linked swap quotes and the option (cap and floor) surface, exported from a commercial terminal under a licence that does not permit redistribution — neither of the raw quotes nor of series derived from them.
 
@@ -33,6 +33,14 @@ Nothing on this page is needed to reproduce any other exhibit. The measures them
 **Conventions, for a reader holding equivalent data.** The market readings use a forward realized-variance window of 63 trading days, non-overlapping windows for inference, and exclude the 2008–09 dislocation; the comparison across sources is made on the ratio of the upper arm to the intercept, never on the level of a variance, because levels depend on units and on the closure of each source.
 
 ---
+
+## 3. The reverse link (Section 4, Appendix B; Figures 6 and 9, Tables 4–7 and 11–17)
+
+**Status.** Not yet in this repository. Unlike the two parts above, its code is to be published here **without its data**: a reader holding the same market files will run it as is.
+
+**The data.** Model 1 is public: euro-area HICP, monthly, with Brent, energy and ex-energy HICP for the energy controls. Models 2 and 3 rest on licensed market data: the daily one-year zero-coupon euro-area inflation swap (the expected gap $d^e_t$, one-year swap minus 2) from October 2009 to July 2026, and the one-year €STR overnight-index swap (the expected policy rate) to December 2025. The oil block adds public series (FRED Brent, WTI, OVX and VIX; the oil supply news shocks of Känzig; the ECB's CISS; the euro-area monetary-policy event dataset; the daily geopolitical-risk index), and its outcomes include the two market series.
+
+**The models.** A level-dependent GARCH in mean in the multiplicative form of the term-structure literature: the variance scales with the level arms $(L_{t-1})_\pm$ and a GARCH(1,1) component, with Student-$t$ errors; Model 1 in the additive form on realized inflation. The predictive link $\theta_e$ is tested with maximum likelihood and with IVX inference robust to persistent regressors. Specifications, samples and every estimate are in Appendix B of the paper.
 
 ## Why it is drawn this way
 

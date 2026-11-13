@@ -8,8 +8,11 @@ prints one line per source, whether it was found, and what reads it.
 
 from __future__ import annotations
 
+import hashlib
 import os
 from pathlib import Path
+
+from nu_measures import conventions as cv
 
 #: (label, path pattern relative to NU_DATA_DIR, what needs it)
 SOURCES: list[tuple[str, str, str]] = [
@@ -59,6 +62,16 @@ SOURCES: list[tuple[str, str, str]] = [
         "the perceived-rule band",
     ),
     (
+        "ECB Data Portal single series (HICP components, negotiated wages, the frozen ICP indices)",
+        "ecb/series/*.csv",
+        "the wages table, the energy split and the persistence footnote (fetched on first use)",
+    ),
+    (
+        "Eurostat HICP index, euro area, 2026 months (prc_hicp_minr)",
+        "eurostat/hicp_ea_total_minr.csv",
+        "the persistence footnote (fetched on first use)",
+    ),
+    (
         "Barro-Lee data set, long form",
         "crosscountry/barlee_long.csv",
         "the cross-country growth regressions",
@@ -95,6 +108,20 @@ def main() -> int:
         print(f"{missing} source(s) missing; data/README.md says where each one comes from.")
     else:
         print("every source is present.")
+    print()
+    print("vintages (md5 against the files the published numbers were computed from):")
+    same = differ = 0
+    for rel, md5 in cv.PUBLISHED_INPUT_MD5.items():
+        path = root / rel
+        if not path.exists():
+            continue
+        if hashlib.md5(path.read_bytes()).hexdigest() == md5:
+            same += 1
+        else:
+            differ += 1
+            print(f"  [other vintage] {rel}")
+    print(f"  {same} file(s) identical to the paper's, {differ} from another download"
+          + (" -- see conventions.PUBLISHED_INPUT_MD5 for what moves" if differ else ""))
     return 0
 
 

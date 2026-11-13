@@ -88,7 +88,52 @@ PUBLISHED_EXTENT: dict = {
         "HICP_YOY": "2026-07-31",
     },
     "gmd": "2025_12",  # Global Macro Database release (cross-country table, build from source)
+    # Single ECB Data Portal series read by the scripts added with the November 2026 version (loader
+    # ``exhibit.load_ecb_series``), each stopped at the last period of the download the paper used.
+    "ecb_series": {
+        "HICP.M.U2.Y.000000.4F0.INX": "2026-10",  # headline index, seasonally adjusted (5 Nov 2026)
+        "HICP.M.U2.Y.NRGY00.4F0.INX": "2026-10",  # energy (10 Nov 2026)
+        "HICP.M.U2.Y.XE0000.4F0.INX": "2026-10",  # all items excluding energy (10 Nov 2026)
+        "STS.Q.I9.N.INWR.000000.3.ANR": "2025Q3",  # negotiated wages, annual rate (12 Nov 2026)
+        "ICP.M.U2.N.000000.4.INX": "2025-12",  # headline index, not adjusted; the ICP flow froze at December 2025
+        "ICP.M.U2.Y.000000.3.INX": "2025-12",  # headline index, adjusted (the vintage of 4 March 2026)
+    },
+    "eurostat": {
+        "hicp_ea_total_minr": "2026-09",  # prc_hicp_minr, EA, TOTAL, 2015 = 100: the months after the ICP freeze
+    },
 }
+
+#: md5 of each input file the published numbers were computed from (paths relative to ``NU_DATA_DIR``).
+#: ``make data`` compares a reader's files with these. A file that differs is a different download: the
+#: extents above stop it at the same last observation, but a provider's revisions to past values move the
+#: numbers that read it (seen: Figure 4 and the episode register with a later ECB macro block, the US row of
+#: Table 1 with an earlier Philadelphia Fed workbook, the purge's EPU agreement with an earlier EPU workbook).
+#: The ECB-SPF round files are checked through the certified panel they rebuild (tests/test_reproduction.py).
+PUBLISHED_INPUT_MD5: dict = {
+    "ecb/macro_block.csv": "20ae90dfa7339188f96eb2e1288b9a2a",  # fetched 28 July 2026
+    "ecb/macro_block_unbalanced.csv": "d50c80a3e87f723eec5dd62a16d35fd1",  # fetched 28 July 2026
+    "ecb/hicp_index.csv": "6b5d43ee7daa2723506b46549d0cdddf",  # ICP.M.U2.Y.000000.3.INX, 30 December 2025
+    "ecb/real_gdp.csv": "5e8f10c92028bf5dd59087587ffc2df3",
+    "ecb/series/HICP.M.U2.Y.000000.4F0.INX.csv": "db756a696f7babcb843cef642eeec865",  # 5 November 2026
+    "ecb/series/HICP.M.U2.Y.NRGY00.4F0.INX.csv": "4d916d984a686bf2cbb944f3cc32b77e",  # 10 November 2026
+    "ecb/series/HICP.M.U2.Y.XE0000.4F0.INX.csv": "255145b1190b662b1b7fdfd75f224443",  # 10 November 2026
+    "ecb/series/ICP.M.U2.N.000000.4.INX.csv": "7ff14b807adfdfcc5114ba614dcd83fe",
+    "ecb/series/ICP.M.U2.Y.000000.3.INX.csv": "6d3b0e3c9e1873e253c68ccb44e7deef",  # 4 March 2026
+    "ecb/series/STS.Q.I9.N.INWR.000000.3.ANR.csv": "aba8924bf803fdff1342c0a77b4ae981",  # 12 November 2026
+    "eurostat/hicp_ea_total_minr.csv": "d34bb8465f1f9da94223fca3c9d824dc",
+    "us_spf/SPFmicrodata.xlsx": "3c7cfd6ee33a4bb3115f361e0d80fa8c",  # July 2026 workbook
+    "epu/All_Country_Data.xlsx": "3b8d64a4602981546ea3008d21ae04b7",  # July 2026 workbook
+    "fred/T5YIE.csv": "97748d70207f2f5ea3486ba5f0a53e70",
+    "fred/T10YIE.csv": "ae0e2f92caf4843ee889b179c436c59e",
+    "nyfed/sep-2023-data.xlsx": "4287c52cb99871999b6ee8153b1ed908",
+    "nyfed/apr-may-2024-data.xlsx": "3bec26a6637011abad4caba00359acb6",
+    "nyfed/sep-2024-data.xlsx": "124740e16417899d86d68e5ad3d00db5",
+    "nyfed/jul-2025-data.xlsx": "dc736b4d59d2748dc3a9efd2f9c6255e",
+    "nyfed/apr-2026-data.xlsx": "48d966d3a2c3483b84d4bc1daf183742",
+    "crosscountry/barlee_long.csv": "5cc176fc766806746d5adb1db787b161",
+    "crosscountry/gmd_2025_12_subset.parquet": "f1c33d2ac041f0188e3f4deaf771b081",
+}
+
 
 # --------------------------------------------------------------------------
 # Bins and the closure of the open top bin

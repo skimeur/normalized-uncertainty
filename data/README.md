@@ -51,6 +51,17 @@ Fetched by the ECB reader; no manual download. The keys, and the two migrations 
 | `UNRATE` | `LFSI.M.I9.S.UNEHRT.TOTAL0.15_74.T` | unemployment rate |
 | real GDP | `MNA.Q.Y.I9.W2.S1.S1.B.B1GQ._Z._Z._Z.EUR.LR.N` | the input to the Hodrick–Prescott trend behind potential growth |
 
+Single series read by the scripts of the November 2026 version are fetched on first use by `exhibit.load_ecb_series` and kept as `ecb/series/<key>.csv` (`TIME_PERIOD`, `OBS_VALUE`, the columns of the portal's `csvdata` download, so a file downloaded by hand works too):
+
+| series key | what | read by |
+|---|---|---|
+| `HICP.M.U2.Y.000000.4F0.INX`, `HICP.M.U2.Y.NRGY00.4F0.INX`, `HICP.M.U2.Y.XE0000.4F0.INX` | HICP headline, energy, all items excluding energy; indices, seasonally adjusted | `results_energy_split.py`, `results_wages.py` |
+| `STS.Q.I9.N.INWR.000000.3.ANR` | indicator of negotiated wages, annual rate, quarterly | `results_wages.py` |
+| `ICP.M.U2.N.000000.4.INX` | HICP headline index, not adjusted (frozen at December 2025) | `results_realized_persistence.py` |
+| `ICP.M.U2.Y.000000.3.INX` | HICP headline index, adjusted (frozen at December 2025) | `results_realized_persistence.py` |
+
+The months of 2026 of the not-adjusted index come from **Eurostat** (`prc_hicp_minr`, `geo=EA`, `coicop18=TOTAL`, `unit=I15`), fetched by `exhibit.load_eurostat_series` into `eurostat/hicp_ea_total_minr.csv`.
+
 **A key's first segment is its dataflow.** Pairing a `STBS…` key with the `STS` flow returns HTTP 400, and a fetcher that then falls back quietly reports success while reading a discontinued series. The reader here derives the flow from the key, probes an ordered list of candidates and prints the coverage it obtained, so a future migration announces itself.
 
 ### Philadelphia Fed Survey of Professional Forecasters — microdata
@@ -93,11 +104,18 @@ The exhibits of both papers were produced from the downloads below. The loaders 
 | ECB real GDP | 2026Q1 | 28 July 2026 |
 | ECB macro block | by column: `logS` 2026-07, `DFR` 2026-08, `UNRATE` 2026-06, `logIP` 2026-05, `HICP_YOY` 2026-07 | fetch of 28 July 2026 |
 | ECB HICP index (`ICP.M.U2.Y.000000.3.INX`) | November 2025 | 30 December 2025 (the vintage the tail closures `HICP_MIN`, `HICP_MAX` come from) |
+| ECB HICP headline, energy, ex-energy (`HICP.M.U2.Y.*.4F0.INX`) | October 2026 | 5 November 2026 (headline), 10 November 2026 (components) |
+| ECB negotiated wages (`STS.Q.I9.N.INWR.000000.3.ANR`) | 2025Q3 | 12 November 2026 |
+| ECB HICP index, not adjusted (`ICP.M.U2.N.000000.4.INX`) | December 2025 | 2 November 2026 |
+| ECB HICP index, adjusted (`ICP.M.U2.Y.000000.3.INX`), for the persistence footnote | December 2025 | 4 March 2026 |
+| Eurostat HICP index (`prc_hicp_minr`) | September 2026 | 3 November 2026 |
 | NY Fed survey workbooks | the five instances listed above | as published |
 | Global Macro Database | release 2025_12 | — |
 | Barro–Lee | the 1994 distribution | — |
 
 ## Vintages and comparability
+
+`nu_measures.conventions.PUBLISHED_INPUT_MD5` holds the md5 of every input file the published numbers were computed from, and `make data` compares your files with them. A file from another download is cut at the same date by the extents above; what moves with it is listed there (in this round of checks: the industrial-production responses and the episode register with a later ECB macro block, the US row of Table 1 with an earlier Philadelphia Fed workbook, the purge's agreement with EPU with an earlier EPU workbook).
 
 Three properties of this data are not bugs and must be stated wherever a number is:
 

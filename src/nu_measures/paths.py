@@ -44,6 +44,16 @@ def macro_block_csv(balanced: bool = True) -> Path:
     return data_dir() / "ecb" / name
 
 
+def ecb_series_csv(key: str) -> Path:
+    """One ECB Data Portal series, as downloaded (``TIME_PERIOD``, ``OBS_VALUE``), named by its key."""
+    return data_dir() / "ecb" / "series" / f"{key}.csv"
+
+
+def eurostat_csv(name: str) -> Path:
+    """One Eurostat series, as downloaded (``TIME_PERIOD``, ``OBS_VALUE``)."""
+    return data_dir() / "eurostat" / f"{name}.csv"
+
+
 def real_gdp_csv() -> Path:
     return data_dir() / "ecb" / "real_gdp.csv"
 

@@ -14,7 +14,7 @@ import pandas as pd
 
 from . import conventions as cv
 
-__all__ = ["fred_csv", "fred_fetch", "monthly_yoy", "epu_countries", "epu_basket"]
+__all__ = ["fred_csv", "fred_fetch", "eurostat_fetch", "monthly_yoy", "epu_countries", "epu_basket"]
 
 
 def fred_csv(path: str | Path, series: str | None = None) -> pd.Series:
@@ -49,6 +49,31 @@ def fred_fetch(series: str = "T5YIE", timeout: int = 60) -> pd.Series:
     r.raise_for_status()
     df = pd.read_csv(io.StringIO(r.text))
     s = pd.Series(pd.to_numeric(df[series], errors="coerce").to_numpy(), index=pd.to_datetime(df.iloc[:, 0]), name=series)
+    return s.dropna().sort_index()
+
+
+def eurostat_fetch(dataset: str, filters: dict, since: str | None = None, timeout: int = 60) -> pd.Series:
+    """One monthly Eurostat series through the dissemination API (JSON-stat), as a series indexed by month start.
+
+    ``filters`` must pin every dimension but time to one value, e.g. ``{"geo": "EA", "coicop18": "TOTAL",
+    "unit": "I15"}`` for the euro-area HICP index in ``prc_hicp_minr``.
+    """
+    import requests
+
+    params = dict(filters)
+    if since:
+        params["sinceTimePeriod"] = since
+    url = f"https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/{dataset}"
+    r = requests.get(url, params=params, timeout=timeout)
+    r.raise_for_status()
+    d = r.json()
+    for dim, size in zip(d["id"], d["size"], strict=True):
+        if dim != "time" and size != 1:
+            raise ValueError(f"Eurostat {dataset}: dimension {dim!r} has {size} values; pin it in filters")
+    pos = d["dimension"]["time"]["category"]["index"]
+    times = sorted(pos, key=pos.get)
+    vals = [d["value"].get(str(pos[t])) for t in times]
+    s = pd.Series(vals, index=pd.to_datetime(times), name=dataset, dtype=float)
     return s.dropna().sort_index()
 
 

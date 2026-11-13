@@ -1,0 +1,309 @@
+{
+ "realized": {
+  "LR_garch_terms": {
+   "LR": 2.81,
+   "p": 0.245
+  },
+  "mean_selected_monthly": {
+   "bic": 97.0,
+   "ma12": 1,
+   "p": 2,
+   "q": 0
+  },
+  "mean_selected_quarterly": {
+   "bic": 190.2,
+   "ma12": 0,
+   "p": 2,
+   "q": 2
+  },
+  "runs": {
+   "monthly_arms": {
+    "alpha": 0.047,
+    "arms": 1,
+    "beta": 0.055,
+    "delta_minus": 0.015,
+    "delta_plus": 0.059,
+    "delta_plus_se": 0.016,
+    "dist": "t",
+    "gamma": 0.0,
+    "gjr": 0,
+    "label": "monthly ARMA-GARCH-X (arms), t",
+    "llf": 8.89,
+    "ma12": 1,
+    "n": 357,
+    "omega": 0.0272,
+    "p": 2,
+    "pers": 0.1016,
+    "pers_quarterly": 0.001,
+    "pers_se": 0.103,
+    "phi": [
+     1.206,
+     -0.219
+    ],
+    "q": 0,
+    "r": 0.032,
+    "r_ci": [
+     0.0,
+     0.085
+    ],
+    "r_se": 0.049
+   },
+   "monthly_gaussian": {
+    "alpha": 0.03,
+    "arms": 1,
+    "beta": 0.04,
+    "delta_minus": 0.02,
+    "delta_plus": 0.056,
+    "delta_plus_se": null,
+    "dist": "n",
+    "gamma": 0.0,
+    "gjr": 0,
+    "label": "monthly GARCH-X, Gaussian",
+    "llf": 6.03,
+    "ma12": 1,
+    "n": 357,
+    "omega": 0.0267,
+    "p": 2,
+    "pers": 0.0703,
+    "pers_quarterly": 0.0,
+    "pers_se": null,
+    "phi": [
+     1.233,
+     -0.247
+    ],
+    "q": 0,
+    "r": 0.019,
+    "r_ci": null,
+    "r_se": null
+   },
+   "monthly_gjr": {
+    "alpha": 0.047,
+    "arms": 1,
+    "beta": 0.055,
+    "delta_minus": 0.015,
+    "delta_plus": 0.059,
+    "delta_plus_se": 0.016,
+    "dist": "t",
+    "gamma": 0.0,
+    "gjr": 1,
+    "label": "monthly GJR-GARCH-X, t",
+    "llf": 8.89,
+    "ma12": 1,
+    "n": 357,
+    "omega": 0.0272,
+    "p": 2,
+    "pers": 0.1016,
+    "pers_quarterly": 0.001,
+    "pers_se": 0.103,
+    "phi": [
+     1.206,
+     -0.219
+    ],
+    "q": 0,
+    "r": 0.032,
+    "r_ci": [
+     0.0,
+     0.085
+    ],
+    "r_se": 0.049
+   },
+   "monthly_mom": {
+    "alpha": 0.03,
+    "arms": 1,
+    "beta": 0.231,
+    "delta_minus": 0.851,
+    "delta_plus": 4.83,
+    "delta_plus_se": 1.775,
+    "dist": "t",
+    "gamma": 0.0,
+    "gjr": 0,
+    "label": "monthly m/m adjusted, arms on the y/y gap",
+    "llf": -732.03,
+    "ma12": 0,
+    "n": 347,
+    "omega": 1.59,
+    "p": 2,
+    "pers": 0.2614,
+    "pers_quarterly": 0.018,
+    "pers_se": 0.2345,
+    "phi": [
+     0.307,
+     0.054
+    ],
+    "q": 0,
+    "r": 0.134,
+    "r_ci": [
+     0.0,
+     0.335
+    ],
+    "r_se": 0.18
+   },
+   "monthly_plain": {
+    "alpha": 0.295,
+    "arms": 0,
+    "beta": 0.43,
+    "delta_minus": 0.0,
+    "delta_plus": 0.0,
+    "delta_plus_se": null,
+    "dist": "t",
+    "gamma": 0.0,
+    "gjr": 0,
+    "label": "monthly plain GARCH(1,1), t",
+    "llf": -5.32,
+    "ma12": 1,
+    "n": 357,
+    "omega": 0.0215,
+    "p": 2,
+    "pers": 0.7246,
+    "pers_quarterly": 0.38,
+    "pers_se": 0.1364,
+    "phi": [
+     1.203,
+     -0.22
+    ],
+    "q": 0,
+    "r": 0.617,
+    "r_ci": [
+     0.0,
+     0.895
+    ],
+    "r_se": 0.174
+   },
+   "monthly_to_2019": {
+    "alpha": 0.042,
+    "arms": 1,
+    "beta": 0.111,
+    "delta_minus": 0.032,
+    "delta_plus": 0.063,
+    "delta_plus_se": 0.0,
+    "dist": "t",
+    "gamma": 0.0,
+    "gjr": 0,
+    "label": "monthly GARCH-X, to 2019",
+    "llf": 167.67,
+    "ma12": 1,
+    "n": 276,
+    "omega": 0.0189,
+    "p": 2,
+    "pers": 0.1531,
+    "pers_quarterly": 0.004,
+    "pers_se": 0.0006,
+    "phi": [
+     1.167,
+     -0.171
+    ],
+    "q": 0,
+    "r": 0.06,
+    "r_ci": [
+     0.059,
+     0.061
+    ],
+    "r_se": 0.0
+   },
+   "quarterly_arms": {
+    "alpha": 0.121,
+    "arms": 1,
+    "beta": 0.0,
+    "delta_minus": 0.049,
+    "delta_plus": 0.14,
+    "delta_plus_se": 0.084,
+    "dist": "t",
+    "gamma": 0.0,
+    "gjr": 0,
+    "label": "quarterly ARMA-GARCH-X (arms), t",
+    "llf": -68.89,
+    "ma12": 0,
+    "n": 119,
+    "omega": 0.1105,
+    "p": 2,
+    "pers": 0.1211,
+    "pers_quarterly": 0.121,
+    "pers_se": 0.147,
+    "phi": [
+     1.116,
+     -0.337
+    ],
+    "q": 2,
+    "r": 0.348,
+    "r_ci": [
+     0.0,
+     0.64
+    ],
+    "r_se": 0.211
+   },
+   "quarterly_plain": {
+    "alpha": 0.284,
+    "arms": 0,
+    "beta": 0.446,
+    "delta_minus": 0.0,
+    "delta_plus": 0.0,
+    "delta_plus_se": null,
+    "dist": "t",
+    "gamma": 0.0,
+    "gjr": 0,
+    "label": "quarterly plain GARCH, t",
+    "llf": -71.85,
+    "ma12": 0,
+    "n": 119,
+    "omega": 0.0681,
+    "p": 2,
+    "pers": 0.7294,
+    "pers_quarterly": 0.729,
+    "pers_se": 0.1752,
+    "phi": [
+     1.079,
+     -0.331
+    ],
+    "q": 2,
+    "r": 0.854,
+    "r_ci": [
+     0.621,
+     1.0
+    ],
+    "r_se": 0.103
+   }
+  },
+  "sample_monthly": [
+   "1997-01",
+   "2026-09"
+  ],
+  "sample_quarterly": [
+   "1997Q1",
+   "2026Q3"
+  ]
+ },
+ "survey": {
+  "R2": 0.918,
+  "coefficients": {
+   "Intercept": [
+    0.099,
+    0.036
+   ],
+   "W1": [
+    0.656,
+    0.132
+   ],
+   "dm": [
+    -0.01,
+    0.067
+   ],
+   "dm1": [
+    0.026,
+    0.058
+   ],
+   "dp": [
+    0.622,
+    0.082
+   ],
+   "dp1": [
+    -0.625,
+    0.116
+   ],
+   "s8": [
+    0.15,
+    0.068
+   ]
+  },
+  "n": 101
+ }
+}

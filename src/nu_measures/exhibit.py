@@ -23,7 +23,7 @@ from . import conventions as cv
 from . import growth, io_ecb_data_portal, io_ecb_spf, io_other, io_us_spf, paths, plotting
 
 __all__ = ["Exhibit", "load_ecb_panel", "load_flat_panel", "load_longer_term_points", "load_growth_panel", "load_epu", "load_macro_block",
-           "load_us_densities", "load_us_quartiles", "load_real_gdp", "load_fred", "load_hicp_yoy"]
+           "load_us_densities", "load_us_quartiles", "load_real_gdp", "load_fred", "load_hicp_yoy", "load_ecb_series", "load_eurostat_series"]
 
 
 class Exhibit:
@@ -224,6 +224,44 @@ def load_fred(series: str = "T5YIE", published: bool = True) -> pd.Series:
         s = io_other.fred_csv(path, series)
     end = _EXTENT["fred"].get(series) if published else None
     return s[s.index <= pd.Timestamp(end)] if end is not None else s
+
+
+def load_ecb_series(key: str, start: str = "1990-01", published: bool = True) -> pd.Series:
+    """One ECB Data Portal series by its key, indexed by period (monthly, quarterly), fetched on first use.
+
+    The download is kept as ``ecb/series/<key>.csv`` (``TIME_PERIOD``, ``OBS_VALUE``) and read back from
+    there, so a rebuild reads the same vintage; the published extent of the key, when it has one, stops it.
+    """
+    path = paths.ecb_series_csv(key)
+    if not path.exists():
+        print(f"fetching ECB {key} ...", file=sys.stderr)
+        s = io_ecb_data_portal.fetch(key, start=start)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        freq = key.split(".")[1]
+        out = s.copy()
+        out.index = out.index.to_period(freq).astype(str).str.replace(r"Q(\d)", r"-Q\1", regex=True)
+        out.rename("OBS_VALUE").rename_axis("TIME_PERIOD").to_csv(path)
+    d = pd.read_csv(path, usecols=["TIME_PERIOD", "OBS_VALUE"])
+    freq = key.split(".")[1]
+    s = pd.Series(d["OBS_VALUE"].astype(float).to_numpy(),
+                  index=pd.PeriodIndex(d["TIME_PERIOD"].astype(str).str.replace("-Q", "Q"), freq=freq), name=key).sort_index()
+    end = _EXTENT.get("ecb_series", {}).get(key) if published else None
+    return s[s.index <= pd.Period(end, freq=freq)] if end is not None else s
+
+
+def load_eurostat_series(name: str, dataset: str, filters: dict, since: str | None = None,
+                          published: bool = True) -> pd.Series:
+    """One monthly Eurostat series, fetched on first use and kept as ``eurostat/<name>.csv``; indexed by month."""
+    path = paths.eurostat_csv(name)
+    if not path.exists():
+        print(f"fetching Eurostat {dataset} {filters} ...", file=sys.stderr)
+        s = io_other.eurostat_fetch(dataset, filters, since=since)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        pd.DataFrame({"TIME_PERIOD": s.index.strftime("%Y-%m"), "OBS_VALUE": s.to_numpy()}).to_csv(path, index=False)
+    d = pd.read_csv(path, usecols=["TIME_PERIOD", "OBS_VALUE"])
+    s = pd.Series(d["OBS_VALUE"].astype(float).to_numpy(), index=pd.PeriodIndex(d["TIME_PERIOD"], freq="M"), name=name).sort_index()
+    end = _EXTENT.get("eurostat", {}).get(name) if published else None
+    return s[s.index <= pd.Period(end, freq="M")] if end is not None else s
 
 
 def load_longer_term_points(keep_missing: bool = False, published: bool = True) -> pd.DataFrame:

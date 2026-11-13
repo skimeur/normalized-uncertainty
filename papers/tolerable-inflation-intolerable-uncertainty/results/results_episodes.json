@@ -1,0 +1,92 @@
+{
+ "baseline": {
+  "a": 0.254,
+  "gamma": 0.192
+ },
+ "calm_longer_term_share": 0.039,
+ "episodes": {
+  "2000-01": {
+   "W_slope": null,
+   "W_slope_se": null,
+   "label_outside_core": 1.0,
+   "longer_term_share_peak": 0.11,
+   "longer_term_share_peak_round": "2000Q4",
+   "longer_term_share_slope": null,
+   "max_W_excess": -0.02,
+   "max_expected_overshoot": 0.0,
+   "mean_W_excess": -0.06,
+   "mean_expected_overshoot": 0.0,
+   "peak_core": 2.2,
+   "peak_headline": 2.9,
+   "rounds": 6,
+   "rounds_with_expected_overshoot": 0,
+   "window": [
+    "2000Q2",
+    "2001Q4"
+   ]
+  },
+  "2007-08": {
+   "W_slope": 0.5,
+   "W_slope_se": 0.09,
+   "label_outside_core": 1.0,
+   "longer_term_share_peak": 0.16,
+   "longer_term_share_peak_round": "2008Q3",
+   "longer_term_share_slope": 0.15,
+   "max_W_excess": 0.3,
+   "max_expected_overshoot": 0.49,
+   "mean_W_excess": 0.08,
+   "mean_expected_overshoot": 0.18,
+   "peak_core": 1.9,
+   "peak_headline": 3.9,
+   "rounds": 5,
+   "rounds_with_expected_overshoot": 4,
+   "window": [
+    "2007Q4",
+    "2008Q4"
+   ]
+  },
+  "2011-12": {
+   "W_slope": null,
+   "W_slope_se": null,
+   "label_outside_core": 1.0,
+   "longer_term_share_peak": 0.16,
+   "longer_term_share_peak_round": "2012Q3",
+   "longer_term_share_slope": null,
+   "max_W_excess": 0.11,
+   "max_expected_overshoot": 0.0,
+   "mean_W_excess": 0.05,
+   "mean_expected_overshoot": 0.0,
+   "peak_core": 1.6,
+   "peak_headline": 2.9,
+   "rounds": 8,
+   "rounds_with_expected_overshoot": 0,
+   "window": [
+    "2011Q1",
+    "2012Q4"
+   ]
+  },
+  "2021-23": {
+   "W_slope": 0.65,
+   "W_slope_se": 0.03,
+   "label_outside_core": 0.53,
+   "longer_term_share_peak": 0.35,
+   "longer_term_share_peak_round": "2023Q4",
+   "longer_term_share_slope": 0.13,
+   "max_W_excess": 1.9,
+   "max_expected_overshoot": 3.01,
+   "mean_W_excess": 0.77,
+   "mean_expected_overshoot": 1.08,
+   "peak_core": 5.5,
+   "peak_headline": 10.0,
+   "rounds": 10,
+   "rounds_with_expected_overshoot": 8,
+   "window": [
+    "2021Q3",
+    "2023Q4"
+   ]
+  }
+ },
+ "learned_variance_coefficient": 0.184,
+ "p_equal_2007_08_vs_2021_23": 0.13,
+ "threshold": 2.2
+}

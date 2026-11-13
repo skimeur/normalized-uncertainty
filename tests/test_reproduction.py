@@ -43,12 +43,19 @@ def test_the_rebuilt_panel_is_the_certified_one_when_it_is_available(panel, tmp_
     assert hashlib.md5(text.encode()).hexdigest() == CERTIFIED_PANEL_MD5
     out = tmp_path / "rebuilt.csv"
     panel.to_csv(out, index=False)
-    mine = out.read_text()
+    # Same rows, same identifiers, same numbers to 1e-12. The text is not compared byte for byte: the
+    # shortest repr of a float can differ in its last digit across machines (seen: 0.16 against
+    # 0.15999999999999998, a gap of 3e-15). sigma_resid, a LOESS residual unused by the exhibits, is
+    # version-dependent and left out.
+    import pandas as pd
 
-    def strip(t):  # sigma_resid (a LOESS residual, unused by the exhibits) is version-dependent
-        return "\n".join(",".join(line.split(",")[:-1]) for line in t.strip().split("\n"))
-
-    assert strip(mine) == strip(text)
+    mine, cert = pd.read_csv(out), pd.read_csv(certified)
+    assert list(mine.columns) == list(cert.columns) and len(mine) == len(cert)
+    for col in cert.columns.drop("sigma_resid"):
+        if cert[col].dtype == object:
+            assert mine[col].equals(cert[col]), col
+        else:
+            np.testing.assert_allclose(mine[col], cert[col], rtol=0, atol=1e-12, equal_nan=True, err_msg=col)
 
 
 def test_the_law_prints_the_papers_numbers(panel):

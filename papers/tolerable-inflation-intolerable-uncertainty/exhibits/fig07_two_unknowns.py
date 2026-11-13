@@ -8,13 +8,13 @@ Figure 7 (``fig:twounknowns``).
 Exact curves of the static block; no data. Panel (a): the loss of tolerating
 nothing relative to tolerating fully, s^2 / (chi + (1 - s)^2) - 1, on the
 unit interval of supply shares s, at the low and the high end of the
-published euro-area slope range (chi = 0.10 and 0.39); zero tolerance is the
+quarterly euro-area slope range (chi = 0.05 and 0.29); zero tolerance is the
 costlier corner exactly where s > (1 + chi) / 2, the dashed verticals mark
 that boundary at the range's ends, and the bracket marks the published
 readings of the surge's supply share, [0.50, 0.75]. Panel (b): the
 unidentifiable optimum lambda* = iota s over the calibrated intensity band
-iota in [0.72, 0.91]; its image at the published surge shares is the band
-[0.36, 0.68] of the paper's proposition.
+iota in [0.78, 0.95]; its image at the published surge shares is the band
+[0.39, 0.71] of the paper's proposition.
 
 Inputs:  none.
 Outputs: ``figures/fig07_two_unknowns.{pdf,png}``, ``results/fig07_two_unknowns.{json,md}``.
@@ -31,12 +31,13 @@ from _common import style
 
 from nu_measures.exhibit import Exhibit
 
-#: The published euro-area slope range chi = kappa x epsilon (kappa 0.017--0.038, epsilon 6--10): its exact ends,
+#: The euro-area slope range at the quarterly decision period, chi = epsilon x kappa_q with kappa_q = kappa_hat (sigma+phi)/4
+#: (kappa_hat 0.017--0.038 on y/y inflation and the labour share, sigma = 1, phi 1--2, epsilon 6--10): its exact ends,
 #: which place the dominance boundaries, and the two rounded values the curves are drawn at.
-CHI_RANGE = (0.0989, 0.3889)
-CHI_DRAWN = [(0.10, "#2166ac", "$\\chi=0.10$ (published range, low end)"), (0.39, "#e08214", "$\\chi=0.39$ (published range, high end)")]
+CHI_RANGE = (0.051, 0.285)
+CHI_DRAWN = [(0.051, "#2166ac", "$\\chi=0.05$ (calibrated range, low end)"), (0.285, "#e08214", "$\\chi=0.29$ (calibrated range, high end)")]
 SURGE_SHARE = (0.50, 0.75)  # the published readings of the surge's supply share
-INTENSITY = (0.72, 0.91)  # the calibrated intensity band iota
+INTENSITY = (1 / 1.285, 1 / 1.051)  # the calibrated intensity band iota
 RC = {"font.family": "serif", "font.serif": ["DejaVu Serif"], "mathtext.fontset": "cm", "font.size": 9.0, "axes.linewidth": 0.6}
 
 
@@ -84,12 +85,12 @@ def main() -> None:
     ax.set_xlim(0, 1)
     ax.tick_params(labelsize=7.8)
 
-    ax2.fill_between(s, i_lo * s, i_hi * s, color="#2166ac", alpha=0.18, lw=0, label="$\\lambda^{*}=\\iota\\,s$, $\\iota\\in[0.72,0.91]$")
+    ax2.fill_between(s, i_lo * s, i_hi * s, color="#2166ac", alpha=0.18, lw=0, label="$\\lambda^{*}=\\iota\\,s$, $\\iota\\in[0.78,0.95]$")
     ax2.plot(s, i_lo * s, color="#2166ac", lw=1.0)
     ax2.plot(s, i_hi * s, color="#2166ac", lw=1.0)
     ax2.axvspan(s_lo, s_hi, color="0.88", alpha=0.55, zorder=0)
     ax2.annotate("", xy=(0.033, lam_hi), xytext=(0.033, lam_lo), arrowprops=dict(arrowstyle="|-|,widthA=0.22,widthB=0.22", color="#e08214", lw=1.3))
-    ax2.text(0.055, (lam_lo + lam_hi) / 2, "$[0.36,\\,0.68]$\nthe published band", fontsize=6.6, color="#e08214", va="center")
+    ax2.text(0.055, (lam_lo + lam_hi) / 2, f"$[{lam_lo:.2f},\\,{lam_hi:.2f}]$\nthe published band", fontsize=6.6, color="#e08214", va="center")
     for xx in (s_lo, s_hi):
         ax2.plot([xx, xx], [i_lo * xx, i_hi * xx], color="0.35", lw=1.2)
     ax2.plot([s_lo, 0.045], [lam_lo, lam_lo], color="0.6", lw=0.6, ls=":")
